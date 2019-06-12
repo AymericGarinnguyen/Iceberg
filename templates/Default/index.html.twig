@@ -2,12 +2,21 @@
 
 {% block content %}
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 col-sm-12 text-center">
-                <h1>Iceberg</h1>
+{% for projet in projets %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="{{asset('images/' ~ projet.image )}}" alt="{{ projet.description }}">
+                </div>
+                <div class="col-md-4">
+                    {{ projet.DateDebutInscription | date("d/m/Y")}}
+                    {{ projet.DateFinInscription | date("d/m/Y") }}
+                </div>
+                <div class="col-md-4">
+                    {{ projet.user.nom }}
+                </div>
             </div>
         </div>
-    </div>
-    <hr>
+    {% endfor %}
+
     {% endblock %}
