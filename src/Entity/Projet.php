@@ -74,7 +74,7 @@ class Projet
      *     message="La date du début d'évènement doit être supérieure à la date de la fin d'inscription"
      * )
      */
-    private $date_debut_evenement; 
+    private $date_debut_evenement;
 
     /**
      * @ORM\Column(type="date")
