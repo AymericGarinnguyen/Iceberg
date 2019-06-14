@@ -1,128 +1,30 @@
 {% extends "layout.html.twig" %}
 
-{% set current = 'home' %}
-
-{% block page_title %}
-    Accueil
-{% endblock %}
-
-
 {% block content %}
-    <!--MAIN  -->
-    <main>
+
+    {% for projet in projets %}
         <div class="container">
-            <!--Card 1  -->
-            <div id="card" class="row">
-                <h3>Photographie</h3>
-            </div>
             <div class="row">
-                <div class="col-md-10 no-padding lib-item" data-category="view">
-                    <div class="lib-panel">
-                        <div class="row box-shadow">
-                            <div class="col-md-4">
-                                <img class="lib-img-show" src="http://lorempixel.com/850/850/?random=123">
-                            </div> {# fin div. col-md-4#}
-
-                            <div class="col-md-8">
-                                <div class="lib-row lib-header">
-                                    <h4>Festival Circulation</h4>
-                                    <div class="lib-header-seperator"></div>
-                                </div>
-                                <div class="lib-row lib-desc">
-                                    <p>Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor</p>
-                                </div>
-                            </div> {# fin div. col-md-8#}
-                        </div> {# div.box shadow #}
-                    </div> {# div.lib panel #}
-                </div> {# div.col md-10 #}
-                <div class="col-md-1"></div>
-            </div> {# div.row #}
-
-            <!--Card 2  -->
-            <div id="card" class="row">
-                <h3>Photographie</h3>
+                <div class="col-md-12 col-sm-12">
+                    {# Permet d'afficher les notifications #}
+                    {% for message in app.flashes('notice') %}
+                        <div class="alert alert-info">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="col-md-4">
+                    <img src="{{asset('images/' ~ projet.image )}}" alt="{{ projet.description }}">
+                </div>
+                <div class="col-md-4">
+                    {{ projet.DateDebutInscription | date("d/m/Y")}}
+                    {{ projet.DateFinInscription | date("d/m/Y") }}
+                </div>
+                <div class="col-md-4">
+                    {{ projet.user.nom }}
+                </div>
             </div>
-            <div class="row">
-                <div class="col-md-10 no-padding lib-item" data-category="view">
-                    <div class="lib-panel">
-                        <div class="row box-shadow">
-                            <div class="col-md-4">
-                                <img class="lib-img-show" src="http://lorempixel.com/850/850/?random=123">
-                            </div> {# fin div. col-md-4#}
+        </div>
+    {% endfor %}
 
-                            <div class="col-md-8">
-                                <div class="lib-row lib-header">
-                                    <h4>Festival Circulation</h4>
-                                    <div class="lib-header-seperator"></div>
-                                </div>
-                                <div class="lib-row lib-desc">
-                                    <p>Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor</p>
-                                </div>
-                            </div> {# fin div. col-md-8#}
-                        </div> {# div.box shadow #}
-                    </div> {# div.lib panel #}
-                </div> {# div.col md-10 #}
-                <div class="col-md-1"></div>
-            </div> {# div.row #}
-
-            <!--Card 3  -->
-            <div id="card" class="row">
-                <h3>Photographie</h3>
-            </div>
-            <div class="row">
-                <div class="col-md-10 no-padding lib-item" data-category="view">
-                    <div class="lib-panel">
-                        <div class="row box-shadow">
-                            <div class="col-md-4">
-                                <img class="lib-img-show" src="http://lorempixel.com/850/850/?random=123">
-                            </div> {# fin div. col-md-4#}
-
-                            <div class="col-md-8">
-                                <div class="lib-row lib-header">
-                                    <h4>Festival Circulation</h4>
-                                    <div class="lib-header-seperator"></div>
-                                </div>
-                                <div class="lib-row lib-desc">
-                                    <p>Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor</p>
-                                </div>
-                            </div> {# fin div. col-md-8#}
-                        </div> {# div.box shadow #}
-                    </div> {# div.lib panel #}
-                </div> {# div.col md-10 #}
-                <div class="col-md-1"></div>
-            </div> {# div.row #}
-
-            <!--Card 4  -->
-            <div id="card" class="row">
-                <h3>Photographie</h3>
-            </div>
-            <div class="row">
-                <div class="col-md-10 no-padding lib-item" data-category="view">
-                    <div class="lib-panel">
-                        <div class="row box-shadow">
-                            <div class="col-md-4">
-                                <img class="lib-img-show" src="http://lorempixel.com/850/850/?random=123">
-                            </div> {# fin div. col-md-4#}
-
-                            <div class="col-md-8">
-                                <div class="lib-row lib-header">
-                                    <h4>Festival Circulation</h4>
-                                    <div class="lib-header-seperator"></div>
-                                </div>
-                                <div class="lib-row lib-desc">
-                                    <p>Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor</p>
-                                </div>
-                            </div> {# fin div. col-md-8#}
-                        </div> {# div.box shadow #}
-                    </div> {# div.lib panel #}
-                </div> {# div.col md-10 #}
-                <div class="col-md-1"></div>
-            </div> {# div.row #}
-
-
-
-
-                        </div> {# div. container#}
-    </main>
-
-    {% endblock %}
+{% endblock %}
