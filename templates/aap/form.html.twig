@@ -1,0 +1,214 @@
+{% extends "layout.html.twig" %}
+
+
+{% block page_title %}
+    Publiez votre appel à projets
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css" integrity="sha256-AWdeVMUYtwLH09F6ZHxNgvJI37p+te8hJuSMo44NVm0=" crossorigin="anonymous" />
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block final_javascripts %}
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js" integrity="sha256-SUaao5Q7ifr2twwET0iyXVy0OVnuFJhGVi5E/dqEiLU=" crossorigin="anonymous"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/12.0.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor.create( document.querySelector( '#form_contenu' ) );
+        $('.dropify').dropify({
+            messages: {
+                default: 'Glissez-d&eacute;posez un fichier ici ou cliquez',
+                replace: 'Glissez-d&eacute;posez un fichier ou cliquez pour remplacer',
+                remove:  'Supprimer',
+                error:   'D&eacute;sol&eacute;, le fichier est trop volumineux'
+            }
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+
+        <form class="well form-horizontal" action=" " method="post"  id="contact_form">
+            <fieldset>
+
+                <!-- Form Name -->
+                <legend><center><h2><b>Postez votre appel d'offre !</b></h2></center></legend><br>
+
+                <!-- DOMAINE ARTISTIQUE-->
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Domaine artistique</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input  name="first_name" placeholder="Entrez votre choix..." class="form-control"  type="text">
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- DEBUT DE L'APPEL-->
+                <div class="form-group">
+
+                    <label class="col-md-4 control-label">Début de l'appel</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input  name="first_name" placeholder="ex: 29/11/2019" class="form-control"  type="text">
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+
+                <!-- DEBUT DE L'APPEL-->
+                <div class="form-group">
+
+                    <label class="col-md-4 control-label">Fin de l'appel</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input  name="first_name" placeholder="ex: 12/11/2019" class="form-control"  type="text">
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+                <!-- DEBUT DE L'APPEL-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Fourchette / Budget alloué</label>
+                    <div class="col-md-4 selectContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                            <select name="department" class="form-control selectpicker">
+                                <option value="">Sélectionner votre budget</option>
+                                <option>+0-500€ </option>
+                                <option>+ 500-1000€</option>
+                                <option > + 1000-1500€</option>
+                                <option > + 1500-2000€</option>
+                                <option > + 2000-2500€</option>
+                                <option >+ 2500-3000€</option>
+                                <option >+ 3000-3500€</option>
+                                <option >+ 3500-4000€</option>
+                                <option >+ 5000-6000€</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- TEL-->
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Téléphone</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input  name="user_name" placeholder="ex : 06 88 75 42 26" class="form-control"  type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ADRESSE EVENEMENT-->
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" >Adresse physique</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input name="user_password" placeholder="ex: 12 Rue Quimcampoix" class="form-control"  type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ADRESSE DU SITE WEB-->
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" >Adresse du site web</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"></span>
+                            <input name="confirm_password" placeholder="ex: www.operagarnier.com" class="form-control"  type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label">E-Mail</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"></span>
+                            <input name="email" placeholder="E-Mail Address" class="form-control"  type="text">
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Text input-->
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Nom du projet</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"></span>
+                            <input name="contact_no" placeholder="(entrez un nom inspirant !)" class="form-control" type="text">
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- Text input-->
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Nom organisateur</label>
+                    <div class="col-md-2 inputGroupContainer">
+
+
+                        <div class="input-group">
+                            <span class="input-group-addon"></span>
+                            <input name="contact_no" placeholder="nom" class="form-control" type="text">
+                        </div>
+                    </div>
+
+
+
+
+                    <label class="col-md-2 control-label mt-2">Prenom organisateur</label>
+                    <div class="col-md-2 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"></span>
+                            <input name="contact_no" placeholder="prenom" class="form-control" type="text">
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- Success message -->
+                <div class="alert alert-success" role="alert" id="success_message">Success <i class="glyphicon glyphicon-thumbs-up"></i> Success!.</div>
+
+                <!-- Button Valider -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label"></label>
+                    <div class="col-md-4"><br>
+                        <button type="submit" class="btn btn-warning" >Soummettre
+                            <span class="glyphicon glyphicon-send"></span></button>
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+    </div>
+    </div><!-- /.container -->
+{% endblock %}
+
+

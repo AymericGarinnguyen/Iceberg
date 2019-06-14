@@ -1,0 +1,228 @@
+/*------------------------------------------------------------------
+
+    [Main Style Stylesheet]
+    Project:       ICEBERG
+    Version:        0
+    Author:         Team Iceberg
+    Last change:    12/06/19
+
+
+-------------------------------------------------------------------
+
+    [Table of contents]
+    01. Setting
+    02. Components
+    03. Header
+    04. Menu
+    05. Content
+    06. Page Reviews
+    07. Page Category
+    08. Page Video
+    09. Page Article
+    10. Page 404
+    11. Page Contact
+    12. Footer
+
+-------------------------------------------------------------------*/
+/*==========Setting=========*/
+
+body {
+    font-family: "Open Sans", sans-serif;
+    min-width: 320px;
+    font-size: 12px;
+    line-height: 1.71428571 !important;
+    color: #333;
+}
+header {
+    height:300px;
+}
+
+footer{
+    /* margin-top:5rem; */
+    padding-top:1.5rem;
+    padding-bottom:1rem;
+    background-color:rgb(40, 42, 45,3);
+    border-top:1px solid rgb(242, 100, 12,10);
+}
+
+p {
+    font-size: 12px; }
+
+ul, li {
+    padding: 0px;
+    list-style: none;
+    margin: 0px; }
+
+h1, h2, h3, h4, h5, h6 {
+    line-height: 1.4;
+    font-family: "Roboto Slab", serif; }
+
+h1, h2 {
+    text-align:center;
+}
+
+h1 {
+    font-size: 32px;
+    color: #BD5D38;
+    padding-top: 40px;
+}
+
+h2 {
+    font-size: 28px;
+    color:#313280 ;
+    padding-bottom: 40px;
+}
+
+h3{
+    color: #313280;
+}
+
+h4{
+    color:#BD5D38;
+}
+
+a:link{
+    text-decoration:none;
+    color:white;
+}
+
+
+/*==========HEADER=========*/
+div.header{
+    margin-top:80px;
+
+}
+
+.custom-navbar{box-shadow: 10px 10px 10px #eee; z-index:;background-color: #313280;}
+.nav-link{color:#fcf9ff !important;}
+.custom-toggler.navbar-toggler {border-color: #fcf9ff;}
+.custom-toggler .navbar-toggler-icon {background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(247,32,78, 0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");}
+.custom-toggler .navbar-toggler-icon{width: 18px!important;}
+.custom-toggler:hover{border-color: #fcf9ff; background-color: #313280;}
+.navbar-toggler-icon:hover{background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");}#logo_custom{margin-top: -6px;}
+@media only screen and (max-width: 760px) { #logo_custom{width: 40%;}}
+
+
+
+
+
+
+/*==========CONTENT=========*/
+main{
+    display:flex;
+}
+
+/*==========Aside=========*/
+.aside{
+    border: 1px solid grey;
+    margin-left:30px;
+}
+
+
+/*==========Cards=========*/
+
+
+.lib-panel {
+    margin-bottom: 20Px;
+}
+.lib-panel img {
+    width: 100%;
+    background-color: transparent;
+}
+
+.lib-panel .row,
+.lib-panel .col-md-6 {
+    padding: 0;
+    background-color: #FFFFFF;
+}
+
+
+.lib-panel .lib-row {
+    padding: 0 20px 0 20px;
+}
+
+.lib-panel .lib-row.lib-header {
+    background-color: #FFFFFF;
+    font-size: 20px;
+    padding: 10px 20px 0 20px;
+}
+
+.lib-panel .lib-row.lib-header .lib-header-seperator {
+    height: 2px;
+    width: 26px;
+    background-color: #BD5D38;
+    margin: 7px 0 7px 0;
+}
+
+.lib-panel .lib-row.lib-desc {
+    /*position: relative;*/
+    height: 100%;
+    display: block;
+    font-size: 13px;
+}
+.lib-panel .lib-row.lib-desc a{
+    /*position: absolute;*/
+    width: 100%;
+    bottom: 10px;
+    left: 20px;
+}
+
+.row-margin-bottom {
+    margin-bottom: 20px;
+}
+
+.box-shadow {
+    -webkit-box-shadow: 0 0 10px 0 rgba(0,0,0,.10);
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.10);
+}
+
+.no-padding {
+    padding: 0;
+}
+
+#card h3{
+    background-color: #BD5D38;
+    text-transform:uppercase;
+    color:white;
+    font-family: 'Raleway', sans-serif;
+}
+
+.linear-gradient{
+    background: linear-gradient(#313280, #adaeea);
+}
+
+img.card-img{
+    height:200px;
+    width: auto;
+}
+
+/*==========Footer=========*/
+.footer{
+    background-color: black;
+    height: 200px;
+    padding: 40px 0px 0px 0px;
+    margin-top: 80px;
+}
+
+img.logo{
+    height:30px;
+    padding-left:40px;
+}
+
+/* Form */
+.transparent {
+    background: rgba(0,0,0,0);
+}
+
+.newsletter h3{
+    color: #313280;
+}
+
+.newsletter h4{
+    font-size: 16px;
+    color: grey;
+}
+
+.newsletter button{
+    background-color: #af1344;
+}
