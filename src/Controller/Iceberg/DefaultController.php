@@ -4,6 +4,7 @@
 namespace App\Controller\Iceberg;
 
 
+use App\Entity\Projet;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -16,6 +17,13 @@ class DefaultController extends AbstractController
      */
     public function index()
     {
-        return $this->render("default/index.html.twig");
+        # Récupération des projets dans BDD
+        $projets = $this->getDoctrine()
+            ->getRepository(Projet::class)
+            ->findAll();
+
+        return $this->render("default/index.html.twig", [
+            'projets' => $projets
+        ]);
     }
 }
