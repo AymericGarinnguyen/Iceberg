@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+<!-- GOOGLE FONTS -->
+   <link href="https://fonts.googleapis.com/css?family=Oswald|Raleway&display=swap" rel="stylesheet"> 
+
+
+
+
+
+  <link rel="stylesheet" href="form.css">
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+
+
+
+
+
+
+</head>
+<body>
+  
+
+
+
+
+              <div class="container">
+                  <div class="row justify-content-center align-items-center h-100 w-300">
+                            <form class="well form-horizontal" action=" " method="post"  id="contact_form">
+                        <fieldset>
+
+                        <!-- Form Name -->
+                        <legend><center><h2><b>Postez votre appel d'offre !</b></h2></center></legend><br>
+
+                     
+                        <!-- NOM DE L'APPEL -->
+              
+
+
+
+                        <div class="form-group">
+                            <label class="col-md-8 control-label"><h3>Titre de l'appel</h3></label>  
+                            <div class="col-md-8 inputGroupContainer">
+                            <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input  name="debut_inscription" placeholder="ex: 29/11/2019" class="form-control"  type="text">
+                              </div>
+                            </div>
+                          </div>
+  
+
+                        <!-- DOMAINE ARTISTIQUE-->
+                        <div class="form-group">
+                            <label class="category col-md-8 control-label"> <h3>Catégorie</h3></label> 
+                            <div class="col-md-8 inputGroupContainer">
+                        <div>
+                          <input type="checkbox" id="scales" name="categorie"
+                                 checked>
+                          <label class="checkbox" for="scales">Photographie</label>
+                      </div>
+                      <div>
+                          <input type="checkbox" id="horns" name="categorie">
+                          <label class="checkbox" for="horns">Peinture</label>
+                      </div>
+                      <div>
+                          <input type="checkbox" id="horns" name="categorie">
+                          <label class="checkbox" for="horns">Théâtre</label>
+                        </div> 
+                      </div>
+                      </div>
+                        
+                     
+                         <!-- DEBUT DE L'INSCRIPTION-->
+                        <div class="form-group">
+                          <label class="col-md-8 control-label"><h3>Début d'inscription</h3></label>  
+                          <div class="col-md-8 inputGroupContainer">
+                          <div class="input-group">
+                          <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                          <input  name="debut_inscription" placeholder="ex: 29/11/2019" class="form-control"  type="text">
+                            </div>
+                          </div>
+                        </div>
+
+
+                           <!-- FIN DE L'INSCRIPTION-->
+                          <div class="form-group"> 
+                         
+                            <label class="col-md-8 control-label">Fin d'inscription</label>  
+                            <div class="col-md-8 inputGroupContainer">
+                            <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input  name="fin_inscription" placeholder="ex: 12/11/2019" class="form-control"  type="text">
+                              </div>
+                            </div>
+
+
+                        </div>
+
+                        <!-- DESCRIPTION-->
+
+                        <div class="form-group"> 
+                            <label class="col-md-8 control-label">Description</label>  
+                            <div class="col-md-8 inputGroupContainer">
+                            <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input  name="description" placeholder="Détaillez votre projet" class="form-control"  type="text">
+                              </div>
+                            </div>
+                        </div>
+
+                         <!-- ADRESSE DU SITE WEB-->
+
+                         <div class="form-group">
+                            <label class="col-md-8 control-label" >Adresse du site web</label> 
+                              <div class="col-md-8 inputGroupContainer">
+                              <div class="input-group">
+                            <span class="input-group-addon"></span>
+                            <input name="site_web" placeholder="ex: www.operagarnier.com" class="form-control"  type="text">
+                              </div>
+                            </div>
+                          </div>
+
+                      <!-- DEBUT DE L'EVENEMENT-->
+                        <div class="form-group">
+                            <label class="col-md-8 control-label">Début d'inscription</label>  
+                            <div class="col-md-8 inputGroupContainer">
+                            <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input  name="debut_evenement" placeholder="ex: 29/11/2019" class="form-control"  type="text">
+                              </div>
+                            </div>
+                          </div>
+  
+  
+                             <!-- FIN DE L'EVENEMENT-->
+                            <div class="form-group"> 
+                           
+                              <label class="col-md-8 control-label">Fin d'inscription</label>  
+                              <div class="col-md-8 inputGroupContainer">
+                              <div class="input-group">
+                              <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                              <input  name="fin_evenement" placeholder="ex: 12/11/2019" class="form-control"  type="text">
+                                </div>
+                              </div>
+                          </div>
+
+                           <!-- IMAGE-->
+
+                         <div class="form-group">
+                            <label class="col-md-8 control-label" >Image</label> 
+                              <div class="col-md-8 inputGroupContainer">
+                              <div class="input-group">
+                            <span class="input-group-addon"></span>
+                            <input name="image" placeholder="image" class="form-control"  type="text">
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- VILLE-->
+
+                        <div class="form-group">
+                            <label class="col-md-8 control-label" >Ville</label> 
+                              <div class="col-md-8 inputGroupContainer">
+                              <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input name="ville" placeholder="ex: Paris" class="form-control"  type="text">
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- PAYS-->
+
+                        <div class="form-group">
+                            <label class="col-md-8 control-label" >Pays</label> 
+                              <div class="col-md-8 inputGroupContainer">
+                              <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input name="pays" placeholder="ex: France" class="form-control"  type="text">
+                              </div>
+                            </div>
+                          </div>
+  
+  
+
+                        <!-- MONTANT RECOMPENSE FINANCIERE-->
+                        <div class="form-group"> 
+                          <label class="col-md-8 control-label">Montant de la récompense financière</label>
+                          <div class="col-md-8 inputGroupContainer">
+                              <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input name="recompense" placeholder="ex: 1000€" class="form-control"  type="text">
+                              </div>
+                            </div>
+                          </div>
+
+                          
+                        <!-- FRAIS PARTICIPATION-->
+                        <div class="form-group"> 
+                            <label class="col-md-8 control-label">Frais de participation</label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                              <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                              <input name="frais_participation" placeholder="ex: 1000€" class="form-control"  type="text">
+                                </div>
+                              </div>
+                            </div>
+
+                             <!-- DOCUMENT DE PRESENTATION-->
+                        <div class="form-group"> 
+                            <label class="col-md-8 control-label">Document de présentation (optionnel)</label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                              <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                              <input name="pdf" placeholder="ex: pdf" class="form-control"  type="text">
+                                </div>
+                              </div>
+                            </div>
+
+
+                        <!-- Success message -->
+                        <div class="alert alert-success" role="alert" id="success_message">Success <i class="glyphicon glyphicon-thumbs-up"></i> Success!.</div>
+
+                        <!-- Button Valider -->
+                        <div class="form-group">
+                          <label class="col-md-4 control-label"></label>
+                          <div class="col-md-4"><br>
+                           <button type="submit" class="btn btn-dark" >Soummettre
+                               <span class="glyphicon glyphicon-send"></span></button>
+                          </div>
+                        </div>
+
+                        </fieldset>
+                      </div> 
+              
+                        </form>
+                        </div> <!-- /.row -->
+                </div><!-- /.container -->
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+#success_message{ display: none;}
+
+
+
+
+
+h1 {
+  color: white;
+  font-family: 'Oswald', sans-serif;
+
+  
+}
+
+label {
+  color: #BD5D38;
+  font-family: 'Oswald', sans-serif;
+}
+
+label.checkbox{
+  color:black;
+  font-size:14px;
+}
+
+form{
+  background: #313280;
+  padding: 10px 80px 10px;
+}
+
+h2{
+  color:white;
+}
+
+h3{
+  border: solid 0.5px white;
+  color:white;
+  padding:  7px 7px;
+  border-radius: 7px;
+
+
+}
