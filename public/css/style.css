@@ -41,8 +41,8 @@ footer{
     /* margin-top:5rem; */
     padding-top:1.5rem;
     padding-bottom:1rem;
-    background-color:rgb(40, 42, 45,3);
-    border-top:1px solid rgb(242, 100, 12,10);
+    background-color:rgb(40, 42, 45);
+    border-top:1px solid rgb(242, 100, 12);
 }
 
 p {
@@ -93,7 +93,7 @@ div.header{
 
 }
 
-.custom-navbar{box-shadow: 10px 10px 10px #eee; z-index:;background-color: #313280;}
+.custom-navbar{box-shadow: 10px 10px 10px #eee; z-index:10;background-color: #313280;}
 .nav-link{color:#fcf9ff !important;}
 .custom-toggler.navbar-toggler {border-color: #fcf9ff;}
 .custom-toggler .navbar-toggler-icon {background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(247,32,78, 0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");}
@@ -180,7 +180,9 @@ main{
     padding: 0;
 }
 
-#card h3{
+.titre h3{
+    display: inline-block;
+    padding: 0 10px;
     background-color: #BD5D38;
     text-transform:uppercase;
     color:white;
@@ -193,7 +195,8 @@ main{
 
 img.card-img{
     height:200px;
-    width: auto;
+    width: 200px;
+
 }
 
 /*==========Footer=========*/
