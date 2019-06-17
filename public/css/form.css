@@ -1,9 +1,5 @@
 #success_message{ display: none;}
 
-
-
-
-
 h1 {
   color: white;
   font-family: 'Oswald', sans-serif;
@@ -30,11 +26,15 @@ h2{
   color:white;
 }
 
-h3{
+h3 {
   border: solid 0.5px white;
-  color:white;
-  padding:  7px 7px;
+  color: white;
+  padding: 7px 7px;
   border-radius: 7px;
-
-
 }
+
+.categorie {
+    height: 10px;
+}
+
+

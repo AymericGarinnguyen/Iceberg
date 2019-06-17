@@ -41,7 +41,7 @@ class ProjetController extends AbstractController
         # Récupération d'un auteur
         $user = $this->getDoctrine()
             ->getRepository(User::class)
-            ->find(5);
+            ->find(2);
 
         #Création d'un nouvel appel
         $projet = new Projet();

@@ -8,7 +8,8 @@
 {% block stylesheets %}
     {{ parent() }}
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css" integrity="sha256-AWdeVMUYtwLH09F6ZHxNgvJI37p+te8hJuSMo44NVm0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css"
+          integrity="sha256-AWdeVMUYtwLH09F6ZHxNgvJI37p+te8hJuSMo44NVm0=" crossorigin="anonymous"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="form.css">
@@ -17,32 +18,31 @@
 
 {% block final_javascripts %}
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js" integrity="sha256-SUaao5Q7ifr2twwET0iyXVy0OVnuFJhGVi5E/dqEiLU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"
+            integrity="sha256-SUaao5Q7ifr2twwET0iyXVy0OVnuFJhGVi5E/dqEiLU=" crossorigin="anonymous"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/12.0.0/classic/ckeditor.js"></script>
     <script>
-        ClassicEditor.create( document.querySelector( '#form_contenu' ) );
+        ClassicEditor.create(document.querySelector('#form_contenu'));
         $('.dropify').dropify({
             messages: {
                 default: 'Glissez-d&eacute;posez un fichier ici ou cliquez',
                 replace: 'Glissez-d&eacute;posez un fichier ou cliquez pour remplacer',
-                remove:  'Supprimer',
-                error:   'D&eacute;sol&eacute;, le fichier est trop volumineux'
+                remove: 'Supprimer',
+                error: 'D&eacute;sol&eacute;, le fichier est trop volumineux'
             }
         });
     </script>
 {% endblock %}
 
 {% block content %}
+    {#{{ dump(form.submit) }}#}
     {# FORM #}
-
-
+    <form method="post">
     <div class="form-group">
-        <label class="col-md-8 control-label"><h3>Titre de l'appel</h3></label>
+        <label c{lass="col-md-8 control-label"><h3>Titre de l'appel</h3></label>
         <div class="col-md-8 inputGroupContainer">
             <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                <input name="debut_inscription" placeholder="ex: 29/11/2019" class="form-control"
-                       type="text">
+                {{ form(form.titre) }}
             </div>
         </div>
     </div>
@@ -51,20 +51,9 @@
     <!-- DOMAINE ARTISTIQUE-->
     <div class="form-group">
         <label class="category col-md-8 control-label"><h3>Catégorie</h3></label>
-        <div class="col-md-8 inputGroupContainer">
-            <div>
-                <input type="checkbox" id="scales" name="categorie"
-                       checked>
-                <label class="checkbox" for="scales">Photographie</label>
-            </div>
-            <div>
-                <input type="checkbox" id="horns" name="categorie">
-                <label class="checkbox" for="horns">Peinture</label>
-            </div>
-            <div>
-                <input type="checkbox" id="horns" name="categorie">
-                <label class="checkbox" for="horns">Théâtre</label>
-            </div>
+        <div class="col-md-4 categorie">
+
+                {{ form(form.domaine) }}
         </div>
     </div>
 
@@ -74,9 +63,7 @@
         <label class="col-md-8 control-label"><h3>Début d'inscription</h3></label>
         <div class="col-md-8 inputGroupContainer">
             <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                <input name="debut_inscription" placeholder="ex: 29/11/2019" class="form-control"
-                       type="text">
+                {{ form(form.dateDebutInscription) }}
             </div>
         </div>
     </div>
@@ -85,11 +72,10 @@
     <!-- FIN DE L'INSCRIPTION-->
     <div class="form-group">
 
-        <label class="col-md-8 control-label">Fin d'inscription</label>
+        <label class="col-md-8 control-label"><h3>Fin d'inscription</h3></label>
         <div class="col-md-8 inputGroupContainer">
             <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                <input name="fin_inscription" placeholder="ex: 12/11/2019" class="form-control" type="text">
+                {{ form(form.dateFinInscription) }}
             </div>
         </div>
 
@@ -99,12 +85,10 @@
     <!-- DESCRIPTION-->
 
     <div class="form-group">
-        <label class="col-md-8 control-label">Description</label>
+        <label class="col-md-8 control-label"><h3>Description</h3></label>
         <div class="col-md-8 inputGroupContainer">
-            <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                <input name="description" placeholder="Détaillez votre projet" class="form-control"
-                       type="text">
+            <div class="input-group"">
+                {{ form(form.description) }}
             </div>
         </div>
     </div>
@@ -112,23 +96,20 @@
     <!-- ADRESSE DU SITE WEB-->
 
     <div class="form-group">
-        <label class="col-md-8 control-label">Adresse du site web</label>
+        <label class="col-md-8 control-label"><h3>Adresse du site web</h3></label>
         <div class="col-md-8 inputGroupContainer">
             <div class="input-group">
-                <span class="input-group-addon"></span>
-                <input name="site_web" placeholder="ex: www.operagarnier.com" class="form-control"
-                       type="text">
+                {{ form(form.website) }}
             </div>
         </div>
     </div>
 
     <!-- DEBUT DE L'EVENEMENT-->
     <div class="form-group">
-        <label class="col-md-8 control-label">Début d'inscription</label>
+        <label class="col-md-8 control-label"><h3>Début d'inscription</h3></label>
         <div class="col-md-8 inputGroupContainer">
             <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                <input name="debut_evenement" placeholder="ex: 29/11/2019" class="form-control" type="text">
+                {{ form(form.dateDebutEvenement) }}
             </div>
         </div>
     </div>
@@ -137,11 +118,10 @@
     <!-- FIN DE L'EVENEMENT-->
     <div class="form-group">
 
-        <label class="col-md-8 control-label">Fin d'inscription</label>
+        <label class="col-md-8 control-label"><h3>Fin d'inscription</h3></label>
         <div class="col-md-8 inputGroupContainer">
             <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                <input name="fin_evenement" placeholder="ex: 12/11/2019" class="form-control" type="text">
+                {{ form(form.dateFinEvenement) }}
             </div>
         </div>
     </div>
@@ -149,11 +129,10 @@
     <!-- IMAGE-->
 
     <div class="form-group">
-        <label class="col-md-8 control-label">Image</label>
+        <label class="col-md-8 control-label"><h3>Image</h3></label>
         <div class="col-md-8 inputGroupContainer">
             <div class="input-group">
-                <span class="input-group-addon"></span>
-                <input name="image" placeholder="image" class="form-control" type="text">
+                {{ form(form.image) }}
             </div>
         </div>
     </div>
@@ -161,11 +140,10 @@
     <!-- VILLE-->
 
     <div class="form-group">
-        <label class="col-md-8 control-label">Ville</label>
+        <label class="col-md-8 control-label"><h3>Ville</h3></label>
         <div class="col-md-8 inputGroupContainer">
             <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                <input name="ville" placeholder="ex: Paris" class="form-control" type="text">
+                {{ form(form.ville) }}
             </div>
         </div>
     </div>
@@ -173,11 +151,10 @@
     <!-- PAYS-->
 
     <div class="form-group">
-        <label class="col-md-8 control-label">Pays</label>
+        <label class="col-md-8 control-label"><h3>Pays</h3></label>
         <div class="col-md-8 inputGroupContainer">
             <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                <input name="pays" placeholder="ex: France" class="form-control" type="text">
+                {{ form(form.pays) }}
             </div>
         </div>
     </div>
@@ -185,11 +162,10 @@
 
     <!-- MONTANT RECOMPENSE FINANCIERE-->
     <div class="form-group">
-        <label class="col-md-8 control-label">Montant de la récompense financière</label>
+        <label class="col-md-8 control-label"><h3>Montant de la récompense financière</h3></label>
         <div class="col-md-8 inputGroupContainer">
             <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                <input name="recompense" placeholder="ex: 1000€" class="form-control" type="text">
+                {{ form(form.budget) }}
             </div>
         </div>
     </div>
@@ -197,47 +173,26 @@
 
     <!-- FRAIS PARTICIPATION-->
     <div class="form-group">
-        <label class="col-md-8 control-label">Frais de participation</label>
+        <label class="col-md-8 control-label"><h3>Frais de participation</h3></label>
         <div class="col-md-8 inputGroupContainer">
             <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                <input name="frais_participation" placeholder="ex: 1000€" class="form-control" type="text">
+                {{ form(form.frais) }}
             </div>
         </div>
     </div>
 
     <!-- DOCUMENT DE PRESENTATION-->
     <div class="form-group">
-        <label class="col-md-8 control-label">Document de présentation (optionnel)</label>
+        <label class="col-md-8 control-label"><h3>Document de présentation (optionnel)</h3></label>
         <div class="col-md-8 inputGroupContainer">
             <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                <input name="pdf" placeholder="ex: pdf" class="form-control" type="text">
+                {{ form(form.document) }}
             </div>
         </div>
     </div>
 
-
-    <!-- Success message -->
-    <div class="alert alert-success" role="alert" id="success_message">Success <i
-                class="glyphicon glyphicon-thumbs-up"></i> Success!.
-    </div>
-
-    <!-- Button Valider -->
-    <div class="form-group">
-        <label class="col-md-4 control-label"></label>
-        <div class="col-md-4"><br>
-            <button type="submit" class="btn btn-dark">Soummettre
-                <span class="glyphicon glyphicon-send"></span></button>
-        </div>
-    </div>
-
-    </fieldset>
-    </div>
-
+    {{ form(form)}}
     </form>
-    </div> <!-- /.row -->
-    </div><!-- /.container -->
 
 {% endblock %}
 
