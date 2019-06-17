@@ -41,7 +41,7 @@ class ProjetController extends AbstractController
         # Récupération d'un auteur
         $user = $this->getDoctrine()
             ->getRepository(User::class)
-            ->find(2);
+            ->find(5);
 
         #Création d'un nouvel appel
         $projet = new Projet();
@@ -61,7 +61,8 @@ class ProjetController extends AbstractController
                 'class' => Domaine::class,
                 'choice_label' => 'categorie',
                 'expanded' => true,
-                'multiple' => true
+                'multiple' => true,
+                'label' => 'Catégorie'
             ])
             ->add('dateDebutInscription', DateType::class, [
                 'widget' => 'single_text',

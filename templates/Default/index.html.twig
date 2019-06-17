@@ -2,87 +2,99 @@
 
 {% block content %}
     <main>
-        <!-- ############# SIDEBAR FILTRES ############### -->
-        <aside>
-            <div class="aside">
-                <!-- FILTRES -->
-                <h3>Filtrer par</h3>
-                <!-- Mots-clefs -->
-                <h4>Mot-clefs</h4>
-                <input type="text" placeholder="Recherchez..">
-                <!-- Catégories -->
-                <h4>Catégories</h4>
-                <div>
-                    <input type="checkbox" id="photographie" name="photographie"
-                           checked>
-                    <label for="photographie">Photographie</label>
+        <div class="container-fluid">
+            <div class="row">
+                <!-- ############# SIDEBAR FILTRES ############### -->
+                <div class="col-md-2 col-sm-12">
+                    <aside>
+                        <div class="aside">
+                            <!-- FILTRES -->
+                            <h3>Filtrer par</h3>
+                            <!-- Mots-clefs -->
+                            <h4>Mot-clefs</h4>
+                            <input type="text" placeholder="Recherchez..">
+                            <!-- Catégories -->
+                            <h4>Catégories</h4>
+                            <div>
+                                <input type="checkbox" id="photographie" name="photographie"
+                                       checked>
+                                <label for="photographie">Photographie</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="peinture" name="peinture">
+                                <label for="peinture">Peinture</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="theatre" name="theatre">
+                                <label for="theatre">Théâtre</label>
+                            </div>
+                            <!-- Deadlines -->
+                            <h4>Deadlines</h4>
+                            <div>
+                                <input type="checkbox" id="deadline-en-cours" name="deadline-en-cours"
+                                       checked>
+                                <label for="deadline-en-cours">En cours</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="deadline-passee" name="deadline-passee">
+                                <label for="deadline-passee">Passées</label>
+                            </div>
+                            <!-- Localisation -->
+                            <h4>Localisation</h4>
+                            <input type="text" placeholder="Recherchez..">
+                            <!-- Montant récompense financière-->
+                            <h4>Récompense financière</h4>
+                            <!-- Participation financière -->
+                            <h4>Participation financière</h4>
+                        </div>
+                    </aside>
                 </div>
-                <div>
-                    <input type="checkbox" id="peinture" name="peinture">
-                    <label for="peinture">Peinture</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="theatre" name="theatre">
-                    <label for="theatre">Théâtre</label>
-                </div>
-                <!-- Deadlines -->
-                <h4>Deadlines</h4>
-                <div>
-                    <input type="checkbox" id="deadline-en-cours" name="deadline-en-cours"
-                           checked>
-                    <label for="deadline-en-cours">En cours</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="deadline-passee" name="deadline-passee">
-                    <label for="deadline-passee">Passées</label>
-                </div>
-                <!-- Localisation -->
-                <h4>Localisation</h4>
-                <input type="text" placeholder="Recherchez..">
-                <!-- Montant récompense financière-->
-                <h4>Récompense financière</h4>
-                <!-- Participation financière -->
-                <h4>Participation financière</h4>
-            </div>
-        </aside>
-        <!-- ############# FIN SIDEBAR FILTRES ############### -->
+                <!-- ############# FIN SIDEBAR FILTRES ############### -->
 
-        <div class="container">
-            {% for projet in projets %}
-                <!-- ##### Card ##### -->
-                <div class="titre" class="row">
-                    <h3 class="linear-gradient">
-                        {% for domaine in projet.domaine %}
-                            {{ domaine.categorie }}
+                <div class="col-md-10 col-sm-12">
+                    <div class="container">
+                        {% for projet in projets %}
+                            <!-- ##### Card ##### -->
+                            <div class="row carte">
+                                <div class="col-md-10 no-padding lib-item" data-category="view">
+                                    <div class="lib-panel">
+                                        <div class="row box-shadow">
+                                            <div class="titre row">
+                                                <h3>
+                                                    {% for domaine in projet.domaine %}
+                                                        {{ domaine.categorie }}
+                                                        {% if loop.last != true %}
+                                                            ,
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </h3>
+                                            </div>
+                                            <div class="col-md-3 imageContent">
+                                                <img class="lib-img-show card-img"
+                                                     src="{{ asset('images/' ~ projet.image ) }}">
+                                            </div>   <!--{# fin div. col-md-3#}  -->
+
+                                            <div class="col-md-8">
+                                                <div class="lib-row lib-header">
+                                                    <h4>{{ projet.titre | capitalize }}</h4>
+                                                    <div class="lib-header-seperator"></div>
+                                                </div>
+                                                <div class="lib-row lib-desc">
+                                                    <p>{{ projet.description | capitalize | raw }}</p>
+                                                    <a href="">{{ projet.user.prenom | capitalize }} {{ projet.user.nom | capitalize }}</a>
+                                                </div>
+                                            </div>   <!--{# fin div. col-md-8#} -->
+                                        </div>    <!--{# div.box shadow #} -->
+                                    </div>    <!--{# div.lib panel #}  -->
+                                </div>   <!--{ # div.col md-10 #}  -->
+                                <div class="col-md-1"></div>
+                            </div>  <!--{ # div.row #} -->
                         {% endfor %}
-                    </h3>
+
+                    </div> <!--{# div. container#} -->
                 </div>
-                <div class="row">
-                    <div class="col-md-10 no-padding lib-item" data-category="view">
-                        <div class="lib-panel">
-                            <div class="row box-shadow">
-                                <div class="col-md-3">
-                                    <img class="lib-img-show card-img" src="{{ asset('images/' ~ projet.image ) }}">
-                                </div>   <!--{# fin div. col-md-4#}  -->
-
-                                <div class="col-md-8">
-                                    <div class="lib-row lib-header">
-                                        <h4>{{ projet.titre }}</h4>
-                                        <div class="lib-header-seperator"></div>
-                                    </div>
-                                    <div class="lib-row lib-desc">
-                                        <p>{{ projet.description | raw }}</p>
-                                        <a href="">{{ projet.user.prenom }} {{ projet.user.nom }}</a>
-                                    </div>
-                                </div>   <!--{# fin div. col-md-8#} -->
-                            </div>    <!--{# div.box shadow #} -->
-                        </div>    <!--{# div.lib panel #}  -->
-                    </div>   <!--{ # div.col md-10 #}  -->
-                    <div class="col-md-1"></div>
-                </div>  <!--{ # div.row #} -->
-            {% endfor %}
-
-        </div> <!--{# div. container#} -->
+            </div> <!-- FIN div.row  -->
+        </div> <!-- FIN div.container-fluid  -->
     </main>
 
 {% endblock %}

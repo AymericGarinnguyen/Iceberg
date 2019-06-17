@@ -12,7 +12,7 @@
           integrity="sha256-AWdeVMUYtwLH09F6ZHxNgvJI37p+te8hJuSMo44NVm0=" crossorigin="anonymous"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="form.css">
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
 {% endblock %}
 
 
@@ -22,7 +22,7 @@
             integrity="sha256-SUaao5Q7ifr2twwET0iyXVy0OVnuFJhGVi5E/dqEiLU=" crossorigin="anonymous"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/12.0.0/classic/ckeditor.js"></script>
     <script>
-        ClassicEditor.create(document.querySelector('#form_contenu'));
+        ClassicEditor.create(document.querySelector('#form_description'));
         $('.dropify').dropify({
             messages: {
                 default: 'Glissez-d&eacute;posez un fichier ici ou cliquez',
@@ -35,164 +35,193 @@
 {% endblock %}
 
 {% block content %}
-    {#{{ dump(form.submit) }}#}
-    {# FORM #}
-    <form method="post">
-    <div class="form-group">
-        <label c{lass="col-md-8 control-label"><h3>Titre de l'appel</h3></label>
-        <div class="col-md-8 inputGroupContainer">
-            <div class="input-group">
-                {{ form(form.titre) }}
+
+
+
+
+
+
+    <div id="bigtitle" class="jumbotron">
+        <h1 class="slogan">Un projet ? </h1>
+        <hr class="traitBlanc"></hr>
+        <h2 class="accroche">postez votre appel aux artistes</h2>
+
+
+    </div>
+
+
+    <div class="container effect1"   id="#section02">
+        {{ form_start(form, {attr:{novalidate: 'novalidate' }}) }}
+
+
+
+
+
+
+
+        <!-- TITRE DE L'APPEL -->
+        <div class="form-group">
+            <div class="col-md-3">
+                <h3>{{ form_label(form.titre) }}</h3>
+            </div>
+            <div class="col-md-8">
+                {{ form_widget(form.titre) }}
+            </div>
+
+        </div>
+
+        <!-- CATEGORIE -->
+        <div class="form-group">
+            <div class="col-md-6">
+                <h3><label>{{ form_label(form.domaine) }}</label></h3>
+            </div>
+            <div class="col-md-12 categorie">
+                <div class="col-md-4">
+                    {{ form_widget(form.domaine.7) }}
+                    {{ form_widget(form.domaine.8) }}
+                    {{ form_widget(form.domaine.9) }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_widget(form.domaine.10) }}
+                    {{ form_widget(form.domaine.11) }}
+                    {{ form_widget(form.domaine.12) }}
+                </div>
             </div>
         </div>
-    </div>
 
-
-    <!-- DOMAINE ARTISTIQUE-->
-    <div class="form-group">
-        <label class="category col-md-8 control-label"><h3>Catégorie</h3></label>
-        <div class="col-md-4 categorie">
-
-                {{ form(form.domaine) }}
-        </div>
-    </div>
-
-
-    <!-- DEBUT DE L'INSCRIPTION-->
-    <div class="form-group">
-        <label class="col-md-8 control-label"><h3>Début d'inscription</h3></label>
-        <div class="col-md-8 inputGroupContainer">
-            <div class="input-group">
-                {{ form(form.dateDebutInscription) }}
+        <!-- DATE DEBUT INSCRIPTION -->
+        <div class="form-group">
+            <div class="col-md-6">
+                <h3>{{ form_label(form.dateDebutInscription) }}</h3>
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.dateDebutInscription) }}
             </div>
         </div>
-    </div>
 
+        <!-- DATE FIN INSCRIPTION -->
+        <div class="form-group">
+            <div class="col-md-6">
+                <h3>{{ form_label(form.dateFinInscription) }}</h3>
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.dateFinInscription) }}
+            </div>
+        </div>
 
-    <!-- FIN DE L'INSCRIPTION-->
-    <div class="form-group">
-
-        <label class="col-md-8 control-label"><h3>Fin d'inscription</h3></label>
-        <div class="col-md-8 inputGroupContainer">
-            <div class="input-group">
-                {{ form(form.dateFinInscription) }}
+        <!-- DESCRIPTION -->
+        <div class="form-group">
+            <div class="col-md-6">
+                <h3>{{ form_label(form.description) }}</h3>
+            </div>
+            <div class="col-md-12">
+                {{ form_widget(form.description) }}
             </div>
         </div>
 
 
-    </div>
-
-    <!-- DESCRIPTION-->
-
-    <div class="form-group">
-        <label class="col-md-8 control-label"><h3>Description</h3></label>
-        <div class="col-md-8 inputGroupContainer">
-            <div class="input-group"">
-                {{ form(form.description) }}
+        <!-- SITE WEB -->
+        <div class="form-group">
+            <div class="col-md-6">
+                <h3>{{ form_label(form.website) }}</h3>
+            </div>
+            <div class="col-md-6">
+                {{ form_widget(form.website) }}
             </div>
         </div>
-    </div>
 
-    <!-- ADRESSE DU SITE WEB-->
 
-    <div class="form-group">
-        <label class="col-md-8 control-label"><h3>Adresse du site web</h3></label>
-        <div class="col-md-8 inputGroupContainer">
-            <div class="input-group">
-                {{ form(form.website) }}
+        <!-- DATE DEBUT EVENEMENT -->
+        <div class="form-group">
+            <div class="col-md-6">
+                <h3>{{ form_label(form.dateDebutEvenement) }}</h3>
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.dateDebutEvenement) }}
             </div>
         </div>
-    </div>
 
-    <!-- DEBUT DE L'EVENEMENT-->
-    <div class="form-group">
-        <label class="col-md-8 control-label"><h3>Début d'inscription</h3></label>
-        <div class="col-md-8 inputGroupContainer">
-            <div class="input-group">
-                {{ form(form.dateDebutEvenement) }}
+
+        <!-- DATE FIN EVENEMENT -->
+        <div class="form-group">
+            <div class="col-md-6">
+                <h3>{{ form_label(form.dateFinEvenement) }}</h3>
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.dateFinEvenement) }}
             </div>
         </div>
-    </div>
 
 
-    <!-- FIN DE L'EVENEMENT-->
-    <div class="form-group">
-
-        <label class="col-md-8 control-label"><h3>Fin d'inscription</h3></label>
-        <div class="col-md-8 inputGroupContainer">
-            <div class="input-group">
-                {{ form(form.dateFinEvenement) }}
+        <!-- IMAGE -->
+        <div class="form-group">
+            <div class="col-md-6">
+                <h3>{{ form_label(form.image) }}</h3>
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.image) }}
             </div>
         </div>
-    </div>
 
-    <!-- IMAGE-->
 
-    <div class="form-group">
-        <label class="col-md-8 control-label"><h3>Image</h3></label>
-        <div class="col-md-8 inputGroupContainer">
-            <div class="input-group">
-                {{ form(form.image) }}
+        <!-- VILLE -->
+        <div class="form-group">
+            <div class="col-md-6">
+                <h3>{{ form_label(form.ville) }}</h3>
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.ville) }}
             </div>
         </div>
-    </div>
 
-    <!-- VILLE-->
 
-    <div class="form-group">
-        <label class="col-md-8 control-label"><h3>Ville</h3></label>
-        <div class="col-md-8 inputGroupContainer">
-            <div class="input-group">
-                {{ form(form.ville) }}
+        <!-- PAYS -->
+        <div class="form-group">
+            <div class="col-md-6">
+                <h3>{{ form_label(form.pays) }}</h3>
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.pays) }}
             </div>
         </div>
-    </div>
 
-    <!-- PAYS-->
 
-    <div class="form-group">
-        <label class="col-md-8 control-label"><h3>Pays</h3></label>
-        <div class="col-md-8 inputGroupContainer">
-            <div class="input-group">
-                {{ form(form.pays) }}
+        <!-- BUDGET -->
+        <div class="form-group">
+            <div class="col-md-6">
+                <h3>{{ form_label(form.budget) }}</h3>
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.budget) }}
             </div>
         </div>
-    </div>
 
 
-    <!-- MONTANT RECOMPENSE FINANCIERE-->
-    <div class="form-group">
-        <label class="col-md-8 control-label"><h3>Montant de la récompense financière</h3></label>
-        <div class="col-md-8 inputGroupContainer">
-            <div class="input-group">
-                {{ form(form.budget) }}
+        <!-- FRAIS -->
+        <div class="form-group">
+            <div class="col-md-6">
+                <h3>{{ form_label(form.frais) }}</h3>
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.frais) }}
             </div>
         </div>
-    </div>
 
 
-    <!-- FRAIS PARTICIPATION-->
-    <div class="form-group">
-        <label class="col-md-8 control-label"><h3>Frais de participation</h3></label>
-        <div class="col-md-8 inputGroupContainer">
-            <div class="input-group">
-                {{ form(form.frais) }}
+        <!-- DOCUMENT PDF -->
+        <div class="form-group">
+            <div class="col-md-6">
+                <h3>{{ form_label(form.document) }}</h3>
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.document) }}
             </div>
         </div>
-    </div>
 
-    <!-- DOCUMENT DE PRESENTATION-->
-    <div class="form-group">
-        <label class="col-md-8 control-label"><h3>Document de présentation (optionnel)</h3></label>
-        <div class="col-md-8 inputGroupContainer">
-            <div class="input-group">
-                {{ form(form.document) }}
-            </div>
-        </div>
-    </div>
 
-    {{ form(form)}}
-    </form>
+        {{ form_end(form) }}
+    </div><!-- /.container -->
+
 
 {% endblock %}
 

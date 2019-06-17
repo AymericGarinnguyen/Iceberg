@@ -1,0 +1,38 @@
+/*==========Footer=========*/
+footer{
+    /* margin-top:5rem; */
+    padding-top:1.5rem;
+    padding-bottom:1rem;
+    background-color:rgb(40, 42, 45);
+    border-top:1px solid rgb(242, 100, 12);
+}
+
+.footer{
+    background-color: black;
+    height: 200px;
+    padding: 40px 0px 0px 0px;
+    margin-top: 80px;
+}
+
+img.logo{
+    height:30px;
+    padding-left:40px;
+}
+
+/* Form */
+.transparent {
+    background: rgba(0,0,0,0);
+}
+
+.newsletter h3{
+    color: #313280;
+}
+
+.newsletter h4{
+    font-size: 16px;
+    color: grey;
+}
+
+.newsletter button{
+    background-color: #af1344;
+}
