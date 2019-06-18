@@ -63,6 +63,7 @@
 
                 <div class="col-md-10 col-sm-12">
                     <div class="container">
+                        <!-- ##### Card en cours ##### -->
                         {% for projet in projets %}
                             <!-- Calcule des jours restants -->
                             {% set difference = date(projet.dateFinInscription).diff(date("now")) %}
@@ -82,8 +83,8 @@
                                 {% set closed = "d-none" %}
                                 {% set open = "d-none" %}
                             {% endif %}
-                            <!-- ##### Card en cours ##### -->
-                            <div class="row carte ">
+
+                            <div class="row carte {{ affichage }}">
                                 <div class="col-md-11 no-padding lib-item" data-category="view">
                                     <div class="lib-panel">
                                         <div class="row box-shadow justify-content-between">
@@ -128,16 +129,6 @@
                                                     {% set couleur = "green" %}
                                                 {% endif %}
 
-                                                <div class="myloader {{ closed }}">
-                                                    <p class="myloader-text">Inscriptions fermées</p>
-                                                </div>
-
-                                                <div class="myloader {{ open }}">
-                                                    <p class="myloader-text">Début des inscriptions le
-                                                        : {{ projet.dateDebutInscription | date('d/m/Y') }}</p>
-                                                </div>
-
-
                                                 <div class="myloader {{ affichage }}">
                                                     <div class="titre-compteur">nombre de jour restants</div>
                                                     <hr id="barre">
@@ -162,7 +153,146 @@
                                     </div>    <!--{# div.lib panel #}  -->
                                 </div>   <!--{ # div.col md-10 #}  -->
                             </div>  <!--{ # div.row #} -->
-                            <!-- ##### FIN Card en cours ##### -->
+                                    <!-- ##### FIN Card en cours ##### -->
+                        {% endfor %}
+
+
+                        <!-- ##### Card a venir ##### -->
+                        {% for projet in projets %}
+                            <!-- Calcule des jours restants -->
+                            {% set difference = date(projet.dateFinInscription).diff(date("now")) %}
+                            {% set leftDays = difference.days %}
+
+                            <!-- Gestion des affichages -->
+                            {% if date(projet.dateFinInscription) < date("now") %}
+                                {% set affichage = "d-none" %}
+                                {% set closed = "" %}
+                                {% set open = "d-none" %}
+                            {% elseif date(projet.dateDebutInscription) > date("now") %}
+                                {% set affichage = "d-none" %}
+                                {% set closed = "d-none" %}
+                                {% set open = "" %}
+                            {% else %}
+                                {% set affichage = "" %}
+                                {% set closed = "d-none" %}
+                                {% set open = "d-none" %}
+                            {% endif %}
+                            <div class="row carte  {{ open }}">
+                                <div class="col-md-11 no-padding lib-item" data-category="view">
+                                    <div class="lib-panel">
+                                        <div class="row box-shadow justify-content-between">
+                                            <div class="titre row">
+                                                <h3>
+                                                    {% for domaine in projet.domaine %}
+                                                        {{ domaine.categorie }}
+                                                        {% if loop.last != true %}
+                                                            ,
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </h3>
+                                            </div>
+                                            <div class="col-md-3 imageContent">
+                                                <img class="lib-img-show card-img"
+                                                     src="{{ asset('images/' ~ projet.image ) }}">
+                                            </div>   <!--{# fin div. col-md-3#}  -->
+
+                                            <div class="col-md-6">
+                                                <div class="lib-row lib-header">
+                                                    <h4>{{ projet.titre | capitalize }}</h4>
+                                                    <div class="lib-header-seperator"></div>
+                                                </div>
+                                                <div class="lib-row lib-desc">
+                                                    <p>{{ projet.description | capitalize | raw }}</p>
+                                                    <a href="">{{ projet.user.prenom | capitalize }} {{ projet.user.nom | capitalize }}</a>
+                                                </div>
+                                            </div>   <!--{# fin div. col-md-8#} -->
+
+                                            <div class="col-md-2 compteur">
+
+                                                <!-- COMPTEUR JOURS -->
+
+                                                <div class="myloader {{ open }}">
+                                                    <p class="myloader-text">Début des inscriptions le
+                                                        : {{ projet.dateDebutInscription | date('d/m/Y') }}</p>
+                                                </div>
+
+                                            </div> <!--{# div.compteur #} -->
+
+                                        </div>    <!--{# div.box shadow #} -->
+                                    </div>    <!--{# div.lib panel #}  -->
+                                </div>   <!--{ # div.col md-10 #}  -->
+                            </div>  <!--{ # div.row #} -->
+                            <!-- ##### FIN Card a venir ##### -->
+
+                        {% endfor %}
+
+
+                        <!-- ##### Card terminées ##### -->
+                        {% for projet in projets %}
+                            <!-- Calcule des jours restants -->
+                            {% set difference = date(projet.dateFinInscription).diff(date("now")) %}
+                            {% set leftDays = difference.days %}
+
+                            <!-- Gestion des affichages -->
+                            {% if date(projet.dateFinInscription) < date("now") %}
+                                {% set affichage = "d-none" %}
+                                {% set closed = "" %}
+                                {% set open = "d-none" %}
+                            {% elseif date(projet.dateDebutInscription) > date("now") %}
+                                {% set affichage = "d-none" %}
+                                {% set closed = "d-none" %}
+                                {% set open = "" %}
+                            {% else %}
+                                {% set affichage = "" %}
+                                {% set closed = "d-none" %}
+                                {% set open = "d-none" %}
+                            {% endif %}
+                            <div class="row carte  {{ closed }}">
+                                <div class="col-md-11 no-padding lib-item" data-category="view">
+                                    <div class="lib-panel">
+                                        <div class="row box-shadow justify-content-between">
+                                            <div class="titre row">
+                                                <h3>
+                                                    {% for domaine in projet.domaine %}
+                                                        {{ domaine.categorie }}
+                                                        {% if loop.last != true %}
+                                                            ,
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </h3>
+                                            </div>
+                                            <div class="col-md-3 imageContent">
+                                                <img class="lib-img-show card-img"
+                                                     src="{{ asset('images/' ~ projet.image ) }}">
+                                            </div>   <!--{# fin div. col-md-3#}  -->
+
+                                            <div class="col-md-6">
+                                                <div class="lib-row lib-header">
+                                                    <h4>{{ projet.titre | capitalize }}</h4>
+                                                    <div class="lib-header-seperator"></div>
+                                                </div>
+                                                <div class="lib-row lib-desc">
+                                                    <p>{{ projet.description | capitalize | raw }}</p>
+                                                    <a href="">{{ projet.user.prenom | capitalize }} {{ projet.user.nom | capitalize }}</a>
+                                                </div>
+                                            </div>   <!--{# fin div. col-md-8#} -->
+
+                                            <div class="col-md-2 compteur">
+
+                                                <!-- COMPTEUR JOURS -->
+
+                                                <div class="myloader {{ closed }}">
+                                                    <p class="myloader-text">Inscriptions terminées</p>
+                                                </div>
+
+                                            </div> <!--{# div.compteur #} -->
+
+                                        </div>    <!--{# div.box shadow #} -->
+                                    </div>    <!--{# div.lib panel #}  -->
+                                </div>   <!--{ # div.col md-10 #}  -->
+                            </div>  <!--{ # div.row #} -->
+                            <!-- ##### FIN Card a venir ##### -->
+
                         {% endfor %}
 
                     </div> <!--{# div. container#} -->
