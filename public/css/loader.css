@@ -1,0 +1,106 @@
+/*===== Not The CSS :P =====*/
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+body {
+
+}
+
+/* LOADER 1 */
+
+
+.myloader {
+
+    position: relative;
+    border: white solid 0.7px;
+    background-color: rgb(81, 97, 111);
+    height: 100%;
+    width: 100%;
+}
+
+.titre-compteur {
+    font-family: 'Open Sans';
+    color: rgb(255, 255, 255);
+    text-align: center;
+    font-size: .7rem;
+    text-transform: uppercase;
+    padding-top: 4%;
+}
+
+#barre {
+    margin: 7px 0;
+    border: 1px solid white;
+}
+.debut {
+    color: rgb(255, 255, 255);
+    text-align: center;
+    font-family: 'Open Sans';
+    font-size: .7rem;
+}
+
+#wrapper{
+    position: relative;
+    top: 0px;
+}
+.center {
+    margin: 0 30px;
+}
+
+.myloader-text {
+    color: white;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-top: 2em;
+}
+
+/*===== The CSS =====*/
+.progress{
+    width: auto;
+    height: 90%;
+    background: none;
+}
+.progress .track, .progress .fill{
+    fill: rgba(0, 0, 0, 0);
+    stroke-width: 3;
+    transform: rotate(90deg)translate(0px, -80px);
+}
+.progress .track{
+    stroke: rgb(56, 71, 83);
+}
+.progress .fill {
+    stroke: rgb(255, 255, 255);
+    stroke-dasharray: 219.99078369140625;
+    stroke-dashoffset: -219.99078369140625;
+    transition: stroke-dashoffset 1s;
+}
+
+.progress.green .fill {
+    stroke: rgb(200, 255, 172);
+}
+
+.progress.yellow .fill {
+    stroke: rgb(255, 215, 51);
+}
+
+.progress.red .fill {
+    stroke: rgb(194, 25, 51);
+}
+
+.progress .value, .progress .text {
+    font-family: 'Open Sans';
+    fill: rgb(255, 255, 255);
+    text-anchor: middle;
+}
+.progress .text {
+    font-size: 12px;
+}
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+}
+
+
+/* LOADER 2 */

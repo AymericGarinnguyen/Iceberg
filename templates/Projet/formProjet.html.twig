@@ -50,13 +50,8 @@
     </div>
 
 
-    <div class="container effect1"   id="#section02">
+    <div class="container effect1" id="#section02">
         {{ form_start(form, {attr:{novalidate: 'novalidate' }}) }}
-
-
-
-
-
 
 
         <!-- TITRE DE L'APPEL -->
@@ -77,15 +72,27 @@
             </div>
             <div class="col-md-12 categorie">
                 <div class="col-md-4">
-                    {{ form_widget(form.domaine.7) }}
-                    {{ form_widget(form.domaine.8) }}
-                    {{ form_widget(form.domaine.9) }}
+                    {% for domaine in form.domaine %}
+                        {% if loop.index < 4 %}
+                            {{ form_widget(domaine) }}
+                        {% endif %}
+                    {% endfor %}
                 </div>
                 <div class="col-md-4">
-                    {{ form_widget(form.domaine.10) }}
-                    {{ form_widget(form.domaine.11) }}
-                    {{ form_widget(form.domaine.12) }}
+                    {% for domaine in form.domaine %}
+                        {% if loop.index < 7 %}
+                            {{ form_widget(domaine) }}
+                        {% endif %}
+                    {% endfor %}
                 </div>
+                <div class="col-md-4">
+                    {% for domaine in form.domaine %}
+                        {% if loop.index < 10 %}
+                            {{ form_widget(domaine) }}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
             </div>
         </div>
 

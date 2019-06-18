@@ -1,6 +1,16 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
+
+    {# Affichage des notifications #}
+    <div class="container">
+        {% for message in app.flashes('notice') %}
+            <div class="alert alert-info">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+
     <main>
         <div class="container-fluid">
             <div class="row">
@@ -54,11 +64,29 @@
                 <div class="col-md-10 col-sm-12">
                     <div class="container">
                         {% for projet in projets %}
-                            <!-- ##### Card ##### -->
-                            <div class="row carte">
-                                <div class="col-md-10 no-padding lib-item" data-category="view">
+                            <!-- Calcule des jours restants -->
+                            {% set difference = date(projet.dateFinInscription).diff(date("now")) %}
+                            {% set leftDays = difference.days %}
+
+                            <!-- Gestion des affichages -->
+                            {% if date(projet.dateFinInscription) < date("now") %}
+                                {% set affichage = "d-none" %}
+                                {% set closed = "" %}
+                                {% set open = "d-none" %}
+                            {% elseif date(projet.dateDebutInscription) > date("now") %}
+                                {% set affichage = "d-none" %}
+                                {% set closed = "d-none" %}
+                                {% set open = "" %}
+                            {% else %}
+                                {% set affichage = "" %}
+                                {% set closed = "d-none" %}
+                                {% set open = "d-none" %}
+                            {% endif %}
+                            <!-- ##### Card en cours ##### -->
+                            <div class="row carte ">
+                                <div class="col-md-11 no-padding lib-item" data-category="view">
                                     <div class="lib-panel">
-                                        <div class="row box-shadow">
+                                        <div class="row box-shadow justify-content-between">
                                             <div class="titre row">
                                                 <h3>
                                                     {% for domaine in projet.domaine %}
@@ -74,7 +102,7 @@
                                                      src="{{ asset('images/' ~ projet.image ) }}">
                                             </div>   <!--{# fin div. col-md-3#}  -->
 
-                                            <div class="col-md-8">
+                                            <div class="col-md-6">
                                                 <div class="lib-row lib-header">
                                                     <h4>{{ projet.titre | capitalize }}</h4>
                                                     <div class="lib-header-seperator"></div>
@@ -84,11 +112,57 @@
                                                     <a href="">{{ projet.user.prenom | capitalize }} {{ projet.user.nom | capitalize }}</a>
                                                 </div>
                                             </div>   <!--{# fin div. col-md-8#} -->
+
+                                            <div class="col-md-2 compteur">
+
+                                                <!-- COMPTEUR JOURS -->
+
+                                                <!-- Gestion des couleurs -->
+                                                {% if leftDays < 11 %}
+                                                    {% set couleur = "red" %}
+
+                                                {% elseif leftDays < 31 %}
+                                                    {% set couleur = "yellow" %}
+
+                                                {% else %}
+                                                    {% set couleur = "green" %}
+                                                {% endif %}
+
+                                                <div class="myloader {{ closed }}">
+                                                    <p class="myloader-text">Inscriptions fermées</p>
+                                                </div>
+
+                                                <div class="myloader {{ open }}">
+                                                    <p class="myloader-text">Début des inscriptions le
+                                                        : {{ projet.dateDebutInscription | date('d/m/Y') }}</p>
+                                                </div>
+
+
+                                                <div class="myloader {{ affichage }}">
+                                                    <div class="titre-compteur">nombre de jour restants</div>
+                                                    <hr id="barre">
+                                                    <p class="debut">Date de début
+                                                        : {{ projet.dateDebutInscription | date('d/m/Y') }}</p>
+                                                    <div id="wrapper" class="center">
+                                                        <svg class="progress noselect {{ couleur }}"
+                                                             data-progress="{{ leftDays }}" x="0px" y="0px"
+                                                             viewBox="0 0 80 80">
+                                                            <path class="track"
+                                                                  d="M5,40a35,35 0 1,0 70,0a35,35 0 1,0 -70,0"/>
+                                                            <path class="fill"
+                                                                  d="M5,40a35,35 0 1,0 70,0a35,35 0 1,0 -70,0"/>
+                                                            <text class="value" x="50%" y="55%">0%</text>
+                                                            <text class="text" x="50%" y="115%">Blue</text>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            </div> <!--{# div.compteur #} -->
+
                                         </div>    <!--{# div.box shadow #} -->
                                     </div>    <!--{# div.lib panel #}  -->
                                 </div>   <!--{ # div.col md-10 #}  -->
-                                <div class="col-md-1"></div>
                             </div>  <!--{ # div.row #} -->
+                            <!-- ##### FIN Card en cours ##### -->
                         {% endfor %}
 
                     </div> <!--{# div. container#} -->

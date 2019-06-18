@@ -13,7 +13,7 @@ class UserFixture extends Fixture
     public function load(ObjectManager $manager)
     {
 
-        $user = new User();
+        /*$user = new User();
         $user->setPrenom("Cedric")
             ->setNom("Obstoy")
             ->setPassword("password")
@@ -23,6 +23,6 @@ class UserFixture extends Fixture
         $manager->flush();
 
         # Partage du user
-        $this->addReference(self::PROJET_USER_REFERENCE, $user);
+        $this->addReference(self::PROJET_USER_REFERENCE, $user);*/
     }
 }
