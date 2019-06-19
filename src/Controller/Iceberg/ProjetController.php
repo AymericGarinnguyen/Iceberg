@@ -8,6 +8,7 @@ use App\Entity\Domaine;
 use App\Entity\Projet;
 use App\Entity\User;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
@@ -31,25 +32,18 @@ class ProjetController extends AbstractController
 {
     use ProjetTrait;
 
-    /**
-     * Page Mes Appels à projet
-     */
-    public function projetByOrganisateur()
-    {
-        $user = $this->getDoctrine()
-    }
 
     /**
      * Page Formulaire pour rédiger un appel à projet
+     * @IsGranted("ROLE_ORGANISATEUR")
      * @Route("/creer-un-projet",
      *     name="projet_new")
      */
     public function newProjet(Request $request)
     {
-        # Récupération d'un auteur
-        $user = $this->getDoctrine()
-            ->getRepository(User::class)
-            ->find(5);
+        # Récupération d'un organisateur
+        $user = $this->getUser();
+
 
         #Création d'un nouvel appel
         $projet = new Projet();
@@ -231,6 +225,7 @@ class ProjetController extends AbstractController
         ]);
     } ######################## FIN de function newProjet ###########################
 
+
     /**
      * Page Favori
      * @return \Symfony\Component\HttpFoundation\Response
@@ -244,8 +239,10 @@ class ProjetController extends AbstractController
 
     } #################### FIN de function membreFavori ##################################
 
+
     /**
      * Page vue des appels à projet de l'organisateur
+     * @IsGranted("ROLE_ORGANISATEUR")
      * @Route("/projets", name="projet_vue")
      */
     public function vueProjets()
@@ -253,7 +250,7 @@ class ProjetController extends AbstractController
         # Récupération des projets dans BDD
         $projets = $this->getDoctrine()
             ->getRepository(Projet::class)
-            ->findAll();
+            ->findBy(['user' => $this->getUser()]);
 
         # Rendu de la vue
         return $this->render('Projet/vueProjets.html.twig', [

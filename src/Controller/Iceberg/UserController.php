@@ -4,6 +4,7 @@
 namespace App\Controller\Iceberg;
 
 
+use App\Entity\Projet;
 use App\Entity\User;
 use App\Form\MembreType;
 use App\Form\OrganisateurType;
@@ -303,8 +304,15 @@ class UserController extends AbstractController
      */
     public function listeProjet()
     {
+        # Récupération des projets dans BDD
+        $projets = $this->getDoctrine()
+            ->getRepository(Projet::class)
+            ->findAll();
+
         # Rendu de la vue
-        return $this->render('/user/admin/listeProjet.html.twig');
+        return $this->render('/user/admin/listeProjet.html.twig', [
+            'projets' => $projets
+        ]);
     } ####################### Fin de function listeProjet ###########################
 
 
@@ -314,8 +322,15 @@ class UserController extends AbstractController
      */
     public function listeUser()
     {
+        # Récupération des projets dans BDD
+        $users = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->findAll();
+
         # Rendu de la vue
-        return $this->render('/user/admin/listeUser.html.twig');
+        return $this->render('/user/admin/listeUser.html.twig', [
+            'users' => $users
+        ]);
     } ####################### Fin de function listeUser ###########################
 
 } ############################### FIN de la Class User ##################################
