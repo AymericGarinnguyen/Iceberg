@@ -2,12 +2,174 @@
 
 {% block content %}
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 col-sm-12 text-center">
-                <h1>Iceberg</h1>
+    <main>
+
+        <!-- ############# SIDEBAR FILTRES ############### -->
+        <aside>
+            <div class="aside">
+                <!-- FILTRES -->
+                <h3>Filtrer par</h3>
+                <!-- Mots-clefs -->
+                <h4>Mot-clefs</h4>
+                <input type="text" placeholder="Recherchez..">
+                <!-- Catégories -->
+                <h4>Catégories</h4>
+                <div>
+                    <input type="checkbox" id="photographie" name="photographie"
+                           checked>
+                    <label for="photographie">Photographie</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="peinture" name="peinture">
+                    <label for="peinture">Peinture</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="theatre" name="theatre">
+                    <label for="theatre">Théâtre</label>
+                </div>
+                <!-- Deadlines -->
+                <h4>Deadlines</h4>
+                <div>
+                    <input type="checkbox" id="deadline-en-cours" name="deadline-en-cours"
+                           checked>
+                    <label for="deadline-en-cours">En cours</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="deadline-passee" name="deadline-passee">
+                    <label for="deadline-passee">Passées</label>
+                </div>
+                <!-- Localisation -->
+                <h4>Localisation</h4>
+                <input type="text" placeholder="Recherchez..">
+                <!-- Montant récompense financière-->
+                <h4>Récompense financière</h4>
+                <!-- Participation financière -->
+                <h4>Participation financière</h4>
             </div>
-        </div>
-    </div>
-    <hr>
-    {% endblock %}
+        </aside>
+        <!-- ############# FIN SIDEBAR FILTRES ############### -->
+
+        <div class="container">
+
+            <!-- Modal Inscription -->
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            ...
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% if is_granted('ROLE_ORGANISATEUR' ) %}
+                <!-- Modal Profil Organisateur -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Mon profil</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <div class="modal-body">
+                                <li>Nom : {{ app.user.nom }}</li>
+                                <li>Email : {{ app.user.email }}</li>
+                            </div>
+
+                            <div class="modal-footer">
+                                <a href="{{ path ('user_organisateur_profil') }}" class="btn btn-secondary btn-lg active" role="button">Modifier le profil</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            {% elseif is_granted('ROLE_MEMBRE' ) %}
+                <!-- Modal Profil Membre -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Mon profil</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <div class="modal-body">
+                                <li>Prenom : {{ app.user.prenom }}</li>
+                                <li>Nom : {{ app.user.nom }}</li>
+                                <li>Email : {{ app.user.email }}</li>
+                            </div>
+
+                            <div class="modal-footer">
+                                <a href="{{ path ('user_membre_profil') }}" class="btn btn-secondary btn-lg active" role="button">Modifier le profil</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            {% endif %}
+
+            {# Permet d'afficher les notifications #}
+            {% for message in app.flashes('notice') %}
+                <div class="alert alert-info">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+            {% for projet in projets %}
+                <!-- ##### Card ##### -->
+                <div class="titre" class="row">
+                    <h3 class="linear-gradient">
+                        {% for domaine in projet.domaine %}
+                            {{ domaine.categorie }}
+                        {% endfor %}
+                    </h3>
+                </div>
+                <div class="row">
+                    <div class="col-md-10 no-padding lib-item" data-category="view">
+                        <div class="lib-panel">
+                            <div class="row box-shadow">
+                                <div class="col-md-3">
+                                    <img class="lib-img-show card-img" src="{{ asset('images/' ~ projet.image ) }}">
+                                </div>   <!--{# fin div. col-md-4#}  -->
+
+                                <div class="col-md-8">
+                                    <div class="lib-row lib-header">
+                                        <h4>{{ projet.titre }}</h4>
+                                        <div class="lib-header-seperator"></div>
+                                    </div>
+                                    <div class="lib-row lib-desc">
+                                        <p>{{ projet.description | raw }}</p>
+                                        <a href="">{{ projet.user.prenom }} {{ projet.user.nom }}</a>
+                                    </div>
+                                </div>   <!--{# fin div. col-md-8#} -->
+                            </div>    <!--{# div.box shadow #} -->
+                        </div>    <!--{# div.lib panel #}  -->
+                    </div>   <!--{ # div.col md-10 #}  -->
+                    <div class="col-md-1"></div>
+                </div>  <!--{ # div.row #} -->
+            {% endfor %}
+
+        </div> <!--{# div. container#} -->
+    </main>
+
+{% endblock %}
+
