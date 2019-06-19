@@ -19,13 +19,40 @@ class DefaultController extends AbstractController
      */
     public function index(ProjetRepository $projetRepository)
     {
+        $projets = $projetRepository->findAll();
+
         # Récupération des projets dans BDD
-        $projets = $projetRepository->findAllOrderByDateFinInscription();
+        $projetsEnCours = array_filter($projets, function(Projet $projet){
+            return $projet->getDateFinInscription()->format('U') > time() && $projet->getDateDebutInscription()->format('U') < time();
+        });
+
+        # Récupération des projets dans BDD
+        $projetsDebut = array_filter($projets, function(Projet $projet){
+            return $projet->getDateDebutInscription()->format('U') > time();
+        });
+
+        # Récupération des projets dans BDD
+        $projetsFin = array_filter($projets, function (Projet $projet){
+            return $projet->getDateFinInscription()->format('U') < time();
+        });
+
+        usort($projetsEnCours, function(Projet $projet1, Projet $projet2){
+            return $projet1->getDateFinInscription()->format('U') <=>  $projet2->getDateFinInscription()->format('U');
+        });
+
+        usort($projetsDebut, function(Projet $projet1, Projet $projet2){
+            return $projet1->getDateDebutInscription()->format('U') <=>  $projet2->getDateDebutInscription()->format('U');
+        });
 
 
+        usort($projetsFin, function(Projet $projet1, Projet $projet2 ) {
+            return $projet2->getDateFinInscription()->format('U') <=>  $projet1->getDateFinInscription()->format('U');
+        });
 
         return $this->render("default/index.html.twig", [
-            'projets' => $projets
+            'projetsEnCours' => $projetsEnCours,
+            'projetsDebut' => $projetsDebut,
+            'projetsFin' => $projetsFin
         ]);
     }
 }

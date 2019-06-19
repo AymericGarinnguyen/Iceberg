@@ -15,106 +15,24 @@
         <div class="container-fluid">
             <div class="row">
                 <!-- ############# SIDEBAR FILTRES ############### -->
-                <div class="col-md-2 col-sm-12">
-                    <aside>
-                        <div class="aside">
-                            <!-- FILTRES -->
-                            <h3>Filtrer par</h3>
-                            <!-- Mots-clefs -->
-                            <h4>Mot-clefs</h4>
-                            <input type="text" placeholder="Recherchez..">
-                            <!-- Catégories -->
-                            <h4>Catégories</h4>
-                            <div>
-                                <input type="checkbox" id="photographie" name="photographie"
-                                       checked>
-                                <label for="photographie">Photographie</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="peinture" name="peinture">
-                                <label for="peinture">Peinture</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="theatre" name="theatre">
-                                <label for="theatre">Théâtre</label>
-                            </div>
-                            <!-- Deadlines -->
-                            <h4>Deadlines</h4>
-                            <div>
-                                <input type="checkbox" id="deadline-en-cours" name="deadline-en-cours"
-                                       checked>
-                                <label for="deadline-en-cours">En cours</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="deadline-passee" name="deadline-passee">
-                                <label for="deadline-passee">Passées</label>
-                            </div>
-                            <!-- Localisation -->
-                            <h4>Localisation</h4>
-                            <input type="text" placeholder="Recherchez..">
-                            <!-- Montant récompense financière-->
-                            <h4>Récompense financière</h4>
-                            <!-- Participation financière -->
-                            <h4>Participation financière</h4>
-                        </div>
-                    </aside>
-                </div>
+
+                {% include 'Components/_sidebar.html.twig' %}
+
                 <!-- ############# FIN SIDEBAR FILTRES ############### -->
+
+
+                <!-- ############# CARTES ############### -->
 
                 <div class="col-md-10 col-sm-12">
                     <div class="container">
                         <!-- ##### Card en cours ##### -->
-                        {% for projet in projets %}
-                            <!-- Calcule des jours restants -->
+                        {% for projet in projetsEnCours %}
+                            <!-- Calcul des jours restants -->
                             {% set difference = date(projet.dateFinInscription).diff(date("now")) %}
                             {% set leftDays = difference.days %}
 
-                            <!-- Gestion des affichages -->
-                            {% if date(projet.dateFinInscription) < date("now") %}
-                                {% set affichage = "d-none" %}
-                                {% set closed = "" %}
-                                {% set open = "d-none" %}
-                            {% elseif date(projet.dateDebutInscription) > date("now") %}
-                                {% set affichage = "d-none" %}
-                                {% set closed = "d-none" %}
-                                {% set open = "" %}
-                            {% else %}
-                                {% set affichage = "" %}
-                                {% set closed = "d-none" %}
-                                {% set open = "d-none" %}
-                            {% endif %}
-
-                            <div class="row carte {{ affichage }}">
-                                <div class="col-md-11 no-padding lib-item" data-category="view">
-                                    <div class="lib-panel">
-                                        <div class="row box-shadow justify-content-between">
-                                            <div class="titre row">
-                                                <h3>
-                                                    {% for domaine in projet.domaine %}
-                                                        {{ domaine.categorie }}
-                                                        {% if loop.last != true %}
-                                                            ,
-                                                        {% endif %}
-                                                    {% endfor %}
-                                                </h3>
-                                            </div>
-                                            <div class="col-md-3 imageContent">
-                                                <img class="lib-img-show card-img"
-                                                     src="{{ asset('images/' ~ projet.image ) }}">
-                                            </div>   <!--{# fin div. col-md-3#}  -->
-
-                                            <div class="col-md-6">
-                                                <div class="lib-row lib-header">
-                                                    <h4>{{ projet.titre | capitalize }}</h4>
-                                                    <div class="lib-header-seperator"></div>
-                                                </div>
-                                                <div class="lib-row lib-desc">
-                                                    <p>{{ projet.description | capitalize | raw }}</p>
-                                                    <a href="">{{ projet.user.prenom | capitalize }} {{ projet.user.nom | capitalize }}</a>
-                                                </div>
-                                            </div>   <!--{# fin div. col-md-8#} -->
-
-                                            <div class="col-md-2 compteur">
+                            <div class="row carte">
+                                {% include 'Components/_carteIndex.html.twig' %}
 
                                                 <!-- COMPTEUR JOURS -->
 
@@ -129,7 +47,7 @@
                                                     {% set couleur = "green" %}
                                                 {% endif %}
 
-                                                <div class="myloader {{ affichage }}">
+                                                <div class="myloader">
                                                     <div class="titre-compteur">nombre de jour restants</div>
                                                     <hr id="barre">
                                                     <p class="debut">Date de début
@@ -153,67 +71,20 @@
                                     </div>    <!--{# div.lib panel #}  -->
                                 </div>   <!--{ # div.col md-10 #}  -->
                             </div>  <!--{ # div.row #} -->
-                                    <!-- ##### FIN Card en cours ##### -->
                         {% endfor %}
-
+                        <!-- ##### FIN Card en cours ##### -->
 
                         <!-- ##### Card a venir ##### -->
-                        {% for projet in projets %}
-                            <!-- Calcule des jours restants -->
-                            {% set difference = date(projet.dateFinInscription).diff(date("now")) %}
-                            {% set leftDays = difference.days %}
+                        {% for projet in projetsDebut %}
 
-                            <!-- Gestion des affichages -->
-                            {% if date(projet.dateFinInscription) < date("now") %}
-                                {% set affichage = "d-none" %}
-                                {% set closed = "" %}
-                                {% set open = "d-none" %}
-                            {% elseif date(projet.dateDebutInscription) > date("now") %}
-                                {% set affichage = "d-none" %}
-                                {% set closed = "d-none" %}
-                                {% set open = "" %}
-                            {% else %}
-                                {% set affichage = "" %}
-                                {% set closed = "d-none" %}
-                                {% set open = "d-none" %}
-                            {% endif %}
-                            <div class="row carte  {{ open }}">
-                                <div class="col-md-11 no-padding lib-item" data-category="view">
-                                    <div class="lib-panel">
-                                        <div class="row box-shadow justify-content-between">
-                                            <div class="titre row">
-                                                <h3>
-                                                    {% for domaine in projet.domaine %}
-                                                        {{ domaine.categorie }}
-                                                        {% if loop.last != true %}
-                                                            ,
-                                                        {% endif %}
-                                                    {% endfor %}
-                                                </h3>
-                                            </div>
-                                            <div class="col-md-3 imageContent">
-                                                <img class="lib-img-show card-img"
-                                                     src="{{ asset('images/' ~ projet.image ) }}">
-                                            </div>   <!--{# fin div. col-md-3#}  -->
-
-                                            <div class="col-md-6">
-                                                <div class="lib-row lib-header">
-                                                    <h4>{{ projet.titre | capitalize }}</h4>
-                                                    <div class="lib-header-seperator"></div>
-                                                </div>
-                                                <div class="lib-row lib-desc">
-                                                    <p>{{ projet.description | capitalize | raw }}</p>
-                                                    <a href="">{{ projet.user.prenom | capitalize }} {{ projet.user.nom | capitalize }}</a>
-                                                </div>
-                                            </div>   <!--{# fin div. col-md-8#} -->
-
-                                            <div class="col-md-2 compteur">
+                            <div class="row carte">
+                                {% include 'Components/_carteIndex.html.twig' %}
 
                                                 <!-- COMPTEUR JOURS -->
 
-                                                <div class="myloader {{ open }}">
-                                                    <p class="myloader-text">Début des inscriptions le
-                                                        : {{ projet.dateDebutInscription | date('d/m/Y') }}</p>
+                                                <div class="myloader">
+                                                    <p class="myloader-text">Début des inscriptions
+                                                        le {{ projet.dateDebutInscription | date('d/m/Y') }}</p>
                                                 </div>
 
                                             </div> <!--{# div.compteur #} -->
@@ -222,67 +93,20 @@
                                     </div>    <!--{# div.lib panel #}  -->
                                 </div>   <!--{ # div.col md-10 #}  -->
                             </div>  <!--{ # div.row #} -->
-                            <!-- ##### FIN Card a venir ##### -->
-
                         {% endfor %}
-
+                        <!-- ##### FIN Card a venir ##### -->
 
                         <!-- ##### Card terminées ##### -->
-                        {% for projet in projets %}
-                            <!-- Calcule des jours restants -->
-                            {% set difference = date(projet.dateFinInscription).diff(date("now")) %}
-                            {% set leftDays = difference.days %}
+                        {% for projet in projetsFin %}
 
-                            <!-- Gestion des affichages -->
-                            {% if date(projet.dateFinInscription) < date("now") %}
-                                {% set affichage = "d-none" %}
-                                {% set closed = "" %}
-                                {% set open = "d-none" %}
-                            {% elseif date(projet.dateDebutInscription) > date("now") %}
-                                {% set affichage = "d-none" %}
-                                {% set closed = "d-none" %}
-                                {% set open = "" %}
-                            {% else %}
-                                {% set affichage = "" %}
-                                {% set closed = "d-none" %}
-                                {% set open = "d-none" %}
-                            {% endif %}
                             <div class="row carte  {{ closed }}">
-                                <div class="col-md-11 no-padding lib-item" data-category="view">
-                                    <div class="lib-panel">
-                                        <div class="row box-shadow justify-content-between">
-                                            <div class="titre row">
-                                                <h3>
-                                                    {% for domaine in projet.domaine %}
-                                                        {{ domaine.categorie }}
-                                                        {% if loop.last != true %}
-                                                            ,
-                                                        {% endif %}
-                                                    {% endfor %}
-                                                </h3>
-                                            </div>
-                                            <div class="col-md-3 imageContent">
-                                                <img class="lib-img-show card-img"
-                                                     src="{{ asset('images/' ~ projet.image ) }}">
-                                            </div>   <!--{# fin div. col-md-3#}  -->
-
-                                            <div class="col-md-6">
-                                                <div class="lib-row lib-header">
-                                                    <h4>{{ projet.titre | capitalize }}</h4>
-                                                    <div class="lib-header-seperator"></div>
-                                                </div>
-                                                <div class="lib-row lib-desc">
-                                                    <p>{{ projet.description | capitalize | raw }}</p>
-                                                    <a href="">{{ projet.user.prenom | capitalize }} {{ projet.user.nom | capitalize }}</a>
-                                                </div>
-                                            </div>   <!--{# fin div. col-md-8#} -->
-
-                                            <div class="col-md-2 compteur">
+                                {% include 'Components/_carteIndex.html.twig' %}
 
                                                 <!-- COMPTEUR JOURS -->
 
                                                 <div class="myloader {{ closed }}">
-                                                    <p class="myloader-text">Inscriptions terminées</p>
+                                                    <p class="myloader-text">Inscriptions terminées depuis
+                                                        le {{ projet.dateFinInscription | date('d/m/Y') }}</p>
                                                 </div>
 
                                             </div> <!--{# div.compteur #} -->
@@ -291,9 +115,8 @@
                                     </div>    <!--{# div.lib panel #}  -->
                                 </div>   <!--{ # div.col md-10 #}  -->
                             </div>  <!--{ # div.row #} -->
-                            <!-- ##### FIN Card a venir ##### -->
-
                         {% endfor %}
+                        <!-- ##### FIN Card terminées ##### -->
 
                     </div> <!--{# div. container#} -->
                 </div>

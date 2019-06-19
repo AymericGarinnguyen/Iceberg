@@ -19,13 +19,6 @@ class ProjetRepository extends ServiceEntityRepository
         parent::__construct($registry, Projet::class);
     }
 
-    public function findAllOrderByDateFinInscription()
-    {
-        return $this->createQueryBuilder('p')
-            ->orderBy('p.date_fin_inscription', 'ASC')
-            ->getQuery()
-            ->getResult();
-    }
 
     // /**
     //  * @return Projet[] Returns an array of Projet objects
