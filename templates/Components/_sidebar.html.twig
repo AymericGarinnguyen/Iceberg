@@ -8,25 +8,23 @@
             <input type="text" placeholder="Recherchez..">
             <!-- Catégories -->
             <h4>Catégories</h4>
-            <div>
-                <input type="checkbox" id="photographie" name="photographie"
-                       checked>
-                <label for="photographie">Photographie</label>
+            <div class="col-md-4">
+                {{ form_start(form, {attr:{novalidate: 'novalidate', action: path('search_project') }}) }}
+                {% for domaine in form.domaine %}
+                    {{ form_widget(domaine) }}
+                {% endfor %}
+                {{ form_end(form) }}
             </div>
-            <div>
-                <input type="checkbox" id="peinture" name="peinture">
-                <label for="peinture">Peinture</label>
-            </div>
-            <div>
-                <input type="checkbox" id="theatre" name="theatre">
-                <label for="theatre">Théâtre</label>
-            </div>
+
             <!-- Deadlines -->
             <h4>Deadlines</h4>
             <div>
-                <input type="checkbox" id="deadline-en-cours" name="deadline-en-cours"
-                       checked>
+                <input type="checkbox" id="deadline-en-cours" name="deadline-en-cours">
                 <label for="deadline-en-cours">En cours</label>
+            </div>
+            <div>
+                <input type="checkbox" id="deadline-a-venir" name="deadline-a-venir">
+                <label for="deadline-a-venir">A venir</label>
             </div>
             <div>
                 <input type="checkbox" id="deadline-passee" name="deadline-passee">

@@ -1,0 +1,22 @@
+# Read the documentation: https://github.com/FriendsOfSymfony/FOSElasticaBundle/blob/master/Resources/doc/setup.md
+fos_elastica:
+    clients:
+        default: { host: localhost, port: 9200 }
+    indexes:
+        app:
+            index_name: app_%kernel.environment%
+            types:
+                projet:
+                    properties:
+                        titre: ~
+                        description: ~
+                        domaine:
+                            type: "object"
+                            properties:
+                                categorie: ~
+                    persistence:
+                        # the driver can be orm, mongodb or phpcr
+                        driver: orm
+                        model: App\Entity\Projet
+                        provider: ~
+                        finder: ~
