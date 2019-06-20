@@ -86,9 +86,15 @@ class User implements UserInterface
      */
     private $projets;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Projet")
+     */
+    private $favoris;
+
     public function __construct()
     {
         $this->projets = new ArrayCollection();
+        $this->favoris = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -218,5 +224,31 @@ class User implements UserInterface
     public function eraseCredentials()
     {
 
+    }
+
+    /**
+     * @return Collection|Projet[]
+     */
+    public function getFavoris(): Collection
+    {
+        return $this->favoris;
+    }
+
+    public function addFavori(Projet $favori): self
+    {
+        if (!$this->favoris->contains($favori)) {
+            $this->favoris[] = $favori;
+        }
+
+        return $this;
+    }
+
+    public function removeFavori(Projet $favori): self
+    {
+        if ($this->favoris->contains($favori)) {
+            $this->favoris->removeElement($favori);
+        }
+
+        return $this;
     }
 }

@@ -7,6 +7,7 @@
 {% block content %}
 
     <div class="container">
+        {% if is_granted('ROLE_ADMIN') %}
         <h1>Liste de tous les appels</h1>
         <ul>
             {% for projet in projets %}
@@ -34,6 +35,7 @@
                                     <div class="lib-row lib-desc">
                                         <p>{{ projet.description | raw }}</p>
                                         <a href="">{{ projet.user.nom }}</a>
+                                        <a href="{{ path('projet_supprimer',{id: projet.id})  }}"><i class="far fa-trash-alt"></i></a>
                                     </div>
                                 </div>   <!--{# fin div. col-md-8#} -->
                             </div>    <!--{# div.box shadow #} -->
@@ -43,6 +45,9 @@
                 </div>  <!--{ # div.row #} -->
             {% endfor %}
         </ul>
+        {% else %}
+            <div class="alert alert-danger">Vous n'avez pas les droits d'accès à cette page</div>
+        {% endif %}
     </div> {# fin div.container #}
 
 

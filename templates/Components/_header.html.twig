@@ -42,7 +42,7 @@
                     {# Si mon user est connecté, affiche les boutons Profil et Favoris #}
                 {% elseif is_granted('ROLE_MEMBRE' ) %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('projet_favori') }}"><b>Mes favoris</b></a>
+                        <a class="nav-link" href="{{ path('projet_liste_favori') }}"><b>Mes favoris</b></a>
                     </li>
 
                     <li class="nav-item">

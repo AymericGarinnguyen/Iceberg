@@ -8,6 +8,8 @@ use App\Entity\Domaine;
 use App\Entity\Projet;
 use App\Entity\User;
 
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -41,7 +43,7 @@ class ProjetController extends AbstractController
      */
     public function newProjet(Request $request)
     {
-        # Récupération d'un organisateur
+        # Récupération d'un organisateur connecté
         $user = $this->getUser();
 
 
@@ -262,12 +264,111 @@ class ProjetController extends AbstractController
 
     /**
      * Page de Modification des appels à projet
-     * @Route("/modifier-un-projet", name="projet_modification")
+     * @IsGranted("ROLE_ORGANISATEUR")
+     * @Route("/modifier-mon-projet", name="projet_ma_modification")
      */
-    public function modificationProjet()
+    public function modificationProjet(Projet $projet, EntityManagerInterface $entityManager)
     {
+
+        # Récupération d'un organisateur connecté
+        $user = $this->getUser();
+
+        # Suppresion du projet du membre connecté
+        $projets= $user->getProjets();
+
         # Rendu de la vue
-        return $this->render('Projet/formProjetModif.html.twig');
+        return $this->render('/Projet/vueProjets.html.twig', [
+            'projets' => $projets
+        ]);
 
     } ################## Fin de function modificationProjets ##########################
+
+
+    /**
+     * Suppression des appels à projet de l'organisateur connecté
+     * @Route("/supprimer-mon-projet", name="projet_ma_suppression")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function supprimerProjetOrga(Projet $projet, EntityManagerInterface $entityManager)
+    {
+        # Récupération d'un organisateur connecté
+        $user = $this->getUser();
+
+        # Suppresion du projet du memnre connecté
+        $user->removeProjet();
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        # Rendu de la vue
+        return $this->redirectToRoute('projet_vue');
+        
+    } ################## Fin de function supprimerProjetOrga ##########################
+
+
+    /**
+     * Suppresion des appels à projets par l'Admin
+     * @IsGranted("ROLE_ADMIN")
+     * @Route("/supprimer-projet/{id}", name="projet_supprimer")
+     */
+    public function supprimerProjetAdmin($id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $projets = $entityManager->getRepository(Projet::class)->find($id);
+        $entityManager->remove($projets);
+        $entityManager->flush();
+
+        # Rendu de la vue
+        return $this->redirectToRoute('user_liste_projet');
+    } ################## Fin de function supprimerProjetAdmin ##########################
+
+
+    /**
+     * Ajout en favori
+     * @Route("/ajouter-favori/{id}", name="projet_ajouter_favori")
+     */
+    public function newFavori(Projet $projet, EntityManagerInterface $entityManager)
+    {
+        # Récupération d'un membre connecté
+        $user = $this->getUser();
+        /** @var User $user */
+        $user->addFavori($projet);
+        $entityManager->persist($user);
+        $entityManager->flush();
+        return $this->redirectToRoute('default_index');
+    } ################## Fin de function newFavori ##########################
+
+    /**
+     * Liste des favoris
+     * @Route("/liste_favori", name="projet_liste_favori")
+     *
+     */
+    public function listeFavori()
+    {
+         # Récupération d'un membre connecté
+         $user = $this->getUser();
+
+         # Récupération des favoris du membre connecté
+         $favoris= $user->getFavoris();
+
+        # Rendu de la vue
+        return $this->render('/Projet/favori.html.twig', [
+            'favoris' => $favoris
+        ]);
+    } ################## Fin de function listeFavori ##########################
+
+    /**
+     * Suppresion du favori
+     * @Route("/supprimer-favori/{id}", name="projet_supprimer_favori")
+     */
+    public function supprimerFavori(Projet $projet, EntityManagerInterface $entityManager)
+    {
+        # Récupération d'un membre connecté
+        $user = $this->getUser();
+        /** @var User $user */
+        $user->removeFavori($projet);
+        $entityManager->persist($user);
+        $entityManager->flush();
+        return $this->redirectToRoute('projet_liste_favori');
+        
+    }
 }

@@ -8,6 +8,7 @@ use App\Entity\Projet;
 use App\Entity\User;
 use App\Form\MembreType;
 use App\Form\OrganisateurType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -332,5 +333,24 @@ class UserController extends AbstractController
             'users' => $users
         ]);
     } ####################### Fin de function listeUser ###########################
+
+    /**
+     * Supprimer un user
+     * @IsGranted("ROLE_ADMIN")
+     * @Route("/supprimer-user/{id}", name="user_supprimer")
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function supprimerUser($id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $users = $entityManager->getRepository(User::class)->find($id);
+        $entityManager->remove($users);
+        $entityManager->flush();
+
+        # Rendu de la vue
+        return $this->redirectToRoute('user_liste_user');
+    } ################## Fin de function supprimerUser ##########################
+
 
 } ############################### FIN de la Class User ##################################

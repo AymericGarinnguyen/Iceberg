@@ -34,6 +34,10 @@
                                     <div class="lib-row lib-desc">
                                         <p>{{ projet.description | raw }}</p>
                                         <a href="">{{ projet.user.prenom }} {{ projet.user.nom }}</a>
+                                        {# Modification de mon projet #}
+                                        <a href="{{ path('projet_ma_modification', {id: projet.id}) }}" style="color:red">Modifier mon projet</a>
+                                        {# Suppresion de mon projet #}
+                                        <a href="{{ path('projet_ma_suppression', {id: projet.id}) }}"><i class="far fa-trash-alt"></i></a>
                                     </div>
                                 </div>   <!--{# fin div. col-md-8#} -->
                             </div>    <!--{# div.box shadow #} -->

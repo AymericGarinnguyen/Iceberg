@@ -159,6 +159,9 @@
                                     <div class="lib-row lib-desc">
                                         <p>{{ projet.description | raw }}</p>
                                         <a href="">{{ projet.user.prenom }} {{ projet.user.nom }}</a>
+                                        {% if is_granted('ROLE_MEMBRE' ) %}
+                                            <a href="{{ path('projet_ajouter_favori', {id: projet.id}) }}"><i class="far fa-star"></i></a>
+                                        {% endif %}
                                     </div>
                                 </div>   <!--{# fin div. col-md-8#} -->
                             </div>    <!--{# div.box shadow #} -->
