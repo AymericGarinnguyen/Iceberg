@@ -9,6 +9,8 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class MembreType extends AbstractType
@@ -33,19 +35,35 @@ class MembreType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Saisissez votre email'
                 ]
-            ])
-            ->add('password', PasswordType::class, [
-                'label' => 'Mot de passe',
-                'attr' => [
-                    'placeholder' => 'Saisissez votre mot de passe'
-                ]
-            ])
-            ->add('submit', SubmitType::class, [
-                'label' => "Je m'inscris !"
-            ])
-        ;
-    }
+            ]);
 
+
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+            $membre = $event->getData();
+            $form = $event->getForm();
+
+            // checks if the Product object is "new"
+            // If no data is passed to the form, the data is "null".
+            // This should be considered a new "Product"
+            if (!$membre || null === $membre->getId()) {
+                $form
+                    ->add('password', PasswordType::class, [
+                    'label' => 'Mot de passe',
+                    'attr' => [
+                        'placeholder' => 'Saisissez votre mot de passe'
+                    ]
+                ])
+                    ->add('submit', SubmitType::class, [
+                        'label' => "Je m'inscris !"
+                    ]);
+
+            } else {
+                $form->add('submit', SubmitType::class,[
+                    'label' => "J'enregistre mes modifications !"
+                ]);
+            }
+        });
+    } // fin function buildForm
     public function getBlockPrefix()
     {
         return 'membre';
@@ -55,6 +73,7 @@ class MembreType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'validation_groups' => ['registration'],
         ]);
     }
 }

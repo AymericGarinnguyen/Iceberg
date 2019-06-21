@@ -75,4 +75,23 @@ class DefaultController extends AbstractController
       return $this->render('Default/VueMembre/membreProfil.html.twig');
   }
 
+    /**
+     * Page vue des appels à projet de l'organisateur
+     * @Route("/projets_orga", name="projets_orga_liste")
+     */
+    public function projetsOrgaListe()
+    {
+        # Récupération des projets dans BDD
+        $projets = $this->getDoctrine()
+            ->getRepository(Projet::class)
+            ->findBy(['user' => $this->getUser()]);
+
+        # Rendu de la vue
+        return $this->render('/Projet/listeProjetsOrga.html.twig', [
+            'projets' => $projets
+        ]);
+
+    } ################## Fin de function vueProjets ##########################
+
+
 } //fin class Default Controller

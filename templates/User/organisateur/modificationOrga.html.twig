@@ -6,10 +6,20 @@
 
 {% block content %}
     <div class="container">
-        <h1>Modifier mon profil organisateur</h1>
+        <div id="editor" class="row">
+            <div class="col-xs-8 col-xs-push-2">
+                <h1>Modifier mon profil organisateur</h1>
         {% include 'Components/_modalProfil.html.twig' %}
 
-        {{ form(form, {attr:{novalidate: 'novalidate' }}) }}
+        {% for message in app.flashes('notice') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+        {% endfor %}
+
+        {{ form(formOrga, {attr:{novalidate: 'novalidate' }}) }}
+            </div>
+        </div>
     </div> {# fin div.container #}
 
 

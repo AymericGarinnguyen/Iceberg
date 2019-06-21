@@ -17,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class UserController extends AbstractController
@@ -31,9 +32,8 @@ class UserController extends AbstractController
     /**
      * Page d'inscription
      * @Route("/inscription", name="user_inscription")
-     * @Route("/modifier-mon-profil", name="user_modifier_profil")
      */
-    public function NewInscription(Request $request, User $membre = null,
+    public function NewInscription(Request $request,
                                    UserPasswordEncoderInterface $passwordEncoder)
     {
         #FORM 1
@@ -42,7 +42,7 @@ class UserController extends AbstractController
         $membre->setRoles(['ROLE_MEMBRE']);
 
         if($membre === null) {
-            #Création d'un nouvel membre
+            #Création d'un nouveau membre
             $membre = new User();
         }
 
@@ -58,13 +58,15 @@ class UserController extends AbstractController
 
         if ($form1->isSubmitted() && $form1->isValid()) {
 
-            # Encodage du mot de passe
-            $membre->setPassword(
-                $passwordEncoder->encodePassword(
-                    $membre,
-                    $membre->getPassword()
-                )
-            );
+                # Encodage du mot de passe
+                $membre->setPassword(
+                    $passwordEncoder->encodePassword(
+                        $membre,
+                        $membre->getPassword()
+                    )
+                );
+
+
 
             # Insertion dans la BDD (EntityManager $em)
             $em = $this->getDoctrine()->getManager();
@@ -93,13 +95,15 @@ class UserController extends AbstractController
 
         if ($form2->isSubmitted() && $form2->isValid()) {
 
-            # Encodage du mot de passe
-            $organisateur->setPassword(
-                $passwordEncoder->encodePassword(
-                    $organisateur,
-                    $organisateur->getPassword()
-                )
-            );
+            if($membre === null) {
+                # Encodage du mot de passe
+                $membre->setPassword(
+                    $passwordEncoder->encodePassword(
+                        $membre,
+                        $membre->getPassword()
+                    )
+                );
+            }
 
             # Insertion dans la BDD (EntityManager $em)
             $em = $this->getDoctrine()->getManager();
@@ -122,7 +126,6 @@ class UserController extends AbstractController
     }
 
     ################################# Fin fonction NewInscriptionMembre ############################################
-
 
     /**
      * @Route("/connexion", name="user_connexion")
@@ -164,8 +167,6 @@ class UserController extends AbstractController
             'form' => $form->createView(),
             'error' => $authenticationUtils->getLastAuthenticationError()
         ]);
-        dump($form);
-        die();
     }
     ################################# Fin fonction connexion ############################################
 
@@ -190,67 +191,51 @@ class UserController extends AbstractController
      * Modification du profil membre
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/membre_profil", name="user_membre_profil")
+     * @Route("/membre/modifier_mon_profil", name="user_modifier_profil_membre")
      */
-    public function profilMembreModif(Request $request)
+    public function profilMembreModif(Request $request, UserInterface $membre = null)
     {
-        # Formulaire d'inscription
 
-        # Création d'un Membre
-        $membre = new User();
         $membre->setRoles(['ROLE_MEMBRE']);
 
-        # 1. Création du Formulaire (FormBuilder)
-        $form = $this->createFormBuilder($membre)
-            ->add('prenom', TextType::class, [
-                'label' => 'Prénom',
-                'attr' => [
-                    'placeholder' => 'Saisissez votre prénom'
-                ]
-            ])
-            ->add('nom', TextType::class, [
-                'label' => 'Nom',
-                'attr' => [
-                    'placeholder' => 'Saisissez votre nom'
-                ]
-            ])
-            ->add('email', EmailType::class, [
-                'label' => 'Email',
-                'attr' => [
-                    'placeholder' => 'Saisissez votre email'
-                ]
-            ])
-            ->add('submit', SubmitType::class, [
-                'label' => "Je m'inscris !"
-            ])
-            ->getForm()
-        ;
+        if($membre === null) {
+            #Création d'un nouveau membre
+            $membre = new User();
+        }
+
+
+        #Création du formulaire inscription membre
+        $formMembre = $this->createForm(MembreType::class, $membre, [
+            'validation_groups' => ['registration'],
+        ]);
+
 
         # Traitement des données $_POST
         # Vérification des données grâce aux Asserts
         # Hydratation de notre objet Membre
-        $form->handleRequest( $request );
+        $formMembre->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($formMembre->isSubmitted() && $formMembre->isValid()) {
 
-
-
-            # 3. Insertion dans la BDD (EntityManager $em)
+            # Insertion dans la BDD (EntityManager $em)
             $em = $this->getDoctrine()->getManager();
-            $em->persist($this);
+            $em->persist($membre);
             $em->flush();
+
 
             # Notification
             $this->addFlash('notice',
-                'Félicitation, vous pouvez vous connecter !');
+                'Félicitation, vos modifications ont bien été sauvegardées !');
 
         }
 
         # Rendu de la vue
         return $this->render('/user/membre/modification.html.twig', [
-            'form' => $form->createView()
+            'formMembre' => $formMembre->createView()
         ]);
     } #################### Fin de function ProfilMembreModif ##########################
+
+
 
 
     #################################################################
@@ -260,61 +245,52 @@ class UserController extends AbstractController
     #################################################################
 
     /**
+     * Modification du profil membre
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("organisateur_profil", name="user_organisateur_profil")
+     * @Route("/organisateur/modifier_mon_profil", name="user_modifier_profil_organisateur")
      */
-    public function profilOrganisateurModif(Request $request)
+    public function profilOrgaModif(Request $request, UserInterface $orga = null)
     {
-        # Formulaire d'inscription
 
-        # Création d'un Membre
-        $organisateur = new User();
-        $organisateur->setRoles(['ROLE_ORGANISATEUR']);
+        $orga->setRoles(['ROLE_ORGANISATEUR']);
 
-        # 1. Création du Formulaire (FormBuilder)
-        $form = $this->createFormBuilder($organisateur)
-            ->add('nom', TextType::class, [
-                'label' => 'Nom',
-                'attr' => [
-                    'placeholder' => 'Saisissez votre nom'
-                ]
-            ])
-            ->add('email', EmailType::class, [
-                'label' => 'Email',
-                'attr' => [
-                    'placeholder' => 'Saisissez votre email'
-                ]
-            ])
-            ->add('submit', SubmitType::class, [
-                'label' => "Je m'inscris !"
-            ])
-            ->getForm()
-        ;
+        if($orga === null) {
+            #Création d'un nouveau membre
+            $orga = new User();
+        }
+
+
+        #Création du formulaire inscription membre
+        $formOrga = $this->createForm(OrganisateurType::class, $orga, [
+        'validation_groups' => ['registration'],
+        ]);
+
 
         # Traitement des données $_POST
         # Vérification des données grâce aux Asserts
         # Hydratation de notre objet Membre
-        $form->handleRequest( $request );
+        $formOrga->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($formOrga->isSubmitted() && $formOrga->isValid()) {
 
-            # 3. Insertion dans la BDD (EntityManager $em)
+            # Insertion dans la BDD (EntityManager $em)
             $em = $this->getDoctrine()->getManager();
-            $em->persist($this);
+            $em->persist($orga);
             $em->flush();
+
 
             # Notification
             $this->addFlash('notice',
-                'Félicitation, vous pouvez vous connecter !');
+                'Félicitation, vos modifications ont bien été sauvegardées !');
 
         }
 
         # Rendu de la vue
         return $this->render('/user/organisateur/modificationOrga.html.twig', [
-            'form' => $form->createView()
+            'formOrga' => $formOrga->createView()
         ]);
-    } #################### Fin de function ProfilMembreModif ##########################
+    } #################### Fin de function ProfilOrgaModif ##########################
 
 
 
