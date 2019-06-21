@@ -1,0 +1,71 @@
+{% extends "layout.html.twig" %}
+
+{% set current = '' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {# Dropify CSS CDN #}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css" integrity="sha256-AWdeVMUYtwLH09F6ZHxNgvJI37p+te8hJuSMo44NVm0=" crossorigin="anonymous" />
+{% endblock %}
+
+{% block final_javascripts %}
+    <!-- Dropify -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js" integrity="sha256-SUaao5Q7ifr2twwET0iyXVy0OVnuFJhGVi5E/dqEiLU=" crossorigin="anonymous"></script>
+    <!-- CKEditor 5 -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/12.0.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#form_description' ) );
+        $('.dropify').dropify({
+            messages: {
+                default: 'Glissez-d&eacute;posez un fichier ici ou cliquez',
+                replace: 'Glissez-d&eacute;posez un fichier ou cliquez pour remplacer',
+                remove:  'Supprimer',
+                error:   'D&eacute;sol&eacute;, le fichier est trop volumineux'
+            }
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <ul>
+        {% for projet in projets %}
+            <!-- ##### Card ##### -->
+            <div class="titre" class="row">
+                <h3 class="linear-gradient">
+                    {% for domaine in projet.domaine %}
+                        {{ domaine.categorie }}
+                    {% endfor %}
+                </h3>
+            </div>
+            <div class="row">
+                <div class="col-md-10 no-padding lib-item" data-category="view">
+                    <div class="lib-panel">
+                        <div class="row box-shadow">
+                            <div class="col-md-3">
+                                <img class="lib-img-show card-img" src="{{ asset('images/' ~ projet.image ) }}">
+                            </div>   <!--{# fin div. col-md-4#}  -->
+
+                            <div class="col-md-8">
+                                <div class="lib-row lib-header">
+                                    <h4>{{ projet.titre }}</h4>
+                                    <div class="lib-header-seperator"></div>
+                                </div>
+                                <div class="lib-row lib-desc">
+                                    <p>{{ projet.description | raw }}</p>
+                                    <a href="">{{ projet.user.prenom }} {{ projet.user.nom }}</a>
+                                    {# Modification de mon projet #}
+                                    <a href="{{ path('projet_ma_modification', {id: projet.id}) }}" style="color:red">Modifier mon projet</a>
+                                    {# Suppresion de mon projet #}
+                                    <a href="{{ path('projet_ma_suppression', {id: projet.id}) }}"><i class="far fa-trash-alt"></i></a>
+                                </div>
+                            </div>   <!--{# fin div. col-md-8#} -->
+                        </div>    <!--{# div.box shadow #} -->
+                    </div>    <!--{# div.lib panel #}  -->
+                </div>   <!--{ # div.col md-10 #}  -->
+                <div class="col-md-1"></div>
+            </div>  <!--{ # div.row #} -->
+        {% endfor %}
+    </ul>
+
+{% endblock %}

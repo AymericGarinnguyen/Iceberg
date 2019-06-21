@@ -5,8 +5,12 @@ namespace App\Controller\Iceberg;
 
 
 use App\Entity\Projet;
+use App\Entity\User;
+use App\Form\MembreType;
+use App\Form\OrganisateurType;
 use App\Repository\ProjetRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\DateTime;
 
@@ -49,10 +53,26 @@ class DefaultController extends AbstractController
             return $projet2->getDateFinInscription()->format('U') <=>  $projet1->getDateFinInscription()->format('U');
         });
 
+
+        $membreType = $this->createForm(MembreType::class);
+        $orgaType = $this->createForm(OrganisateurType::class);
+
         return $this->render("default/index.html.twig", [
+            'formMembre' => $membreType->createView(),
             'projetsEnCours' => $projetsEnCours,
             'projetsDebut' => $projetsDebut,
             'projetsFin' => $projetsFin
         ]);
     }
-}
+
+    /**
+     * VUE MEMBRE
+     * Page Membre Profil
+     * @Route("/profil_id", name="default_membre_profil")
+     */
+   public function membreProfil()
+  {
+      return $this->render('Default/VueMembre/membreProfil.html.twig');
+  }
+
+} //fin class Default Controller

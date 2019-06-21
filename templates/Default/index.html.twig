@@ -20,11 +20,12 @@
 
                 <!-- ############# FIN SIDEBAR FILTRES ############### -->
 
-
+                {% include 'Components/_modalProfil.html.twig' %}
                 <!-- ############# CARTES ############### -->
 
                 <div class="col-md-10 col-sm-12">
                     <div class="container">
+
                         <!-- ##### Card en cours ##### -->
                         {% for projet in projetsEnCours %}
                             <!-- Calcul des jours restants -->
@@ -52,6 +53,9 @@
                                                     <hr id="barre">
                                                     <p class="debut">Date de début
                                                         : {{ projet.dateDebutInscription | date('d/m/Y') }}</p>
+                                                    {% if is_granted('ROLE_MEMBRE' ) %}
+                                                        <a href="{{ path('projet_ajouter_favori', {id: projet.id}) }}"><i class="far fa-star"></i></a>
+                                                    {% endif %}
                                                     <div id="wrapper" class="center">
                                                         <svg class="progress noselect {{ couleur }}"
                                                              data-progress="{{ leftDays }}" x="0px" y="0px"
@@ -85,6 +89,9 @@
                                                 <div class="myloader">
                                                     <p class="myloader-text">Début des inscriptions
                                                         le {{ projet.dateDebutInscription | date('d/m/Y') }}</p>
+                                                    {% if is_granted('ROLE_MEMBRE' ) %}
+                                                        <a href="{{ path('projet_ajouter_favori', {id: projet.id}) }}"><i class="far fa-star"></i></a>
+                                                    {% endif %}
                                                 </div>
 
                                             </div> <!--{# div.compteur #} -->
@@ -99,14 +106,17 @@
                         <!-- ##### Card terminées ##### -->
                         {% for projet in projetsFin %}
 
-                            <div class="row carte  {{ closed }}">
+                            <div class="row carte">
                                 {% include 'Components/_carteIndex.html.twig' %}
 
                                                 <!-- COMPTEUR JOURS -->
 
-                                                <div class="myloader {{ closed }}">
+                                                <div class="myloader">
                                                     <p class="myloader-text">Inscriptions terminées depuis
                                                         le {{ projet.dateFinInscription | date('d/m/Y') }}</p>
+                                                    {% if is_granted('ROLE_MEMBRE' ) %}
+                                                        <a href="{{ path('projet_ajouter_favori', {id: projet.id}) }}"><i class="far fa-star"></i></a>
+                                                    {% endif %}
                                                 </div>
 
                                             </div> <!--{# div.compteur #} -->
@@ -125,3 +135,4 @@
     </main>
 
 {% endblock %}
+
