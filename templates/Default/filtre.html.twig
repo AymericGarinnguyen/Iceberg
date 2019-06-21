@@ -1,0 +1,111 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+
+    <main>
+        <div class="container-fluid">
+            <div class="row">
+
+                <!-- ############# CARTES ############### -->
+
+                <div class="col-md-10 col-sm-12">
+                    <div class="container">
+                        <!-- ##### Card en cours ##### -->
+                        {% for projet in projetsEnCours %}
+                        <!-- Calcul des jours restants -->
+                        {% set difference = date(projet.dateFinInscription).diff(date("now")) %}
+                        {% set leftDays = difference.days %}
+
+                        <div class="row carte">
+                            {% include 'Components/_carteIndex.html.twig' %}
+
+                            <!-- COMPTEUR JOURS -->
+
+                            <!-- Gestion des couleurs -->
+                            {% if leftDays < 11 %}
+                                {% set couleur = "red" %}
+
+                            {% elseif leftDays < 31 %}
+                                {% set couleur = "yellow" %}
+
+                            {% else %}
+                                {% set couleur = "green" %}
+                            {% endif %}
+
+                            <div class="myloader">
+                                <div class="titre-compteur">nombre de jour restants</div>
+                                <hr id="barre">
+                                <p class="debut">Date de début
+                                    : {{ projet.dateDebutInscription | date('d/m/Y') }}</p>
+                                <div id="wrapper" class="center">
+                                    <svg class="progress noselect {{ couleur }}"
+                                         data-progress="{{ leftDays }}" x="0px" y="0px"
+                                         viewBox="0 0 80 80">
+                                        <path class="track"
+                                              d="M5,40a35,35 0 1,0 70,0a35,35 0 1,0 -70,0"/>
+                                        <path class="fill"
+                                              d="M5,40a35,35 0 1,0 70,0a35,35 0 1,0 -70,0"/>
+                                        <text class="value" x="50%" y="55%">0</text>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div> <!--{# div.compteur #} -->
+
+                    </div>    <!--{# div.box shadow #} -->
+                </div>    <!--{# div.lib panel #}  -->
+            </div>   <!--{ # div.col md-10 #}  -->
+        </div>  <!--{ # div.row #} -->
+        {% endfor %}
+        <!-- ##### FIN Card en cours ##### -->
+
+        <!-- ##### Card a venir ##### -->
+        {% for projet in projetsDebut %}
+
+            <div class="row carte">
+                {% include 'Components/_carteIndex.html.twig' %}
+
+                <!-- COMPTEUR JOURS -->
+
+                <div class="myloader">
+                    <p class="myloader-text">Début des inscriptions
+                        le {{ projet.dateDebutInscription | date('d/m/Y') }}</p>
+                </div>
+
+            </div> <!--{# div.compteur #} -->
+
+            </div>    <!--{# div.box shadow #} -->
+            </div>    <!--{# div.lib panel #}  -->
+            </div>   <!--{ # div.col md-10 #}  -->
+            </div>  <!--{ # div.row #} -->
+        {% endfor %}
+        <!-- ##### FIN Card a venir ##### -->
+
+        <!-- ##### Card terminées ##### -->
+        {% for projet in projetsFin %}
+
+            <div class="row carte">
+                {% include 'Components/_carteIndex.html.twig' %}
+
+                <!-- COMPTEUR JOURS -->
+
+                <div class="myloader">
+                    <p class="myloader-text">Inscriptions terminées depuis
+                        le {{ projet.dateFinInscription | date('d/m/Y') }}</p>
+                </div>
+
+            </div> <!--{# div.compteur #} -->
+
+            </div>    <!--{# div.box shadow #} -->
+            </div>    <!--{# div.lib panel #}  -->
+            </div>   <!--{ # div.col md-10 #}  -->
+            </div>  <!--{ # div.row #} -->
+        {% endfor %}
+        <!-- ##### FIN Card terminées ##### -->
+
+        </div> <!--{# div. container#} -->
+        </div>
+        </div> <!-- FIN div.row  -->
+        </div> <!-- FIN div.container-fluid  -->
+    </main>
+
+{% endblock %}

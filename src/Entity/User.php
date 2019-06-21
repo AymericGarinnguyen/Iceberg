@@ -61,7 +61,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Saisissez votre mot de passe.")
+     * @Assert\NotBlank(message="Saisissez votre mot de passe.", groups={"registration"})
      * @Assert\Length(
      *     min="8",
      *     minMessage="Votre mot de passe est trop court. {{ limit }} caractères min.",

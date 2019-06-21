@@ -4,12 +4,17 @@
 namespace App\Controller\Iceberg;
 
 
+use App\Entity\Domaine;
 use App\Entity\Projet;
 use App\Entity\User;
 use App\Form\MembreType;
 use App\Form\OrganisateurType;
 use App\Repository\ProjetRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\DateTime;
@@ -94,4 +99,61 @@ class DefaultController extends AbstractController
     } ################## Fin de function vueProjets ##########################
 
 
-} //fin class Default Controller
+ //fin class Default Controller
+    /**
+     * Sidebar
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function sidebar()
+    {
+        $recherche = new Projet();
+
+        # Création du formulaire
+        $search = $this->createFormBuilder($recherche)
+            ->add('description', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'Rechercher'
+                ]
+            ])
+            ->add('submit', SubmitType::class, [
+                'label' => 'Rechercher'
+            ])
+            ->getForm();
+
+
+        $filtres = new Projet();
+
+        # Création du formulaire
+        $form = $this->createFormBuilder($filtres)
+            ->add('domaine', EntityType::class, [
+                'class' => Domaine::class,
+                'choice_label' => 'categorie',
+                'expanded' => true,
+                'multiple' => true,
+                'label' => 'Catégorie'
+            ])
+            ->add('date_debut_evenement', CheckboxType::class, [
+                'label' => 'En cours',
+                'compound' => true
+            ])
+            ->add('date_debut_inscription', CheckboxType::class, [
+                'label' => 'A venir',
+                'compound' => true
+            ])
+            ->add('date_fin_inscription', CheckboxType::class, [
+                'label' => 'Terminées',
+                'compound' => true
+            ])
+            ->add('submit', SubmitType::class, [
+                'label' => 'Filtrer'
+            ])
+            ->getForm();
+
+
+        # Rendu de la vue
+        return $this->render('Components/_sidebar.html.twig', [
+            'search' => $search->createView(),
+            'form' => $form->createView()
+        ]);
+    }
+}//fin class Default Controller

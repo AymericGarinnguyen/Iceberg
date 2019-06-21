@@ -16,8 +16,7 @@
             <div class="row">
                 <!-- ############# SIDEBAR FILTRES ############### -->
 
-                {% include 'Components/_sidebar.html.twig' %}
-
+                {{ render(controller('App\\Controller\\Iceberg\\DefaultController::sidebar')) }}
                 <!-- ############# FIN SIDEBAR FILTRES ############### -->
 
                 {% include 'Components/_modalProfil.html.twig' %}
@@ -64,8 +63,7 @@
                                                                   d="M5,40a35,35 0 1,0 70,0a35,35 0 1,0 -70,0"/>
                                                             <path class="fill"
                                                                   d="M5,40a35,35 0 1,0 70,0a35,35 0 1,0 -70,0"/>
-                                                            <text class="value" x="50%" y="55%">0%</text>
-                                                            <text class="text" x="50%" y="115%">Blue</text>
+                                                            <text class="value" x="50%" y="55%">0</text>
                                                         </svg>
                                                     </div>
                                                 </div>

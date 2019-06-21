@@ -105,6 +105,27 @@
             "./config/packages/dev/easy_log_handler.yaml"
         ]
     },
+    "elasticsearch/elasticsearch": {
+        "version": "v6.7.1"
+    },
+    "friendsofsymfony/elastica-bundle": {
+        "version": "5.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "5.0",
+            "ref": "3f73f240ee0c3719e89f1c994ce66904e2ef84f6"
+        },
+        "files": [
+            "./config/packages/fos_elastica.yaml"
+        ]
+    },
+    "guzzlehttp/ringphp": {
+        "version": "1.1.1"
+    },
+    "guzzlehttp/streams": {
+        "version": "3.0.0"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
@@ -120,6 +141,9 @@
     "ocramius/proxy-manager": {
         "version": "2.2.2"
     },
+    "pagerfanta/pagerfanta": {
+        "version": "v2.1.2"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },
@@ -128,6 +152,12 @@
     },
     "psr/log": {
         "version": "1.1.0"
+    },
+    "react/promise": {
+        "version": "v2.7.1"
+    },
+    "ruflin/elastica": {
+        "version": "6.1.1"
     },
     "sensio/framework-extra-bundle": {
         "version": "5.2",

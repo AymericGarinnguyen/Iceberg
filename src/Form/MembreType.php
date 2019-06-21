@@ -73,7 +73,7 @@ class MembreType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
-            'validation_groups' => ['registration'],
+            //'validation_groups' => ['registration'],
         ]);
     }
 }

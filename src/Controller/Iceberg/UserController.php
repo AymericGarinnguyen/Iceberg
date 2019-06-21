@@ -201,12 +201,14 @@ class UserController extends AbstractController
         if($membre === null) {
             #Création d'un nouveau membre
             $membre = new User();
+            $groups = ["Default", "registration"];
+        } else {
+            $groups = ["Default"];
         }
-
 
         #Création du formulaire inscription membre
         $formMembre = $this->createForm(MembreType::class, $membre, [
-            'validation_groups' => ['registration'],
+            'validation_groups' => $groups,
         ]);
 
 
