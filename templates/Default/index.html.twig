@@ -1,6 +1,12 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
+    <!-- En-Tête -->
+    <div class="col-md-12 d-none d-md-block header">
+        <h1> Vous souhaitez exposer votre travail artistique ? </h1><br>
+        <h2>Trouvez rapidement un appel à candidature dans un domaine qui vous correspond</h2>
+        <hr>
+    </div>
 
     {# Affichage des notifications #}
     <div class="container">
@@ -22,56 +28,80 @@
                 {% include 'Components/_modalProfil.html.twig' %}
                 <!-- ############# CARTES ############### -->
 
-                <div class="col-md-10 col-sm-12">
-                    <div class="container">
+                <div class="container">
 
-                        <!-- ##### Card en cours ##### -->
-                        {% for projet in projetsEnCours %}
-                            <!-- Calcul des jours restants -->
-                            {% set difference = date(projet.dateFinInscription).diff(date("now")) %}
-                            {% set leftDays = difference.days %}
+                    <!-- ##### Card en cours ##### -->
+                    {% for projet in projetsEnCours %}
+                    <!-- Calcul des jours restants -->
+                    {% set difference = date(projet.dateFinInscription).diff(date("now")) %}
+                    {% set leftDays = difference.days %}
+                    <div class="lib-panel">
+                        <div class="row carte box-shadow justify-content-between">
+                                <div class="titre row">
+                                    <h3 class="categorie-card">
 
-                            <div class="row carte">
-                                {% include 'Components/_carteIndex.html.twig' %}
+                                        {% for domaine in projet.domaine %}
+                                            {{ domaine.categorie }}
+                                            {% if loop.last != true %}
+                                                ,
+                                            {% endif %}
+                                        {% endfor %}
+                                    </h3>
+                                </div>
 
-                                                <!-- COMPTEUR JOURS -->
+                                <div class="compteur">
 
-                                                <!-- Gestion des couleurs -->
-                                                {% if leftDays < 11 %}
-                                                    {% set couleur = "red" %}
+                                    <!-- COMPTEUR JOURS -->
 
-                                                {% elseif leftDays < 31 %}
-                                                    {% set couleur = "yellow" %}
+                                    <!-- Gestion des couleurs -->
+                                    {% if leftDays < 11 %}
+                                        {% set couleur = "red" %}
 
-                                                {% else %}
-                                                    {% set couleur = "green" %}
-                                                {% endif %}
+                                    {% elseif leftDays < 31 %}
+                                        {% set couleur = "yellow" %}
 
-                                                <div class="myloader">
-                                                    <div class="titre-compteur">nombre de jour restants</div>
-                                                    <hr id="barre">
-                                                    <p class="debut">Date de début
-                                                        : {{ projet.dateDebutInscription | date('d/m/Y') }}</p>
-                                                    {% if is_granted('ROLE_MEMBRE' ) %}
-                                                        <a href="{{ path('projet_ajouter_favori', {id: projet.id}) }}"><i class="far fa-star"></i></a>
-                                                    {% endif %}
-                                                    <div id="wrapper" class="center">
-                                                        <svg class="progress noselect {{ couleur }}"
-                                                             data-progress="{{ leftDays }}" x="0px" y="0px"
-                                                             viewBox="0 0 80 80">
-                                                            <path class="track"
-                                                                  d="M5,40a35,35 0 1,0 70,0a35,35 0 1,0 -70,0"/>
-                                                            <path class="fill"
-                                                                  d="M5,40a35,35 0 1,0 70,0a35,35 0 1,0 -70,0"/>
-                                                            <text class="value" x="50%" y="55%">0</text>
-                                                        </svg>
-                                                    </div>
-                                                </div>
-                                            </div> <!--{# div.compteur #} -->
+                                    {% else %}
+                                        {% set couleur = "green" %}
+                                    {% endif %}
 
-                                        </div>    <!--{# div.box shadow #} -->
-                                    </div>    <!--{# div.lib panel #}  -->
-                                </div>   <!--{ # div.col md-10 #}  -->
+                                    <div class="myloader">
+                                        <div class="titre-compteur">nombre de jour restants</div>
+                                        <hr id="barre">
+                                        <p class="debut">Date de début
+                                            : {{ projet.dateDebutInscription | date('d/m/Y') }}</p>
+                                        {% if is_granted('ROLE_MEMBRE' ) %}
+                                            <a href="{{ path('projet_ajouter_favori', {id: projet.id}) }}"><i
+                                                        class="far fa-star"></i></a>
+                                        {% endif %}
+                                        <div class="center">
+                                            <svg class="progress noselect {{ couleur }}"
+                                                 data-progress="{{ leftDays }}" x="0px" y="0px"
+                                                 viewBox="0 0 80 80">
+                                                <path class="track"
+                                                      d="M5,40a35,35 0 1,0 70,0a35,35 0 1,0 -70,0"/>
+                                                <path class="fill"
+                                                      d="M5,40a35,35 0 1,0 70,0a35,35 0 1,0 -70,0"/>
+                                                <text class="value" x="50%" y="55%">0</text>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div> <!--{# div.compteur #} -->
+
+                                <div class="col-md-6">
+                                    <div class="lib-row lib-header">
+                                        <h4>{{ projet.titre | capitalize }}</h4>
+                                        <div class="lib-header-seperator"></div>
+                                    </div>
+                                    <div class="lib-row ">
+                                        <p>{{ projet.description | capitalize | raw }}</p>
+                                        <a href="">{{ projet.user.prenom | capitalize }} {{ projet.user.nom | capitalize }}</a>
+                                    </div>
+                                </div>   <!--{# fin div. col-md-8#} -->
+
+                                <div class="col-md-3 imageContent">
+                                    <img class="card-img"
+                                         src="{{ asset('images/' ~ projet.image ) }}">
+                                </div>   <!--{# fin div. col-md-3#}  -->
                             </div>  <!--{ # div.row #} -->
                         {% endfor %}
                         <!-- ##### FIN Card en cours ##### -->
@@ -79,56 +109,57 @@
                         <!-- ##### Card a venir ##### -->
                         {% for projet in projetsDebut %}
 
-                            <div class="row carte">
-                                {% include 'Components/_carteIndex.html.twig' %}
+                        <div class="row carte">
+                            {% include 'Components/_carteIndex.html.twig' %}
 
-                                                <!-- COMPTEUR JOURS -->
+                            <!-- COMPTEUR JOURS -->
 
-                                                <div class="myloader">
-                                                    <p class="myloader-text">Début des inscriptions
-                                                        le {{ projet.dateDebutInscription | date('d/m/Y') }}</p>
-                                                    {% if is_granted('ROLE_MEMBRE' ) %}
-                                                        <a href="{{ path('projet_ajouter_favori', {id: projet.id}) }}"><i class="far fa-star"></i></a>
-                                                    {% endif %}
-                                                </div>
+                            <div class="myloader">
+                                <p class="myloader-text">Début des inscriptions
+                                    le {{ projet.dateDebutInscription | date('d/m/Y') }}</p>
+                                {% if is_granted('ROLE_MEMBRE' ) %}
+                                    <a href="{{ path('projet_ajouter_favori', {id: projet.id}) }}"><i
+                                                class="far fa-star"></i></a>
+                                {% endif %}
+                            </div>
 
-                                            </div> <!--{# div.compteur #} -->
+                        </div> <!--{# div.compteur #} -->
 
-                                        </div>    <!--{# div.box shadow #} -->
-                                    </div>    <!--{# div.lib panel #}  -->
-                                </div>   <!--{ # div.col md-10 #}  -->
-                            </div>  <!--{ # div.row #} -->
-                        {% endfor %}
-                        <!-- ##### FIN Card a venir ##### -->
+                    </div>    <!--{# div.box shadow #} -->
+                </div>    <!--{# div.lib panel #}  -->
+            </div>   <!--{ # div.col md-10 #}  -->
+        </div>  <!--{ # div.row #} -->
+        {% endfor %}
+        <!-- ##### FIN Card a venir ##### -->
 
-                        <!-- ##### Card terminées ##### -->
-                        {% for projet in projetsFin %}
+        <!-- ##### Card terminées ##### -->
+        {% for projet in projetsFin %}
 
-                            <div class="row carte">
-                                {% include 'Components/_carteIndex.html.twig' %}
+            <div class="row carte">
+                {% include 'Components/_carteIndex.html.twig' %}
 
-                                                <!-- COMPTEUR JOURS -->
+                <!-- COMPTEUR JOURS -->
 
-                                                <div class="myloader">
-                                                    <p class="myloader-text">Inscriptions terminées depuis
-                                                        le {{ projet.dateFinInscription | date('d/m/Y') }}</p>
-                                                    {% if is_granted('ROLE_MEMBRE' ) %}
-                                                        <a href="{{ path('projet_ajouter_favori', {id: projet.id}) }}"><i class="far fa-star"></i></a>
-                                                    {% endif %}
-                                                </div>
-
-                                            </div> <!--{# div.compteur #} -->
-
-                                        </div>    <!--{# div.box shadow #} -->
-                                    </div>    <!--{# div.lib panel #}  -->
-                                </div>   <!--{ # div.col md-10 #}  -->
-                            </div>  <!--{ # div.row #} -->
-                        {% endfor %}
-                        <!-- ##### FIN Card terminées ##### -->
-
-                    </div> <!--{# div. container#} -->
+                <div class="myloader">
+                    <p class="myloader-text">Inscriptions terminées depuis
+                        le {{ projet.dateFinInscription | date('d/m/Y') }}</p>
+                    {% if is_granted('ROLE_MEMBRE' ) %}
+                        <a href="{{ path('projet_ajouter_favori', {id: projet.id}) }}"><i class="far fa-star"></i></a>
+                    {% endif %}
                 </div>
-            </div> <!-- FIN div.row  -->
+
+            </div> <!--{# div.compteur #} -->
+
+            </div>    <!--{# div.box shadow #} -->
+            </div>    <!--{# div.lib panel #}  -->
+            </div>   <!--{ # div.col md-10 #}  -->
+            </div>  <!--{ # div.row #} -->
+        {% endfor %}
+        <!-- ##### FIN Card terminées ##### -->
+
+        </div> <!--{# div. container#} -->
+        </div>
+        </div> <!-- FIN div.row  -->
         </div> <!-- FIN div.container-fluid  -->
     </main>
 

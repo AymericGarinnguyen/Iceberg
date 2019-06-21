@@ -93,11 +93,15 @@ class DefaultController extends AbstractController
         $search = $this->createFormBuilder($recherche)
             ->add('description', TextType::class, [
                 'attr' => [
-                    'placeholder' => 'Rechercher'
+                    'placeholder' => 'Rechercher',
+                    'class' => 'form-control-sm'
                 ]
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Rechercher'
+                'label' => 'Rechercher',
+                'attr' => [
+                    'class' => 'btn btn-secondary btn-sm'
+                ]
             ])
             ->getForm();
 
@@ -126,7 +130,10 @@ class DefaultController extends AbstractController
                 'compound' => true
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Filtrer'
+                'label' => 'Filtrer',
+                'attr' => [
+                    'class' => 'btn btn-secondary btn-sm'
+                ]
             ])
             ->getForm();
 
