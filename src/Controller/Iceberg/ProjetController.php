@@ -229,20 +229,6 @@ class ProjetController extends AbstractController
 
 
     /**
-     * Page Favori
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/favori", name="projet_favori")
-     *
-     */
-    public function membreFavori()
-    {
-        # Rendu de la vue
-        return $this->render('Projet/favori.html.twig');
-
-    } #################### FIN de function membreFavori ##################################
-
-
-    /**
      * Page vue des appels à projet de l'organisateur
      * @IsGranted("ROLE_ORGANISATEUR")
      * @Route("/projets", name="projet_vue")
@@ -286,17 +272,14 @@ class ProjetController extends AbstractController
 
     /**
      * Suppression des appels à projet de l'organisateur connecté
-     * @Route("/supprimer-mon-projet", name="projet_ma_suppression")
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/supprimer-mon-projet/{id}", name="projet_ma_suppression")
      */
     public function supprimerProjetOrga(Projet $projet, EntityManagerInterface $entityManager)
     {
-        # Récupération d'un organisateur connecté
+        # Récupération d'un membre connecté
         $user = $this->getUser();
 
-        # Suppresion du projet du memnre connecté
-        $user->removeProjet();
-        $entityManager->persist($user);
+        $entityManager->remove($projet);
         $entityManager->flush();
 
         # Rendu de la vue
