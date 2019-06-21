@@ -9,8 +9,9 @@ use App\Entity\Projet;
 use App\Repository\ProjetRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
@@ -68,8 +69,23 @@ class DefaultController extends AbstractController
      * Sidebar
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function sidebar(Request $request)
+    public function sidebar()
     {
+        $recherche = new Projet();
+
+        # Création du formulaire
+        $search = $this->createFormBuilder($recherche)
+            ->add('description', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'Rechercher'
+                ]
+            ])
+            ->add('submit', SubmitType::class, [
+                'label' => 'Rechercher'
+            ])
+            ->getForm();
+
+
         $filtres = new Projet();
 
         # Création du formulaire
@@ -81,16 +97,27 @@ class DefaultController extends AbstractController
                 'multiple' => true,
                 'label' => 'Catégorie'
             ])
+            ->add('date_debut_evenement', CheckboxType::class, [
+                'label' => 'En cours',
+                'compound' => true
+            ])
+            ->add('date_debut_inscription', CheckboxType::class, [
+                'label' => 'A venir',
+                'compound' => true
+            ])
+            ->add('date_fin_inscription', CheckboxType::class, [
+                'label' => 'Terminées',
+                'compound' => true
+            ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Filtrer'
             ])
             ->getForm();
 
-        # Traitement des données POST
-        $form->handleRequest($request);
 
         # Rendu de la vue
         return $this->render('Components/_sidebar.html.twig', [
+            'search' => $search->createView(),
             'form' => $form->createView()
         ]);
     }
