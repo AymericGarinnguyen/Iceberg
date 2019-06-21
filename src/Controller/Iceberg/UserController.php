@@ -21,6 +21,13 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class UserController extends AbstractController
 {
+
+
+    #################################################################
+    #                                                               #
+    #                           GENERAL (UTILISATEUR)               #
+    #                                                               #
+    #################################################################
     /**
      * Page d'inscription
      * @Route("/inscription", name="user_inscription")
@@ -166,6 +173,13 @@ class UserController extends AbstractController
     }
     ################################# Fin fonction déconnexion ############################################
 
+
+
+    #################################################################
+    #                                                               #
+    #                           MEMBRE                              #
+    #                                                               #
+    #################################################################
     /**
      * Modification du profil membre
      * @param Request $request
@@ -232,6 +246,12 @@ class UserController extends AbstractController
         ]);
     } #################### Fin de function ProfilMembreModif ##########################
 
+
+    #################################################################
+    #                                                               #
+    #                           ORGANISATEUR                        #
+    #                                                               #
+    #################################################################
 
     /**
      * @param Request $request

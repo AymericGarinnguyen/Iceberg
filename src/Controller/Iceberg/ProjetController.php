@@ -35,6 +35,13 @@ class ProjetController extends AbstractController
     use ProjetTrait;
 
 
+
+    #################################################################
+    #                                                               #
+    #                           APPEL A PROJET                      #
+    #                                                               #
+    #################################################################
+
     /**
      * Page Formulaire pour rédiger un appel à projet
      * @IsGranted("ROLE_ORGANISATEUR")
