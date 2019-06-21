@@ -1,0 +1,54 @@
+{% extends "layout.html.twig" %}
+
+{% block page_title %}
+    Mes appels à projet
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        {% if is_granted('ROLE_ADMIN') %}
+        <h1>Liste de tous les appels</h1>
+        <ul>
+            {% for projet in projets %}
+                <!-- ##### Card ##### -->
+                <div class="titre" class="row">
+                    <h3 class="linear-gradient">
+                        {% for domaine in projet.domaine %}
+                            {{ domaine.categorie }}
+                        {% endfor %}
+                    </h3>
+                </div>
+                <div class="row">
+                    <div class="col-md-10 no-padding lib-item" data-category="view">
+                        <div class="lib-panel">
+                            <div class="row box-shadow">
+                                <div class="col-md-3">
+                                    <img class="lib-img-show card-img" src="{{ asset('images/' ~ projet.image ) }}">
+                                </div>   <!--{# fin div. col-md-4#}  -->
+
+                                <div class="col-md-8">
+                                    <div class="lib-row lib-header">
+                                        <h4>{{ projet.titre }}</h4>
+                                        <div class="lib-header-seperator"></div>
+                                    </div>
+                                    <div class="lib-row lib-desc">
+                                        <p>{{ projet.description | raw }}</p>
+                                        <a href="">{{ projet.user.nom }}</a>
+                                        <a href="{{ path('projet_supprimer',{id: projet.id})  }}"><i class="far fa-trash-alt"></i></a>
+                                    </div>
+                                </div>   <!--{# fin div. col-md-8#} -->
+                            </div>    <!--{# div.box shadow #} -->
+                        </div>    <!--{# div.lib panel #}  -->
+                    </div>   <!--{ # div.col md-10 #}  -->
+                    <div class="col-md-1"></div>
+                </div>  <!--{ # div.row #} -->
+            {% endfor %}
+        </ul>
+        {% else %}
+            <div class="alert alert-danger">Vous n'avez pas les droits d'accès à cette page</div>
+        {% endif %}
+    </div> {# fin div.container #}
+
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "layout.html.twig" %}
+
+{% block page_title %}
+    Modifier mon profil organisateur
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Modifier mon profil organisateur</h1>
+        {% include 'Components/_modalProfil.html.twig' %}
+
+        {{ form(form, {attr:{novalidate: 'novalidate' }}) }}
+    </div> {# fin div.container #}
+
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "layout.html.twig" %}
+
+{% block page_title %}
+    Connexion
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+
+
+{% block content %}
+    <div class="container">
+        <div id="editor" class="row">
+            <div class="col-xs-8 col-xs-push-2">
+
+                {% for message in app.flashes('notice') %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+
+                {% if error %}
+                    <div class="alert alert-danger">
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                        {{ error.messageKey|trans(error.messageData, 'security')| replace({"Invalid credentials." : "Identifiant et/ou mot de passe incorrect."}) }}
+                    </div>
+                {% endif %}
+
+                <h3>Connectez-vous</h3>
+                {{ form(form, {attr:{novalidate: 'novalidate' }}) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

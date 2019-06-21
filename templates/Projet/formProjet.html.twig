@@ -22,7 +22,7 @@
             integrity="sha256-SUaao5Q7ifr2twwET0iyXVy0OVnuFJhGVi5E/dqEiLU=" crossorigin="anonymous"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/12.0.0/classic/ckeditor.js"></script>
     <script>
-        ClassicEditor.create(document.querySelector('#form_description'));
+        ClassicEditor.create(document.querySelector('#projet_description'));
         $('.dropify').dropify({
             messages: {
                 default: 'Glissez-d&eacute;posez un fichier ici ou cliquez',
@@ -37,18 +37,13 @@
 {% block content %}
 
 
-
-
-
-
     <div id="bigtitle" class="jumbotron">
         <h1 class="slogan">Un projet ? </h1>
         <hr class="traitBlanc"></hr>
         <h2 class="accroche">postez votre appel aux artistes</h2>
-
-
     </div>
 
+    {% include 'Components/_modalProfil.html.twig' %}
 
     <div class="container effect1" id="#section02">
         {{ form_start(form, {attr:{novalidate: 'novalidate' }}) }}

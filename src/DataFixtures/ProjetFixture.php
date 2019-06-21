@@ -11,7 +11,7 @@ class ProjetFixture extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        /*$projet = new Projet();
+        $projet = new Projet();
         $projet->setTitre('Lorem Ipsum')
             ->setDomaine(["Photographie"])
             ->setDateDebutInscription(date_create_from_format('j-m-Y', '17-06-2019'))
@@ -24,8 +24,8 @@ class ProjetFixture extends Fixture implements DependentFixtureInterface
             ->setVille("Paris")
             ->setPays("France")
             ->setUser($this->getReference(UserFixture::PROJET_USER_REFERENCE));
-        //$manager->persist($projet);
-        //$manager->flush();*/
+        $manager->persist($projet);
+        $manager->flush();
     }
 
     /**

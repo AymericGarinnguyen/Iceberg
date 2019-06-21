@@ -1,0 +1,58 @@
+security:
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    encoders:
+        App\Entity\User: bcrypt
+    providers:
+        in_memory: { memory: ~ }
+        user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: true
+
+
+            # Authentification par formulaire
+            form_login:
+                # Route qui gère la connexion d'un membre
+                login_path: user_connexion
+                check_path: user_connexion
+
+                # Champ email du formulaire
+                username_parameter: form[email]
+
+                # Champ password du formulaire
+                password_parameter: form[password]
+
+                # Redirection après la connexion
+                default_target_path: home
+
+            provider: user_provider
+
+            # Déconnexion (gérée par Symfony)
+            logout:
+                # URL de déconnexion
+                path: /deconnexion
+
+                # URL de redirection
+                target: /
+
+            # activate different ways to authenticate
+            # https://symfony.com/doc/current/security.html#firewalls-authentication
+
+            # https://symfony.com/doc/current/security/impersonating_user.html
+            # switch_user: true
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/organisateur, roles: ROLE_ORGANISATEUR }
+
+    role_hierarchy:
+        ROLE_ORGANISATEUR: ROLE_MEMBRE
+        ROLE_ADMIN: ROLE_ORGANISATEUR
