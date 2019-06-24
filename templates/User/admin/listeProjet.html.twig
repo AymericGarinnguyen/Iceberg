@@ -1,14 +1,19 @@
 {% extends "layout.html.twig" %}
 
 {% block page_title %}
-    Mes appels à projet
+    Les appels à projet
 {% endblock %}
 
 {% block content %}
 
     <div class="container">
         {% if is_granted('ROLE_ADMIN') %}
-        <h1>Liste de tous les appels</h1>
+        <h1>Liste des appels à projets</h1>
+            {% for message in app.flashes('notice') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
         <ul>
             {% for projet in projets %}
                 <!-- ##### Card ##### -->
@@ -35,10 +40,11 @@
                                     <div class="lib-row lib-desc">
                                         <p>{{ projet.description | raw }}</p>
                                         <a href="{{ path('projets_orga_liste') }}">{{ projet.user.nom }}</a>
+
                                         {# Modal confirmation de suppresion #}
                                         <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                            <i class="far fa-trash-alt"></i>
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+                                            <i class="far fa-trash-alt suppression"></i>
                                         </button>
 
                                         <!-- Modal -->
@@ -54,13 +60,14 @@
                                                         <p>Etes vous sûr de vouloir supprimer cet appel à projets ?</p>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <a href="{{ path('projet_supprimer',{id: projet.id})  }}" class="btn btn-secondary btn-sm active" role="button">Oui, je confirme la suppresion !</a>
+                                                        <a href="{{ path('projet_supprimer',{id: projet.id})  }}" <button type="button" class="btn btn-danger">Oui, je confirme la suppression !</button> </a>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>   <!--{# fin div. col-md-8#} -->
+                                        </div> {# fin div.modal fade #}
+
+                                    </div> {# fin div.lib-row lib-desc #}
+                                </div>   <!--{# fin div.col-md-8#} -->
                             </div>    <!--{# div.box shadow #} -->
                         </div>    <!--{# div.lib panel #}  -->
                     </div>   <!--{ # div.col md-10 #}  -->

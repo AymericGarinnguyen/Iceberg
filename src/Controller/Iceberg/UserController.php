@@ -43,12 +43,7 @@ class UserController extends AbstractController
         $membre = new User();
         $membre->setRoles(['ROLE_MEMBRE']);
 
-
-        #Création d'un nouveau membre
-        $membre = new User();
-
-
-
+        
         #Création du formulaire inscription membre
         $formMembre = $this->createForm(MembreType::class, $membre);
 
@@ -381,6 +376,10 @@ class UserController extends AbstractController
         $users = $entityManager->getRepository(User::class)->find($id);
         $entityManager->remove($users);
         $entityManager->flush();
+
+        # Notification
+        $this->addFlash('notice',
+            'Félicitation, l\'utilisateur a bien été supprimé !');
 
         # Rendu de la vue
         return $this->redirectToRoute('user_liste_user');
