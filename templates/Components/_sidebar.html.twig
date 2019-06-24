@@ -1,4 +1,4 @@
-<div class="fixed-top col-lg-2 sidebar">
+<div class="position-sticky col-lg-3 sidebar">
     <aside>
         <div class="aside">
             <!-- FILTRES -->
@@ -18,21 +18,21 @@
             {{ form_start(form, {attr:{novalidate: 'novalidate', action: path('filtres_projet') }}) }}
             <div class="d-inline-flex d-lg-block flex-wrap">
                 {% for domaine in form.domaine %}
-                    <div class="mr-3">
+                    <div class="mr-3 label-size">
                         {{ form_widget(domaine) }}
                     </div>
                 {% endfor %}
             </div>
             <!-- Deadlines -->
             <h4 class="sdTitre">Deadlines</h4>
-            <div class="d-inline-flex d-lg-block">
-                <div class="mr-3">
+            <div class="d-inline-flex d-lg-block filtres">
+                <div class="mr-3 label-size">
                     {{ form_widget(form.date_debut_evenement) }}
                 </div>
-                <div class="mr-3">
+                <div class="mr-3 label-size">
                     {{ form_widget(form.date_debut_inscription) }}
                 </div>
-                <div class="mr-3">
+                <div class="mr-3 label-size">
                     {{ form_widget(form.date_fin_inscription) }}
                 </div>
             </div>

@@ -31,6 +31,9 @@ body {
     min-width: 320px;
     font-size: 100%;
     color: #333;
+    background-image: linear-gradient(135deg, #f4f5f7 41.67%, #ededed 41.67%, #ededed 50%, #f4f5f7 50%, #f4f5f7 91.67%, #ededed 91.67%, #ededed 100%);
+    background-size: 16.97px 16.97px;
+    background-attachment:fixed;
 }
 
 p {
@@ -94,27 +97,30 @@ main {
 }
 
 /*==========Aside=========*/
+
 .aside {
-    border: 1px solid grey;
     padding: 10px;
     margin-bottom: 10%;
     border-radius: 10px;
+    background: #f7f4f4;
 }
 
 .sdTitre {
-    font-size: 1.2rem;
-    margin-top: 12px;
+    font-size: 1.6rem;
+    margin-top: 30px;
 }
 
 .champs {
     margin-top: 12px;
 }
 
-.sidebar {
-    top: 80px;
-    background: white;
-    width: 200px;
-    min-width:200px;
+.label-size{
+    font-size: 17px;
+}
+
+input[type=checkbox]{
+    width: 15px;
+    height: 15px;
 }
 
 /*==========Cards=========*/
@@ -135,23 +141,19 @@ main {
     position: absolute;
     z-index: 5;
     right: -16px;
-    top: -16px;
+    top: -22px;
 }
 
 .titre h3 {
     display: inline-block;
-    padding: 4px 10px;
+    padding: 11px 22px;
     background-color: #313280;
-    text-transform: capitalize;
-    font-style: italic;
-    font-weight: bold;
+    text-transform: uppercase;
     color: white;
     font-family: 'Raleway', sans-serif;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     margin: 0;
-    border-radius: 6px;
     letter-spacing: 1px;
-    box-shadow: 2px 2px 3px grey;
 }
 
 .imageContent{
@@ -165,21 +167,25 @@ img.card-img {
 }
  .icones {
      font-size: 2em;
+     position: absolute;
+     bottom: 14px;
+     right: -16px;
  }
 
-.my-card {
-    margin-left: 200px;
-}
+ .card-body {
+     padding: 25px 8px 8px 8px;
+ }
 
 @media only screen and (max-width: 992px) {
     .sidebar {
         width: auto;
         height:357px;
     }
+}
 
-    .my-card {
-        margin-left: auto;
-        margin-top: 350px;
+@media only screen and (max-width: 768px) {
+    .icones {
+        right: 18px;
     }
 }
 

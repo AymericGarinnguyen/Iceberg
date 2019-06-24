@@ -30,15 +30,23 @@
                             <i class="fas fa-file-pdf"></i>
                         </a>
                     {% endif %}
-                    {% if is_granted('ROLE_MEMBRE' ) %}
-                        <a href="{{ path('projet_ajouter_favori', {id: projet.id}) }}">
-                            <i class="far fa-star"></i>
-                        </a>
+                    {% if is_granted('ROLE_MEMBRE') and not is_granted('ROLE_ADMIN') and not is_granted('ROLE_ORGANISATEUR') %}
+                        {% set favorised = "" %}
+                        {% for favori in favoris %}
+                            {% if projet.id is same as(favori.id) %}
+                                {% set favorised = "true" %}
+                            {% endif %}
+                        {% endfor %}
+                        {% if favorised == "true" %}
+                            <i class="fas fa-star"></i>
+                        {% else %}
+                            <a href="{{ path('projet_ajouter_favori', {id: projet.id}) }}">
+                                <i class="far fa-star"></i>
+                            </a>
+                        {% endif %}
                     {% endif %}
-
                 </div>
             </div>
         </div>
         <!-- COMPTEUR JOURS -->
         <div class="col-md-2 order-md-1">
-            <div class="myloader text-center">
