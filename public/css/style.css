@@ -81,10 +81,6 @@ i {
     color: #313131;
 }
 
-button.btn {
-    background-color: #665FB3;
-    border-radius: 20px;
-}
 
 /*==========CONTENT=========*/
 main {
@@ -181,7 +177,8 @@ img.card-img {
     }
 }
 
-/*==========UsersList=========*/
+
+/*==========Admin List=========*/
 
 
 i.suppression {
@@ -199,4 +196,19 @@ button.suppression{
 
 div.modal-footer button{
     background-color: #665FB3;
+}
+
+/*==========Inscription=========*/
+div.inscription {
+     display: flex;
+     justify-content: space-around;
+ }
+
+div.inscription div.row {
+    border: 1px solid lightgray;
+}
+
+button.inscription {
+    background-color: #665FB3;
+    color:white;
 }

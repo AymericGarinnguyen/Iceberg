@@ -148,7 +148,8 @@ class UserController extends AbstractController
                 ]
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Se connecter'
+                'label' => 'Se connecter',
+                'attr'=> ['class' => 'inscription']
             ])
             ->getForm();
 

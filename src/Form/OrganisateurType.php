@@ -46,12 +46,14 @@ class OrganisateurType extends AbstractType
                         ]
                     ])
                     ->add('submit', SubmitType::class, [
-                        'label' => "Je m'inscris !"
+                        'label' => "Je m'inscris !",
+                        'attr'=> ['class' => 'inscription']
                     ]);
 
             } else {
                 $form->add('submit', SubmitType::class,[
-                    'label' => "J'enregistre mes modifications !"
+                    'label' => "J'enregistre mes modifications !",
+                    'attr'=> ['class' => 'inscription']
                 ]);
             }
         });

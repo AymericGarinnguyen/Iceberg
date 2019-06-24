@@ -91,7 +91,7 @@ class DefaultController extends AbstractController
         # Récupération des projets dans BDD
         $projets = $this->getDoctrine()
             ->getRepository(Projet::class)
-            ->findBy(['user' => $this->getUser()]);
+            ->findBy(['user' => $this->get('nom')]);
 
         # Rendu de la vue
         return $this->render('/Projet/listeProjetsOrga.html.twig', [

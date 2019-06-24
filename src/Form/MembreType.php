@@ -54,7 +54,8 @@ class MembreType extends AbstractType
                     ]
                 ])
                     ->add('submit', SubmitType::class, [
-                        'label' => "Je m'inscris !"
+                        'label' => "Je m'inscris !",
+                        'attr'=> ['class' => 'inscription']
                     ]);
 
             } else {
