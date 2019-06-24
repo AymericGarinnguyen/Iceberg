@@ -5,22 +5,24 @@
     <main>
         <div class="container-fluid">
             <div class="row">
+                <!-- ############# SIDEBAR FILTRES ############### -->
+
+                {{ render(controller('App\\Controller\\Iceberg\\DefaultController::sidebar')) }}
+                <!-- ############# FIN SIDEBAR FILTRES ############### -->
+
+                {% include 'Components/_modalProfil.html.twig' %}
 
                 <!-- ############# CARTES ############### -->
 
-                <div class="col-md-10 col-sm-12">
-                    <div class="container">
-                        <!-- ##### Card en cours ##### -->
-                        {% for projet in projetsEnCours %}
-                        <!-- Calcul des jours restants -->
-                        {% set difference = date(projet.dateFinInscription).diff(date("now")) %}
-                        {% set leftDays = difference.days %}
-
-                        <div class="row carte">
+                <div class="container my-card">
+                    <div class="row">
+                        <div class="col-12">
+                            <!-- Cartes en cours -->
+                            {% for projet in projetsEnCours %}
+                            <!-- Calcul des jours restants -->
+                            {% set difference = date(projet.dateFinInscription).diff(date("now")) %}
+                            {% set leftDays = difference.days+1 %}
                             {% include 'Components/_carteIndex.html.twig' %}
-
-                            <!-- COMPTEUR JOURS -->
-
                             <!-- Gestion des couleurs -->
                             {% if leftDays < 11 %}
                                 {% set couleur = "red" %}
@@ -31,14 +33,17 @@
                             {% else %}
                                 {% set couleur = "green" %}
                             {% endif %}
-
-                            <div class="myloader">
-                                <div class="titre-compteur">nombre de jour restants</div>
-                                <hr id="barre">
-                                <p class="debut">Date de début
-                                    : {{ projet.dateDebutInscription | date('d/m/Y') }}</p>
-                                <div id="wrapper" class="center">
-                                    <svg class="progress noselect {{ couleur }}"
+                            <div class="titre-compteur">
+                                nombre de jour restants
+                            </div>
+                            <hr id="barre">
+                            <p class="debut">Date de début
+                                : {{ projet.dateDebutInscription | date('d/m/Y') }}</p>
+                            {% if leftDays == 1 %}
+                                <p class="myloader-text">Dernier jour d'inscription</p>
+                            {% else %}
+                                <div class="center">
+                                    <svg class="progress {{ couleur }}"
                                          data-progress="{{ leftDays }}" x="0px" y="0px"
                                          viewBox="0 0 80 80">
                                         <path class="track"
@@ -47,63 +52,42 @@
                                               d="M5,40a35,35 0 1,0 70,0a35,35 0 1,0 -70,0"/>
                                         <text class="value" x="50%" y="55%">0</text>
                                     </svg>
-                                </div>
-                            </div>
-                        </div> <!--{# div.compteur #} -->
+                                </div> <!-- FIN div.center -->
+                            {% endif %}
+                        </div> <!-- FIN div.myloader -->
+                    </div> <!-- FIN div.col-md-2.order-md-1 -->
+                </div> <!-- FIN div.row.no-gutters.justify-content-between -->
+            </div> <!-- FIN div.card.mb-5.mt-5.box-shadow -->
+            {% endfor %}
+            <!-- FIN Cartes en cours -->
 
-                    </div>    <!--{# div.box shadow #} -->
-                </div>    <!--{# div.lib panel #}  -->
-            </div>   <!--{ # div.col md-10 #}  -->
-        </div>  <!--{ # div.row #} -->
+            <!-- Cartes a venir-->
+            {% for projet in projetsDebut %}
+            {% include 'Components/_carteIndex.html.twig' %}
+            <p class="myloader-text">Début des inscriptions
+                le {{ projet.dateDebutInscription | date('d/m/Y') }}</p>
+        </div> <!-- FIN div.myloader -->
+        </div> <!-- FIN div.col-md-2.order-md-1 -->
+        </div> <!-- FIN div.row.no-gutters.justify-content-between -->
+        </div> <!-- FIN div.card.mb-5.mt-5.box-shadow -->
         {% endfor %}
-        <!-- ##### FIN Card en cours ##### -->
+        <!-- FIN Cartes a venir -->
 
-        <!-- ##### Card a venir ##### -->
-        {% for projet in projetsDebut %}
-
-            <div class="row carte">
-                {% include 'Components/_carteIndex.html.twig' %}
-
-                <!-- COMPTEUR JOURS -->
-
-                <div class="myloader">
-                    <p class="myloader-text">Début des inscriptions
-                        le {{ projet.dateDebutInscription | date('d/m/Y') }}</p>
-                </div>
-
-            </div> <!--{# div.compteur #} -->
-
-            </div>    <!--{# div.box shadow #} -->
-            </div>    <!--{# div.lib panel #}  -->
-            </div>   <!--{ # div.col md-10 #}  -->
-            </div>  <!--{ # div.row #} -->
-        {% endfor %}
-        <!-- ##### FIN Card a venir ##### -->
-
-        <!-- ##### Card terminées ##### -->
+        <!-- Cartes terminées-->
         {% for projet in projetsFin %}
-
-            <div class="row carte">
-                {% include 'Components/_carteIndex.html.twig' %}
-
-                <!-- COMPTEUR JOURS -->
-
-                <div class="myloader">
-                    <p class="myloader-text">Inscriptions terminées depuis
-                        le {{ projet.dateFinInscription | date('d/m/Y') }}</p>
-                </div>
-
-            </div> <!--{# div.compteur #} -->
-
-            </div>    <!--{# div.box shadow #} -->
-            </div>    <!--{# div.lib panel #}  -->
-            </div>   <!--{ # div.col md-10 #}  -->
-            </div>  <!--{ # div.row #} -->
+            {% include 'Components/_carteIndex.html.twig' %}
+            <p class="myloader-text">Inscriptions terminées depuis
+                le {{ projet.dateFinInscription | date('d/m/Y') }}</p>
+            </div> <!-- FIN div.myloader -->
+            </div> <!-- FIN div.col-md-2.order-md-1 -->
+            </div> <!-- FIN div.row.no-gutters.justify-content-between -->
+            </div> <!-- FIN div.card.mb-5.mt-5.box-shadow -->
         {% endfor %}
-        <!-- ##### FIN Card terminées ##### -->
+        <!-- FIN Cartes terminées-->
 
-        </div> <!--{# div. container#} -->
-        </div>
+        </div> <!-- FIN div.row -->
+        </div> <!-- FIN div.container -->
+        </div> <!-- FIN div.col-lg-10.col-md-12 -->
         </div> <!-- FIN div.row  -->
         </div> <!-- FIN div.container-fluid  -->
     </main>

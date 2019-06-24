@@ -1,29 +1,43 @@
-<div class="col-md-2 col-sm-12">
+<div class="fixed-top col-lg-2 sidebar">
     <aside>
         <div class="aside">
             <!-- FILTRES -->
             <h3>Filtrer par</h3>
             <!-- Mots-clefs -->
-            <h4>Mot-clefs</h4>
-            <div class="col-md-12">
-                {{ form_start(search, {attr:{novalidate: 'novalidate', action: path('recherche_projet')}}) }}
+            <h4 class="sdTitre">Mot-clefs</h4>
+            {{ form_start(search, {attr:{novalidate: 'novalidate', action: path('recherche_projet')}}) }}
+            <div class="champs">
                 {{ form_widget(search.description) }}
-                {{ form_end(search) }}
             </div>
+            <div class="champs">
+                {{ form_widget(search.submit) }}
+            </div>
+            {{ form_end(search) }}
             <!-- Catégories -->
-            <h4>Catégories</h4>
-            <div class="col-md-4">
-                {{ form_start(form, {attr:{novalidate: 'novalidate', action: path('filtres_projet') }}) }}
+            <h4 class="sdTitre">Catégories</h4>
+            {{ form_start(form, {attr:{novalidate: 'novalidate', action: path('filtres_projet') }}) }}
+            <div class="d-inline-flex d-lg-block flex-wrap">
                 {% for domaine in form.domaine %}
-                    {{ form_widget(domaine) }}
+                    <div class="mr-3">
+                        {{ form_widget(domaine) }}
+                    </div>
                 {% endfor %}
             </div>
             <!-- Deadlines -->
-            <div class="col-md-4">
-                <h4>Deadlines</h4>
-                {{ form_widget(form.date_debut_evenement) }}
-                {{ form_widget(form.date_debut_inscription) }}
-                {{ form_widget(form.date_fin_inscription) }}
+            <h4 class="sdTitre">Deadlines</h4>
+            <div class="d-inline-flex d-lg-block">
+                <div class="mr-3">
+                    {{ form_widget(form.date_debut_evenement) }}
+                </div>
+                <div class="mr-3">
+                    {{ form_widget(form.date_debut_inscription) }}
+                </div>
+                <div class="mr-3">
+                    {{ form_widget(form.date_fin_inscription) }}
+                </div>
+            </div>
+            <div class="champs">
+                {{ form_widget(form.submit) }}
                 {{ form_end(form) }}
             </div>
         </div>

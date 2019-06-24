@@ -30,30 +30,32 @@ class DefaultController extends AbstractController
     {
         $projets = $projetRepository->findAll();
 
-        # Récupération des projets dans BDD
+
+        # Récupération des projets en cours
         $projetsEnCours = array_filter($projets, function(Projet $projet){
-            return $projet->getDateFinInscription()->format('U') > time() && $projet->getDateDebutInscription()->format('U') < time();
+            return $projet->getDateFinInscription()->format('U') > (time() - 86400 )&& $projet->getDateDebutInscription()->format('U') < time();
         });
-
-        # Récupération des projets dans BDD
-        $projetsDebut = array_filter($projets, function(Projet $projet){
-            return $projet->getDateDebutInscription()->format('U') > time();
-        });
-
-        # Récupération des projets dans BDD
-        $projetsFin = array_filter($projets, function (Projet $projet){
-            return $projet->getDateFinInscription()->format('U') < time();
-        });
-
+        # Tri des projets
         usort($projetsEnCours, function(Projet $projet1, Projet $projet2){
             return $projet1->getDateFinInscription()->format('U') <=>  $projet2->getDateFinInscription()->format('U');
         });
 
+
+        # Récupération des projets à venir
+        $projetsDebut = array_filter($projets, function(Projet $projet){
+            return $projet->getDateDebutInscription()->format('U') > time();
+        });
+        # Tri des projets
         usort($projetsDebut, function(Projet $projet1, Projet $projet2){
             return $projet1->getDateDebutInscription()->format('U') <=>  $projet2->getDateDebutInscription()->format('U');
         });
 
 
+        # Récupération des projets fermés
+        $projetsFin = array_filter($projets, function (Projet $projet){
+            return $projet->getDateFinInscription()->format('U') < (time() - 86400 );
+        });
+        # Tri des projets
         usort($projetsFin, function(Projet $projet1, Projet $projet2 ) {
             return $projet2->getDateFinInscription()->format('U') <=>  $projet1->getDateFinInscription()->format('U');
         });
@@ -112,11 +114,15 @@ class DefaultController extends AbstractController
         $search = $this->createFormBuilder($recherche)
             ->add('description', TextType::class, [
                 'attr' => [
-                    'placeholder' => 'Rechercher'
+                    'placeholder' => 'Rechercher',
+                    'class' => 'form-control-sm'
                 ]
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Rechercher'
+                'label' => 'Rechercher',
+                'attr' => [
+                    'class' => 'btn btn-secondary btn-sm'
+                ]
             ])
             ->getForm();
 
@@ -145,7 +151,10 @@ class DefaultController extends AbstractController
                 'compound' => true
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Filtrer'
+                'label' => 'Filtrer',
+                'attr' => [
+                    'class' => 'btn btn-secondary btn-sm'
+                ]
             ])
             ->getForm();
 

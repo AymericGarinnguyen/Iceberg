@@ -1,31 +1,44 @@
-           <div class="col-md-11 no-padding lib-item" data-category="view">
-            <div class="lib-panel">
-                <div class="row box-shadow justify-content-between">
-                    <div class="titre row">
-                        <h3>
+<div class="card mb-5 mt-5 box-shadow">
+    <div class="row no-gutters justify-content-between">
+        <div class="titre">
+            <h3>
+                {% for domaine in projet.domaine %}
+                    {{ domaine.categorie }}
+                    {% if loop.last != true %}
+                        ,
+                    {% endif %}
+                {% endfor %}
+            </h3>
+        </div>
+        <div class="col-md-3 order-md-3 imageContent">
+            <img class="card-img"
+                 src="{{ asset('images/' ~ projet.image ) }}" alt="{{ projet.titre }}">
+        </div>
+        <div class="col-md-6 order-md-2 lib-panel">
+            <div class="card-body">
+                <div class="lib-row lib-header">
+                    <h4>{{ projet.titre | capitalize }}</h4>
+                    <div class="lib-header-seperator"></div>
+                </div>
+                <div class="lib-row ">
+                    <p>{{ projet.description | capitalize | raw }}</p>
+                    <a href="">{{ projet.user.prenom | capitalize }} {{ projet.user.nom | capitalize }}</a>
+                </div>
+                <div class="icones text-right">
+                    {% if projet.document %}
+                        <a href="{{ asset('PDF/' ~ projet.document) }}" target="_blank">
+                            <i class="fas fa-file-pdf"></i>
+                        </a>
+                    {% endif %}
+                    {% if is_granted('ROLE_MEMBRE' ) %}
+                        <a href="{{ path('projet_ajouter_favori', {id: projet.id}) }}">
+                            <i class="far fa-star"></i>
+                        </a>
+                    {% endif %}
 
-                            {% for domaine in projet.domaine %}
-                                {{ domaine.categorie }}
-                                {% if loop.last != true %}
-                                    ,
-                                {% endif %}
-                            {% endfor %}
-                        </h3>
-                    </div>
-                    <div class="col-md-3 imageContent">
-                        <img class="lib-img-show card-img"
-                             src="{{ asset('images/' ~ projet.image ) }}">
-                    </div>   <!--{# fin div. col-md-3#}  -->
-
-                    <div class="col-md-6">
-                        <div class="lib-row lib-header">
-                            <h4>{{ projet.titre | capitalize }}</h4>
-                            <div class="lib-header-seperator"></div>
-                        </div>
-                        <div class="lib-row lib-desc">
-                            <p>{{ projet.description | capitalize | raw }}</p>
-                            <a href="{{ path('projets_orga_liste') }}"> {{ projet.user.nom | capitalize }}</a>
-                        </div>
-                    </div>   <!--{# fin div. col-md-8#} -->
-
-                    <div class="col-md-2 compteur">
+                </div>
+            </div>
+        </div>
+        <!-- COMPTEUR JOURS -->
+        <div class="col-md-2 order-md-1">
+            <div class="myloader text-center">
