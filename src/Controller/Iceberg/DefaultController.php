@@ -32,7 +32,7 @@ class DefaultController extends AbstractController
 
         # Récupération des projets en cours
         $projetsEnCours = array_filter($projets, function(Projet $projet){
-            return $projet->getDateFinInscription()->format('U') > time() && $projet->getDateDebutInscription()->format('U') < time();
+            return $projet->getDateFinInscription()->format('U') > (time() - 86400 )&& $projet->getDateDebutInscription()->format('U') < time();
         });
         # Tri des projets
         usort($projetsEnCours, function(Projet $projet1, Projet $projet2){
@@ -52,7 +52,7 @@ class DefaultController extends AbstractController
 
         # Récupération des projets fermés
         $projetsFin = array_filter($projets, function (Projet $projet){
-            return $projet->getDateFinInscription()->format('U') < time();
+            return $projet->getDateFinInscription()->format('U') < (time() - 86400 );
         });
         # Tri des projets
         usort($projetsFin, function(Projet $projet1, Projet $projet2 ) {
