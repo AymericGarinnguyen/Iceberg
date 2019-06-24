@@ -22,7 +22,7 @@
                 </div>
                 <div class="lib-row ">
                     <p>{{ projet.description | capitalize | raw }}</p>
-                    <a href="">{{ projet.user.prenom | capitalize }} {{ projet.user.nom | capitalize }}</a>
+                    <a href="{{ path('projets_orga_liste') }}">{{ projet.user.prenom | capitalize }} {{ projet.user.nom | capitalize }}</a>
                 </div>
                 <div class="icones text-right">
                     {% if projet.document %}

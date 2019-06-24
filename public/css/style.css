@@ -29,7 +29,7 @@
 body {
     font-family: "Open Sans", sans-serif;
     min-width: 320px;
-    font-size: 12px;
+    font-size: 100%;
     color: #333;
 }
 
@@ -45,7 +45,7 @@ ul, li {
 
 h1, h2, h3, h4, h5, h6 {
     line-height: 1.4;
-    font-family: "Roboto Slab", serif;
+    font-family: "Open Sans", sans-serif;
 }
 
 h1, h2 {
@@ -53,14 +53,16 @@ h1, h2 {
 }
 
 h1 {
-    font-size: 32px;
-    color: #BD5D38;
+
+    color: #665FB3;
     padding-top: 40px;
+    text-transform: uppercase;
+    font-size: 2em;
 }
 
 h2 {
     font-size: 28px;
-    color: #313280;
+    color: #665FB3;
     padding-bottom: 40px;
 }
 
@@ -173,6 +175,24 @@ img.card-img {
         margin-left: auto;
         margin-top: 350px;
     }
-
 }
 
+/*==========UsersList=========*/
+
+
+i.suppression {
+    color:white;
+}
+
+button.modalSuppression{
+    background-color:#665FB3;
+    border-radius: 20px;
+}
+
+button.suppression{
+    background-color: #665FB3;
+}
+
+div.modal-footer button{
+    background-color: #665FB3;
+}
