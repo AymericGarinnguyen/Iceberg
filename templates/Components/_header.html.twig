@@ -2,78 +2,80 @@
 
 <header>
     <nav class="navbar fixed-top navbar-expand-md custom-navbar navbar-dark">
-        <a href="{{ path('home') }}"><img class="navbar-brand" src="" id="logo_custom" width="10%" alt="logo"></a>
+        <div class="container">
+            <a href="{{ path('home') }}"><img class="navbar-brand" src="" id="logo_custom" width="10%" alt="logo"></a>
 
-        <button class="navbar-toggler navbar-toggler-right custom-toggler" type="button" data-toggle="collapse"
-                data-target="#collapsibleNavbar">
-            <span class="navbar-toggler-icon "></span>
-        </button>
-        <div class="collapse navbar-collapse " id="collapsibleNavbar">
-            <ul class="navbar-nav ml-auto ">
+            <button class="navbar-toggler navbar-toggler-right custom-toggler" type="button" data-toggle="collapse"
+                    data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon "></span>
+            </button>
+            <div class="collapse navbar-collapse " id="collapsibleNavbar">
+                <ul class="navbar-nav ml-auto ">
 
-                {# Permet de déterminer si mon user est connecté#}
-                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    {# Permet de déterminer si mon user est connecté#}
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
-                    {# Connexion Admin #}
-                    {% if is_granted('ROLE_ADMIN') %}
+                        {# Connexion Admin #}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('user_liste_projet') }}"><b>Liste des appels à
+                                        projet</b></a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('user_liste_user') }}"><b>Liste des
+                                        utilisateurs</b></a>
+                            </li>
+
+
+                            {# Connexion Orga #}
+                            {# Si mon user est connecté, affiche les boutons Profil et Projets #}
+                        {% elseif is_granted('ROLE_ORGANISATEUR' ) %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('projet_vue') }}"><b>Mes appels à projet</b></a>
+                            </li>
+
+                            <li class="nav-item">
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#exampleModal">
+                                    Profil
+                                </button>
+                            </li>
+
+
+                            {# Connection Membre#}
+                            {# Si mon user est connecté, affiche les boutons Profil et Favoris #}
+                        {% elseif is_granted('ROLE_MEMBRE' ) %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('projet_liste_favori') }}"><b>Mes favoris</b></a>
+                            </li>
+
+                            <li class="nav-item">
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#exampleModal">
+                                    Profil
+                                </button>
+                            </li>
+
+                        {% endif %}
+
+                        {# Bouton Déconnexion #}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('user_liste_projet') }}"><b>Liste des appels à
-                                    projet</b></a>
+                            <a class="nav-link" href="{{ path('user_deconnexion') }}"><b>Déconnexion</b></a>
                         </li>
 
+                    {% else %}
+                        {# Si mon user est déconnecté, affiche les boutons inscription/connexion #}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('user_liste_user') }}"><b>Liste des
-                                    utilisateurs</b></a>
+                            <a class="nav-link" href="{{ path('user_inscription') }}"><b>Inscription</b></a>
                         </li>
-
-
-                        {# Connexion Orga #}
-                        {# Si mon user est connecté, affiche les boutons Profil et Projets #}
-                    {% elseif is_granted('ROLE_ORGANISATEUR' ) %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('projet_vue') }}"><b>Mes appels à projet</b></a>
-                        </li>
-
-                        <li class="nav-item">
-                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                    data-target="#exampleModal">
-                                Profil
-                            </button>
-                        </li>
-
-
-                        {# Connection Membre#}
-                        {# Si mon user est connecté, affiche les boutons Profil et Favoris #}
-                    {% elseif is_granted('ROLE_MEMBRE' ) %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('projet_liste_favori') }}"><b>Mes favoris</b></a>
-                        </li>
-
-                        <li class="nav-item">
-                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                    data-target="#exampleModal">
-                                Profil
-                            </button>
+                            <a class="nav-link" href="{{ path('user_connexion') }}"><b>Connexion</b></a>
                         </li>
 
                     {% endif %}
-
-                    {# Bouton Déconnexion #}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('user_deconnexion') }}"><b>Déconnexion</b></a>
-                    </li>
-
-                {% else %}
-                    {# Si mon user est déconnecté, affiche les boutons inscription/connexion #}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('user_inscription') }}"><b>Inscription</b></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('user_connexion') }}"><b>Connexion</b></a>
-                    </li>
-
-                {% endif %}
-            </ul>
+                </ul>
+            </div>
         </div>
     </nav>
 
