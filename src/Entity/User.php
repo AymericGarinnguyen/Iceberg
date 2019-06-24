@@ -40,21 +40,23 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=80)
-     * @Assert\NotBlank(message="Ce champ est obligatoire")
+     * @Assert\NotBlank(message="Ce champ est obligatoire", groups={"registration"})
      * @Assert\Length(
      *     max="80",
-     *     maxMessage="Ce champ est limité à {{ limit }} caractères."
+     *     maxMessage="Ce champ est limité à {{ limit }} caractères.",
+     *     groups={"registration"}
      * )
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=80)
-     * @Assert\Email(message="Vérifiez votre email")
-     * @Assert\NotBlank(message="Vous devez saisir votre email")
+     * @Assert\Email(message="Vérifiez votre email", groups={"registration"})
+     * @Assert\NotBlank(message="Vous devez saisir votre email", groups={"registration"})
      * @Assert\Length(
      *     max="80",
-     *     maxMessage="Ce champ est limité à {{ limit }} caractères."
+     *     maxMessage="Ce champ est limité à {{ limit }} caractères.",
+     *     groups={"registration"}
      * )
      */
     private $email;
@@ -66,7 +68,8 @@ class User implements UserInterface
      *     min="8",
      *     minMessage="Votre mot de passe est trop court. {{ limit }} caractères min.",
      *     max="20",
-     *     maxMessage="Votre mot de passe est trop long. {{ limit }} caractères max."
+     *     maxMessage="Votre mot de passe est trop long. {{ limit }} caractères max.",
+     *     groups={"registration"}
      * )
      * @Assert\Regex(
      *     pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$/",

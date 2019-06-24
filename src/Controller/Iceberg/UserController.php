@@ -16,7 +16,9 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Tests\Encoder\PasswordEncoder;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
@@ -41,32 +43,30 @@ class UserController extends AbstractController
         $membre = new User();
         $membre->setRoles(['ROLE_MEMBRE']);
 
-        if($membre === null) {
-            #Création d'un nouveau membre
-            $membre = new User();
-        }
+
+        #Création d'un nouveau membre
+        $membre = new User();
+
 
 
         #Création du formulaire inscription membre
-        $form1 = $this->createForm(MembreType::class, $membre);
+        $formMembre = $this->createForm(MembreType::class, $membre);
 
 
         # Traitement des données $_POST
         # Vérification des données grâce aux Asserts
         # Hydratation de notre objet Membre
-        $form1->handleRequest($request);
+        $formMembre->handleRequest($request);
 
-        if ($form1->isSubmitted() && $form1->isValid()) {
+        if ($formMembre->isSubmitted() && $formMembre->isValid()) {
 
-                # Encodage du mot de passe
-                $membre->setPassword(
-                    $passwordEncoder->encodePassword(
-                        $membre,
-                        $membre->getPassword()
-                    )
-                );
-
-
+            # Encodage du mot de passe
+            $membre->setPassword(
+                $passwordEncoder->encodePassword(
+                    $membre,
+                    $membre->getPassword()
+                )
+            );
 
             # Insertion dans la BDD (EntityManager $em)
             $em = $this->getDoctrine()->getManager();
@@ -84,30 +84,28 @@ class UserController extends AbstractController
 
         # FORM 2
         # Création organisateur
-        $organisateur = new User();
-        $organisateur->setRoles(['ROLE_ORGANISATEUR']);
+        $orga = new User();
+        $orga->setRoles(['ROLE_ORGANISATEUR']);
 
         #Création du formulaire inscription organisateur
-        $form2 = $this->createForm(OrganisateurType::class, $organisateur);
+        $formOrga = $this->createForm(OrganisateurType::class, $orga);
 
         # Form 2 (organisateur)
-        $form2->handleRequest($request);
+        $formOrga->handleRequest($request);
 
-        if ($form2->isSubmitted() && $form2->isValid()) {
+        if ($formOrga->isSubmitted() && $formOrga->isValid()) {
 
-            if($membre === null) {
                 # Encodage du mot de passe
-                $membre->setPassword(
+                $orga->setPassword(
                     $passwordEncoder->encodePassword(
-                        $membre,
-                        $membre->getPassword()
+                        $orga,
+                        $orga->getPassword()
                     )
                 );
-            }
 
             # Insertion dans la BDD (EntityManager $em)
             $em = $this->getDoctrine()->getManager();
-            $em->persist($organisateur);
+            $em->persist($orga);
             $em->flush();
 
             # Notification
@@ -120,10 +118,12 @@ class UserController extends AbstractController
 
         # Rendu de la vue
         return $this->render('User/inscription.html.twig', [
-            'form1' => $form1->createView(),
-            'form2' => $form2->createView(),
+            'formMembre' => $formMembre->createView(),
+            'formOrga' => $formOrga->createView(),
         ]);
     }
+
+    ################################# Fin fonction NewInscriptionMembre ############################################
 
     ################################# Fin fonction NewInscriptionMembre ############################################
 
@@ -191,19 +191,21 @@ class UserController extends AbstractController
      * Modification du profil membre
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
+
      * @Route("/membre/modifier_mon_profil", name="user_modifier_profil_membre")
      */
-    public function profilMembreModif(Request $request, UserInterface $membre = null)
+    public function profilMembreModif(Request $request,
+                                      UserPasswordEncoderInterface $passwordEncoder,
+                                      UserInterface $membre = null)
     {
-
-        $membre->setRoles(['ROLE_MEMBRE']);
 
         if($membre === null) {
             #Création d'un nouveau membre
             $membre = new User();
+            $membre->setRoles(['ROLE_MEMBRE']);
             $groups = ["Default", "registration"];
         } else {
-            $groups = ["Default"];
+            $groups = [""];
         }
 
         #Création du formulaire inscription membre
@@ -219,6 +221,16 @@ class UserController extends AbstractController
 
         if ($formMembre->isSubmitted() && $formMembre->isValid()) {
 
+            if($membre === null) {
+                # Encodage du mot de passe
+                $membre->setPassword(
+                    $passwordEncoder->encodePassword(
+                        $membre,
+                        $membre->getPassword()
+                    )
+                );
+            }
+
             # Insertion dans la BDD (EntityManager $em)
             $em = $this->getDoctrine()->getManager();
             $em->persist($membre);
@@ -227,7 +239,10 @@ class UserController extends AbstractController
 
             # Notification
             $this->addFlash('notice',
-                'Félicitation, vos modifications ont bien été sauvegardées !');
+                'Félicitation, vos modifications ont bien été modifiées !');
+
+            # Redirection
+            return $this->redirectToRoute('home');
 
         }
 
@@ -252,21 +267,25 @@ class UserController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/organisateur/modifier_mon_profil", name="user_modifier_profil_organisateur")
      */
-    public function profilOrgaModif(Request $request, UserInterface $orga = null)
+    public function profilOrgaModif(Request $request,
+                                    UserPasswordEncoderInterface $passwordEncoder,
+                                    UserInterface $orga = null)
     {
-
-        $orga->setRoles(['ROLE_ORGANISATEUR']);
 
         if($orga === null) {
             #Création d'un nouveau membre
             $orga = new User();
+            $orga->setRoles(['ROLE_MEMBRE']);
+            $groups = ["Default", "registration"];
+        } else {
+            $groups = [""];
         }
 
 
         #Création du formulaire inscription membre
         $formOrga = $this->createForm(OrganisateurType::class, $orga, [
-        'validation_groups' => ['registration'],
-        ]);
+            'validation_groups' => $groups,
+            ]);
 
 
         # Traitement des données $_POST
@@ -276,15 +295,26 @@ class UserController extends AbstractController
 
         if ($formOrga->isSubmitted() && $formOrga->isValid()) {
 
+            if($orga === null) {
+                # Encodage du mot de passe
+                $orga->setPassword(
+                    $passwordEncoder->encodePassword(
+                        $orga,
+                        $orga->getPassword()
+                    )
+                );
+            }
             # Insertion dans la BDD (EntityManager $em)
             $em = $this->getDoctrine()->getManager();
             $em->persist($orga);
             $em->flush();
 
-
             # Notification
             $this->addFlash('notice',
-                'Félicitation, vos modifications ont bien été sauvegardées !');
+                'Félicitation, vos modifications ont bien été modifiées !');
+
+            # Redirection
+            return $this->redirectToRoute('home');
 
         }
 
