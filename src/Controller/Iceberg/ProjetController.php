@@ -205,6 +205,10 @@ class ProjetController extends AbstractController
         $entityManager->remove($projets);
         $entityManager->flush();
 
+        # Notification
+        $this->addFlash('notice',
+            'Félicitation, l\'appel à projet a bien été supprimé !');
+
         # Rendu de la vue
         return $this->redirectToRoute('user_liste_projet');
     } ################## Fin de function supprimerProjetAdmin ##########################

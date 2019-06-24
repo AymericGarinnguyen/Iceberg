@@ -8,7 +8,12 @@
 
     <div class="container">
         {% if is_granted('ROLE_ADMIN') %}
-        <h1>Liste de tous les utilisateurs</h1>
+        <h1>Liste des utilisateurs</h1>
+            {% for message in app.flashes('notice') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
         <table class="table table-striped">
             <thead>
             <tr>
@@ -26,9 +31,30 @@
                     <td>{{ user.nom }}</td>
                     <td>{{ user.email }}</td>
                     <td>
-                        <a href="{{ path('user_supprimer', {id: user.id}) }}">
-                            <button type="button"><i class="far fa-trash-alt"></i></button>
-                        </a>
+                        {# Modal confirmation de suppresion #}
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+                            <i class="far fa-trash-alt suppression"></i>
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Etes vous sûr de vouloir supprimer cet utilisateur ?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="{{ path('user_supprimer',{id: user.id})  }}" <button type="button" class="btn btn-danger btn-sm">Oui, je confirme la suppression !</button> </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> {# fin div.modal fade #}
                     </td>
                 </tr>
             {% endfor %}

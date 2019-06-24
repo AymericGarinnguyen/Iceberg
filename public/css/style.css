@@ -173,6 +173,24 @@ img.card-img {
         margin-left: auto;
         margin-top: 350px;
     }
-
 }
 
+/*==========UsersList=========*/
+
+
+i.suppression {
+    color:white;
+}
+
+button.modalSuppression{
+    background-color:#665FB3;
+    border-radius: 20px;
+}
+
+button.suppression{
+    background-color: #665FB3;
+}
+
+div.modal-footer button{
+    background-color: #665FB3;
+}
