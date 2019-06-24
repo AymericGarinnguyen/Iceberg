@@ -4,13 +4,13 @@ footer{
     padding-top:1.5rem;
     padding-bottom:1rem;
     background-color:rgb(40, 42, 45);
-    border-top:1px solid rgb(242, 100, 12);
+
+
 }
 
 .footer{
-    background-color: black;
-    height: 200px;
-    padding: 40px 0px 0px 0px;
+    background-color: #665FB3;
+    height: 20%;
     margin-top: 80px;
 }
 
@@ -25,14 +25,21 @@ img.logo{
 }
 
 .newsletter h3{
-    color: #313280;
+    color: white;
+    font-family: "Open Sans", sans-serif;
 }
 
 .newsletter h4{
+    font-family: "Open Sans", sans-serif;
     font-size: 16px;
-    color: grey;
+    color: white;
 }
 
 .newsletter button{
-    background-color: #af1344;
+    background-color: white;
+}
+
+.fa-envelope:before {
+    margin-right: 20px;
+    color: white;
 }
