@@ -68,7 +68,7 @@ class DefaultController extends AbstractController
         # Récupération d'un membre connecté
         $user = $this->getUser();
         # Récupération des favoris du membre connecté
-        $favoris= $user->getFavoris('projet');
+        $favoris= $user ? $user->getFavoris('projet') : [];
 
         return $this->render("default/index.html.twig", [
             'formMembre' => $membreType->createView(),
