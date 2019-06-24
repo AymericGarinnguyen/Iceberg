@@ -10,13 +10,19 @@
     background-color: #313280;
     width: 100%;
     height:100%;
+
 }
 
 .myloader-text {
     color: white;
-    font-size: 1.8vw;
+    font-size: 1.4rem;
     margin:0;
     padding:9px;
+    align-self: center;
+}
+
+.texte-centre{
+    display: flex;
 }
 
 .titre-compteur {
@@ -40,14 +46,34 @@
 }
 
 .center {
-    width: 64%;
+    width: 81%;
     margin: auto;
     padding-bottom: 4%;
+}
+
+@media only screen and (max-width: 1200px) {
+    .myloader-text {
+        font-size: 1.2rem;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    .myloader-text {
+        font-size: 1.1rem;
+    }
 }
 
 @media only screen and (max-width: 767px) {
     .center {
         width: 120px;
+    }
+
+    .myloader-text {
+        font-size: 1.5rem;
+    }
+
+    .texte-centre{
+        display: inherit;
     }
 }
 

@@ -6,32 +6,74 @@ legend {
   padding: 0;
 }
 
-label {
-  color: #000000;
-  font-family: 'Oswald', sans-serif;
-}
 
-label.checkbox{
-  color:black;
-  font-size:14px;
-}
 
 form{
 
   padding: 10px 80px 10px;
 
+}
+
+
+
+.jumbotron {
+  z-index: 0;
+  position: relative;
+  background-image:  radial-gradient(circle, #26287d, #282a7e, #2a2c7e, #2c2e7f, #2e307f, #2d2f7a, #2d2f76, #2c2e71, #292b66, #26285a, #23244f, #202144);
+}
+
+.carousel  {
+
+  text-align: center;
+}
+
+.size {
+  height: 30%;
+  width: 80%;
 
 }
+
+
+.enfant-jumbotron {
+
+  position: absolute;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+label.form-check {
+  border: white solid 2px;
+
+}
+
 
 .accroche{
   color:white;
 }
 
 h3 {
-  border: solid .7px white;
+
   color:  #BD5D38;
   padding: 7px 7px;
- font-size: 20px;
+  font-size: 20px;
   text-transform: uppercase;
 
   font-style: italic;
@@ -48,8 +90,8 @@ h3 {
 .effect1{
 
 
-  background: white;
-  border: 2px solid #313280;
+  background: #313280;
+  innner-border: 2px solid white;
   -webkit-box-shadow: 0 10px 6px -6px #777;
   -moz-box-shadow: 0 10px 6px -6px #777;
   box-shadow: 0 10px 6px -6px #777;
@@ -61,16 +103,66 @@ h3 {
   box-shadow: inset 0 1px 1px rgba(49 , 50 , 128, 0.075), 0 0 8px rgba(49, 50, 128, 0.6);
 }
 
+.form-group {
 
+}
+
+.form-control {
+
+  border-radius: 5px;
+  border: solid 1px;
+}
+
+.required {
+
+  font-family: 'Satisfy', cursive;
+  text-transform: lowercase;
+  border-bottom: 1px;
+  color: #313280;
+  padding :  10px 10px;
+  border-bottom: 2px solid midnightblue ;
+  background-color: white;
+  border-radius:  5px;
+}
+
+.d-block {
+  text-decoration:underline;
+}
+
+
+.form-error-icon {
+  display: none;
+}
+
+
+
+.form-error-message {
+  text-transform: lowercase;
+  color: #313280;
+}
+
+.form-check-label {
+
+
+  color: white;
+
+}
+
+
+.form-error-icon badge badge-danger text-uppercase {
+
+}
+
+.form-check {
+  border-bottom:  solid 0.2px white;
+
+}
 
 #bigtitle {
   text-align: center;
   background-color: #313280;
 
-
-
 }
-
 
 .slogan {
   color: white;
@@ -79,9 +171,39 @@ h3 {
 
 }
 
-
-
 .traitBlanc {
   background-color:  white;
   height: 2px;
+}
+
+.btn {
+
+}
+
+
+.btn:hover {
+  background-color: #F5871F;
+}
+
+
+
+form .btn {
+  letter-spacing: 5px;
+  font-family: Lobster;
+
+  background-color: #313280;
+  border-radius: 30px;
+  width: 150px;
+
+}
+
+@media only screen and (max-width: 768px)
+{
+  h1.slogan {
+    margin-top: 42px;
+    font-size: 90px;
+
+  }
+
+
 }

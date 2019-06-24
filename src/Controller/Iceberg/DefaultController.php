@@ -64,11 +64,18 @@ class DefaultController extends AbstractController
         $membreType = $this->createForm(MembreType::class);
         $orgaType = $this->createForm(OrganisateurType::class);
 
+
+        # Récupération d'un membre connecté
+        $user = $this->getUser();
+        # Récupération des favoris du membre connecté
+        $favoris= $user ? $user->getFavoris('projet') : [];
+
         return $this->render("default/index.html.twig", [
             'formMembre' => $membreType->createView(),
             'projetsEnCours' => $projetsEnCours,
             'projetsDebut' => $projetsDebut,
-            'projetsFin' => $projetsFin
+            'projetsFin' => $projetsFin,
+            'favoris' => $favoris
         ]);
     }
 
