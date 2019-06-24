@@ -82,6 +82,12 @@ a:link {
 i {
     color: #313131;
 }
+
+button.btn {
+    background-color: #665FB3;
+    border-radius: 20px;
+}
+
 /*==========CONTENT=========*/
 main {
     display: flex;
