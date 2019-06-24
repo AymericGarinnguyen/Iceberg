@@ -9,7 +9,7 @@
     </div>
 
     {# Affichage des notifications #}
-    <div class="container">
+    <div class="container ">
         {% for message in app.flashes('notice') %}
             <div class="alert alert-info">
                 {{ message }}
@@ -28,7 +28,7 @@
                 {% include 'Components/_modalProfil.html.twig' %}
 
                 <!-- ############# CARTES ############### -->
-                <div class="col-lg-9 col-md-12">
+                <div class="col-lg-9 col-md-12 carte-groupe">
                     <!-- Cartes en cours -->
                     {% for projet in projetsEnCours %}
                         <!-- Calcul des jours restants -->

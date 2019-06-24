@@ -100,9 +100,9 @@ main {
 
 .aside {
     padding: 10px;
-    margin-bottom: 10%;
     border-radius: 10px;
     background: #f7f4f4;
+    margin-top: 20px;
 }
 
 .sdTitre {
@@ -176,10 +176,22 @@ img.card-img {
      padding: 25px 8px 8px 8px;
  }
 
+ .carte-groupe {
+     margin-top: 0;
+ }
+
 @media only screen and (max-width: 992px) {
     .sidebar {
         width: auto;
-        height:357px;
+        height: 357px;
+    }
+    .carte-groupe {
+        margin-top: 88px;
+    }
+    .aside {
+        position: fixed;
+        z-index: 100;
+        margin-top: 25px;
     }
 }
 
