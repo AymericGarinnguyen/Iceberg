@@ -145,16 +145,13 @@ class DefaultController extends AbstractController
                 'label' => 'Catégorie'
             ])
             ->add('date_debut_evenement', CheckboxType::class, [
-                'label' => 'En cours',
-                'compound' => true
+                'label' => 'En cours'
             ])
             ->add('date_debut_inscription', CheckboxType::class, [
-                'label' => 'A venir',
-                'compound' => true
+                'label' => 'A venir'
             ])
             ->add('date_fin_inscription', CheckboxType::class, [
-                'label' => 'Terminées',
-                'compound' => true
+                'label' => 'Terminées'
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Filtrer',

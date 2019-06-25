@@ -1,45 +1,77 @@
 <div class="col-lg-3 col-md-12 sidebar">
-    <aside>
-        <div class="aside">
-            <!-- FILTRES -->
-            <h3>Filtrer par</h3>
-            <!-- Mots-clefs -->
-            <h4 class="sdTitre">Mot-clefs</h4>
-            {{ form_start(search, {attr:{novalidate: 'novalidate', action: path('recherche_projet')}}) }}
-            <div class="champs">
-                {{ form_widget(search.description) }}
-            </div>
-            <div class="champs">
-                {{ form_widget(search.submit) }}
-            </div>
-            {{ form_end(search) }}
-            <!-- Catégories -->
-            <h4 class="sdTitre">Catégories</h4>
-            {{ form_start(form, {attr:{novalidate: 'novalidate', action: path('filtres_projet') }}) }}
-            <div class="d-inline-flex d-lg-block flex-wrap">
-                {% for domaine in form.domaine %}
-                    <div class="mr-3 label-size">
-                        {{ form_widget(domaine) }}
+    <div class="aside">
+        <div class="container-fluid recherche-xs">
+            <div class="row no-gutters justify-content-between">
+                <!-- FILTRES -->
+                <div class="col-12">
+                    <h3>Filtrer par</h3>
+                </div>
+
+                <!-- Mots-clefs -->
+                <div class="col-12">
+
+                    {{ form_start(search, {attr:{novalidate: 'novalidate', action: path('recherche_projet')}}) }}
+                    <div class="container-fluid recherche">
+                        <div class="row mb-3 justify-content-between">
+                            <h4 class="sdTitre">Mot-clefs</h4>
+                            <div class="col-7 col-lg-12 champs">
+                                {{ form_widget(search.description) }}
+                            </div>
+                            <div class=" col-3 col-lg-12 champs">
+                                {{ form_widget(search.submit) }}
+                            </div>
+                            {{ form_end(search) }}
+                        </div>
                     </div>
-                {% endfor %}
-            </div>
-            <!-- Deadlines -->
-            <h4 class="sdTitre">Deadlines</h4>
-            <div class="d-inline-flex d-lg-block filtres">
-                <div class="mr-3 label-size">
-                    {{ form_widget(form.date_debut_evenement) }}
                 </div>
-                <div class="mr-3 label-size">
-                    {{ form_widget(form.date_debut_inscription) }}
+
+                <!-- Catégories -->
+                <div class="col-md-5 col-sm-5 col-5 col-lg-12">
+                    <h4 class="sdTitre">Catégories</h4>
+                    {{ form_start(form, {attr:{novalidate: 'novalidate', action: path('filtres_projet') }}) }}
+                    <div class="flex-wrap">
+                        <div class="d-inline-block">
+                            {% for domaine in form.domaine %}
+                                {% if loop.index < 4 %}
+                                    <div class="mr-3 label-size">
+                                        {{ form_widget(domaine) }}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="d-inline-block">
+                            {% for domaine in form.domaine %}
+                                {% if loop.index < 7 %}
+                                    <div class="mr-md-3 label-size">
+                                        {{ form_widget(domaine) }}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
                 </div>
-                <div class="mr-3 label-size">
-                    {{ form_widget(form.date_fin_inscription) }}
+
+                <!-- Deadlines -->
+                <div class="col-md-3 col-sm-3 col-3 col-lg-12">
+                    <h4 class="sdTitre">Deadlines</h4>
+                    <div class="filtres">
+                        <div class="mr-md-3 label-size">
+                            {{ form_widget(form.date_debut_evenement) }}
+                        </div>
+                        <div class="mr-md-3 label-size">
+                            {{ form_widget(form.date_debut_inscription) }}
+                        </div>
+                        <div class="mr-md-3 label-size">
+                            {{ form_widget(form.date_fin_inscription) }}
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="champs">
-                {{ form_widget(form.submit) }}
-                {{ form_end(form) }}
+                <div class="col-2 champs my-submit">
+                    {{ form_widget(form.submit) }}
+                    {{ form_end(form) }}
+                </div>
+
             </div>
         </div>
-    </aside>
+    </div>
 </div>
