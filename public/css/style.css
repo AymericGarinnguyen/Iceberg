@@ -181,6 +181,14 @@ img.card-img {
      margin-top: 0;
  }
 
+ .carte-groupe a {
+     color:#313280;
+ }
+
+.carte-groupe a:link {
+    color:#313280;
+}
+
 @media only screen and (min-width: 991px) {
     .recherche {
         padding: 0;
@@ -193,7 +201,9 @@ img.card-img {
 
 @media only screen and (max-width: 991px) {
     .carte-groupe {
-        margin-top: 88px;
+
+        margin: auto;
+        margin-top: 204px;
     }
     .aside {
         position: fixed;
@@ -241,6 +251,10 @@ img.card-img {
         right: 18px;
     }
 
+    .carte-groupe {
+        margin-top: 159px;
+    }
+
     .aside {
         margin-top: -13px;
     }
@@ -261,6 +275,10 @@ img.card-img {
 }
 
 @media only screen and (max-width: 576px) {
+    .carte-groupe {
+        margin-top: 127px;
+    }
+
     .aside h3{
         font-size: 1rem;
     }

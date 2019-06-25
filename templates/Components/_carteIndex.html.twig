@@ -24,6 +24,9 @@
                     <p>{{ projet.description | capitalize | raw }}</p>
                     <a href="{{ path('projets_orga_liste', {'id': projet.user.id}) }}">{{ projet.user.prenom | capitalize }} {{ projet.user.nom | capitalize }}</a>
                 </div>
+                <div class="lib-row">
+                    <a href="{{ projet.website }}">Lien vers notre site</a>
+                </div>
                 <div class="icones text-right">
                     {% if projet.document %}
                         <a href="{{ asset('PDF/' ~ projet.document) }}" target="_blank">
