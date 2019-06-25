@@ -25,7 +25,7 @@
                     <a href="{{ path('projets_orga_liste', {'id': projet.user.id}) }}">{{ projet.user.prenom | capitalize }} {{ projet.user.nom | capitalize }}</a>
                 </div>
                 <div class="lib-row">
-                    <a href="{{ projet.website }}">Lien vers notre site</a>
+                    <a href="{{ projet.website }}" target="_blank">Lien vers notre site</a>
                 </div>
                 <div class="icones text-right">
                     {% if projet.document %}

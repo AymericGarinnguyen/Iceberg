@@ -9,13 +9,14 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
 
-        <h1>Mes Favoris</h1>
+    <div class="container" style="padding-top:50px;">
+
+
 
         {% include 'Components/_modalProfil.html.twig' %}
 
-    <ul>
+
         {% if favoris is not empty %}
         {% for favori in favoris %}
             <!-- ##### Card ##### -->
@@ -56,7 +57,7 @@
             <div class="alert alert-info">Vous n'avez pas encore de favori</div>
 
         {% endif %}
-    </ul>
+
 
     </div> {# fin div.container #}
 

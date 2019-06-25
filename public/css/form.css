@@ -34,6 +34,15 @@ form{
 }
 
 
+.container {
+
+}
+
+
+
+
+
+
 .enfant-jumbotron {
 
   position: absolute;
@@ -60,7 +69,8 @@ form{
 
 
 label.form-check {
-  border: white solid 2px;
+  border: #313280 solid 2px;
+  color: #313280;
 
 }
 
@@ -90,11 +100,13 @@ h3 {
 .effect1{
 
 
-  background: #313280;
+  background: white;
   innner-border: 2px solid white;
   -webkit-box-shadow: 0 10px 6px -6px #777;
   -moz-box-shadow: 0 10px 6px -6px #777;
   box-shadow: 0 10px 6px -6px #777;
+  border: #313280 solid 2px;
+  border-radius: 4px;
 }
 
 
@@ -115,14 +127,14 @@ h3 {
 
 .required {
 
-  font-family: 'Satisfy', cursive;
-  text-transform: lowercase;
+
+  text-transform:capitalize;
   border-bottom: 1px;
   color: #313280;
   padding :  10px 10px;
   border-bottom: 2px solid midnightblue ;
   background-color: white;
-  border-radius:  5px;
+  border-radius:  9px;
 }
 
 .d-block {
@@ -144,7 +156,7 @@ h3 {
 .form-check-label {
 
 
-  color: white;
+  color: #313280;
 
 }
 
@@ -207,3 +219,4 @@ form .btn {
 
 
 }
+

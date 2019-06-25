@@ -5,7 +5,7 @@ header {
     background-color: white;
 }
 
-.custom-navbar{box-shadow: 10px 10px 10px #eee; z-index:10;background-color: #665FB3;}
+.custom-navbar{z-index:10;background-color: #665FB3;}
 .nav-link{color:#fcf9ff !important; border: 2px solid white; margin: 10px; border-radius: 6px;}
 .custom-toggler.navbar-toggler {border-color: #fcf9ff;}
 .custom-toggler .navbar-toggler-icon {background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(247,32,78, 0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");}
@@ -21,6 +21,18 @@ header {
     header {
         margin-bottom: 25%;
     }
+}
+
+.logo {
+    width: 27%;
+    margin: 0;
+}
+
+#logo-img {
+    width: 39%;
+    margin: 0;
+    margin-bottom: -6%;
+    margin-top: -6%;
 }
 
 .btn {

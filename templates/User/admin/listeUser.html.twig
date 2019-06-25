@@ -6,9 +6,8 @@
 
 {% block content %}
 
-    <div class="container">
+    <div id="listUser" class="container">
         {% if is_granted('ROLE_ADMIN') %}
-        <h1>Liste des utilisateurs</h1>
             {% for message in app.flashes('notice') %}
                 <div class="alert alert-success">
                     {{ message }}
@@ -33,7 +32,7 @@
                     <td>
                         {# Modal confirmation de suppresion #}
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+                        <button type="button" class="btn btn-danger poubelle" data-toggle="modal" data-target="#exampleModal">
                             <i class="far fa-trash-alt suppression"></i>
                         </button>
 
@@ -50,7 +49,7 @@
                                         <p>Etes vous sûr de vouloir supprimer cet utilisateur ?</p>
                                     </div>
                                     <div class="modal-footer">
-                                        <a href="{{ path('user_supprimer',{id: user.id})  }}" <button type="button" class="btn btn-danger btn-sm">Oui, je confirme la suppression !</button> </a>
+                                        <a href="{{ path('user_supprimer',{id: user.id})  }}" style="color:white;"><button type="button" class="btn btn-danger btn-sm">Oui, je confirme la suppression !</button> </a>
                                     </div>
                                 </div>
                             </div>

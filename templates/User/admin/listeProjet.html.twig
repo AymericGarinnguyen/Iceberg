@@ -7,78 +7,87 @@
 {% block content %}
 
     <div class="container">
-        {% if is_granted('ROLE_ADMIN') %}
-        <h1>Liste des appels à projets</h1>
-            {% for message in app.flashes('notice') %}
-                <div class="alert alert-success">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        <ul>
-            {% for projet in projets %}
-                <!-- ##### Card ##### -->
-                <div class="titre" class="row">
-                    <h3 class="linear-gradient">
-                        {% for domaine in projet.domaine %}
-                            {{ domaine.categorie }}
-                        {% endfor %}
-                    </h3>
-                </div>
-                <div class="row">
-                    <div class="col-md-10 no-padding lib-item" data-category="view">
-                        <div class="lib-panel">
-                            <div class="row box-shadow">
-                                <div class="col-md-3">
-                                    <img class="lib-img-show card-img" src="{{ asset('images/' ~ projet.image ) }}">
-                                </div>   <!--{# fin div. col-md-4#}  -->
-
-                                <div class="col-md-8">
+    {% if is_granted('ROLE_ADMIN') %}
+    {% for message in app.flashes('notice') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <div class="container contenu" style="margin-bottom: 40px">
+        <div class="row">
+            <!-- ############# CARTES ############### -->
+            <div class="col-12 carte-groupe">
+                <!-- Cartes en cours -->
+                {% for projet in projets %}
+                    <div class="card mb-5 mt-5 box-shadow">
+                        <div class="row no-gutters justify-content-between">
+                            <div class="titre">
+                                <h3>
+                                    {% for domaine in projet.domaine %}
+                                        {{ domaine.categorie }}
+                                        {% if loop.last != true %}
+                                            ,
+                                        {% endif %}
+                                    {% endfor %}
+                                </h3>
+                            </div>
+                            <div class="col-md-3 order-md-3 imageContent">
+                                <img class="card-img"
+                                     src="{{ asset('images/' ~ projet.image ) }}" alt="{{ projet.titre }}">
+                            </div>
+                            <div class="col-md-6 order-md-2 lib-panel">
+                                <div class="card-body">
                                     <div class="lib-row lib-header">
-                                        <h4>{{ projet.titre }}</h4>
+                                        <h4>{{ projet.titre | capitalize }}</h4>
                                         <div class="lib-header-seperator"></div>
                                     </div>
-                                    <div class="lib-row lib-desc">
-                                        <p>{{ projet.description | raw }}</p>
-                                        <a href="{{ path('projets_orga_liste') }}">{{ projet.user.nom }}</a>
+                                    <div class="lib-row ">
+                                        <p>{{ projet.description | capitalize | raw }}</p>
+                                        <a href="{{ path('projets_orga_liste', {'id': projet.user.id}) }}">{{ projet.user.prenom | capitalize }} {{ projet.user.nom | capitalize }}</a>
+                                    </div>
+                                    <div class="lib-row">
+                                        <a href="{{ projet.website }}" target="_blank">Lien vers notre site</a>
+                                    </div>
 
-                                        {# Modal confirmation de suppresion #}
-                                        <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
-                                            <i class="far fa-trash-alt suppression"></i>
-                                        </button>
+                                    {# Modal confirmation de suppresion #}
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-danger poubelle" data-toggle="modal" data-target="#exampleModal">
+                                        <i class="far fa-trash-alt suppression"></i>
+                                    </button>
 
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <p>Etes vous sûr de vouloir supprimer cet appel à projets ?</p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <a href="{{ path('projet_supprimer',{id: projet.id})  }}" <button type="button" class="btn btn-danger">Oui, je confirme la suppression !</button> </a>
-                                                    </div>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Etes vous sûr de vouloir supprimer cet appel à projets ?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <a href="{{ path('projet_supprimer',{id: projet.id}) }}" style="color:white;"> <button type="button" class="btn btn-danger">Oui, je confirme la suppression !</button> </a>
                                                 </div>
                                             </div>
-                                        </div> {# fin div.modal fade #}
+                                        </div>
+                                    </div> {# fin div.modal fade #}
 
-                                    </div> {# fin div.lib-row lib-desc #}
-                                </div>   <!--{# fin div.col-md-8#} -->
-                            </div>    <!--{# div.box shadow #} -->
-                        </div>    <!--{# div.lib panel #}  -->
-                    </div>   <!--{ # div.col md-10 #}  -->
-                    <div class="col-md-1"></div>
-                </div>  <!--{ # div.row #} -->
-            {% endfor %}
-        </ul>
+                                </div>
+                            </div> <!-- FIN col-md-6 order-md-2 lib-panel -->
+                        </div> <!-- FIN div.row.no-gutters.justify-content-between -->
+                    </div> <!-- FIN div.card.mb-5.mt-5.box-shadow -->
+                {% endfor %}
+                <!-- FIN Cartes en cours -->
+            </div> <!-- FIN col-12-->
+        </div>
+
         {% else %}
             <div class="alert alert-danger">Vous n'avez pas les droits d'accès à cette page</div>
         {% endif %}
-    </div> {# fin div.container #}
+    </div> {# fin div.row #}
+    </div>{# fin div.container #}
 
 
 {% endblock %}

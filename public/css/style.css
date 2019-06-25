@@ -94,7 +94,7 @@ i {
     color: #313131;
 }
 
-button.btn {
+.poubelle {
     background-color: #665FB3;
     border-radius: 20px;
 }
@@ -401,5 +401,9 @@ button.inscription {
     }
 }
 
+
+div#listUser{
+    padding-top:50px;
+}
 
 

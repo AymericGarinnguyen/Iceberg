@@ -6,8 +6,7 @@
 
 {% block content %}
 
-    <div class="container">
-        <h1>Les appels à projets publiés par {{ user.nom }}</h1>
+    <div class="container" style="padding-top:50px;">
         {% include 'Components/_modalProfil.html.twig' %}
         <ul>
             {% for projet in projets %}

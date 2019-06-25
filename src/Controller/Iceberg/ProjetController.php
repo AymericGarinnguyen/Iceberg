@@ -72,6 +72,7 @@ class ProjetController extends AbstractController
         $form->handleRequest($request);
 
         # Si le formulaire est valide
+
         if($form->isSubmitted() && $form->isValid()) {
 
             # ########### Gestion des Null ##############
