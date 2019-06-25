@@ -2,6 +2,7 @@
 header {
     margin-top:80px;
     height:100%;
+    background-color: white;
 }
 
 .custom-navbar{box-shadow: 10px 10px 10px #eee; z-index:10;background-color: #665FB3;}
@@ -41,6 +42,7 @@ header {
 #favori_color {
     background-color: white;
     color: #665FB3 !important;
+    font-size: 12px;
 }
 
 #profil_button:hover{
