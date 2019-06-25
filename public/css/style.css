@@ -92,13 +92,14 @@ main {
     display: flex;
 }
 
+
 /*==========Aside=========*/
 
 .aside {
     padding: 10px;
-    margin-bottom: 10%;
     border-radius: 10px;
     background: #f7f4f4;
+    margin-top: 20px;
 }
 
 .sdTitre {
@@ -172,16 +173,124 @@ img.card-img {
      padding: 25px 8px 8px 8px;
  }
 
-@media only screen and (max-width: 992px) {
-    .sidebar {
-        width: auto;
-        height:357px;
+ .carte-groupe {
+     margin-top: 0;
+ }
+
+ .carte-groupe a {
+     color:#313280;
+ }
+
+.carte-groupe a:link {
+    color:#313280;
+}
+
+@media only screen and (min-width: 991px) {
+    .recherche {
+        padding: 0;
+    }
+
+    .sdTitre {
+        padding-left: 15px;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .carte-groupe {
+
+        margin: auto;
+        margin-top: 204px;
+    }
+    .aside {
+        position: fixed;
+        z-index: 100;
+        margin-top: 25px;
+        width: 100%;
+        border-radius: 0;
+    }
+
+    .aside h3{
+        font-size: 1.3rem;
+    }
+
+    .sdTitre {
+        font-size: 1.1rem;
+        align-self: center;
+        margin: 0;
+    }
+
+    .champs{
+        margin: 0;
+        padding-left: 7px ;
+        padding-right: 7px ;
+    }
+
+
+    .recherche-xs{
+        padding:0;
+    }
+
+    .my-submit {
+        align-self: flex-end;
+    }
+
+    .contenu {
+        margin: 0;
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
     }
 }
 
 @media only screen and (max-width: 768px) {
     .icones {
         right: 18px;
+    }
+
+    .carte-groupe {
+        margin-top: 159px;
+    }
+
+    .aside {
+        margin-top: -13px;
+    }
+
+    header {
+        margin-bottom: 0 !important;
+    }
+
+    input[type=checkbox] {
+        width: 12px;
+        height: 12px;
+    }
+
+    .label-size {
+        font-size: 14px;
+        margin-right: 0;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .carte-groupe {
+        margin-top: 127px;
+    }
+
+    .aside h3{
+        font-size: 1rem;
+    }
+
+    .sdTitre {
+        font-size: .8rem;
+    }
+
+
+    input[type=checkbox] {
+        width: 10px;
+        height: 10px;
+    }
+
+    .label-size {
+        font-size: 10px;
     }
 }
 
